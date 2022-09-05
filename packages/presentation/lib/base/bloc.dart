@@ -21,7 +21,9 @@ abstract class BlocImpl<D> implements Bloc<D> {
   Stream<TileWrapper<D>> get dataStream => _data.stream;
 
   @protected
-  void handleData({D? tile,}) {
+  void handleData({
+    D? tile,
+  }) {
     _blocTile = _blocTile.copyWith(data: tile);
     _data.add(_blocTile);
   }

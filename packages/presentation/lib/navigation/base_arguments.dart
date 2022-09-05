@@ -4,4 +4,4 @@ abstract class BaseArguments {
   BaseArguments({
     this.result,
   });
-  }
+}

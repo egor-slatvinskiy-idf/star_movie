@@ -6,9 +6,9 @@ class BasePage<T extends BaseArguments> extends Page {
   final bool? showSlideAnim;
 
   const BasePage({
-    @required required LocalKey key,
-    @required required String name,
-    @required required this.builder,
+    required LocalKey key,
+    required String name,
+    required this.builder,
     this.showSlideAnim,
     T? arguments,
   }) : super(

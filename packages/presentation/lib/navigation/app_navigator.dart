@@ -2,7 +2,6 @@ import 'package:presentation/navigation/base_arguments.dart';
 import 'package:presentation/navigation/base_page.dart';
 
 abstract class AppNavigator {
-  ///region init
   void init({
     Function(BasePage page) push,
     Function(BasePage page) popOldAndPush,
@@ -16,8 +15,6 @@ abstract class AppNavigator {
     BasePage? Function() currentPage,
   });
 
-  ///endregion
-  ///region nav operators
   void push(BasePage page);
 
   void popAllAndPush(BasePage page);
@@ -39,12 +36,9 @@ abstract class AppNavigator {
   BasePage? currentPage();
 
   factory AppNavigator() => _AppNavigatorImpl();
-
-  ///endregion
 }
 
 class _AppNavigatorImpl implements AppNavigator {
-  ///functions
   Function(BasePage page)? _push;
   Function(BasePage page)? _popOldAndPush;
   Function(BasePage page)? _popAllAndPush;

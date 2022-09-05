@@ -17,7 +17,6 @@ class _AppBloc extends BlocImpl implements AppBloc {
     super.initState();
     _initNavHandler();
     _updateData();
-
   }
 
   @override
@@ -53,7 +52,7 @@ class _AppBloc extends BlocImpl implements AppBloc {
 
   void _popOldAndPush(BasePage page) {
     final oldIndex = _appData.pages.indexWhere(
-          (element) => element.name == page.name,
+      (element) => element.name == page.name,
     );
     if (oldIndex != -1) {
       _appData.pages.removeAt(oldIndex);

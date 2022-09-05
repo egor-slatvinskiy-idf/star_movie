@@ -9,11 +9,11 @@ class SplashWidget extends StatelessWidget {
   static const _routeName = '/SplashScreen';
 
   static BasePage page() => BasePage(
-    key: const ValueKey(_routeName),
-    name: _routeName,
-    builder: (context) => const SplashWidget(),
-    showSlideAnim: true,
-  );
+        key: const ValueKey(_routeName),
+        name: _routeName,
+        builder: (context) => const SplashWidget(),
+        showSlideAnim: true,
+      );
 
   @override
   Widget build(BuildContext context) {
