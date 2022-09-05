@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/my_app.dart';
+import 'package:star_movie_idf/di/app_injector.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(),
-    );
-  }
+void main() async {
+  await appInjector();
+  runApp(
+    const MyApp(),
+  );
 }
