@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/navigation/base_page.dart';
@@ -95,7 +96,7 @@ class _AppBloc extends BlocImpl implements AppBloc {
   }
 
   BasePage? _currentPage() =>
-      _appData.pages.isNotEmpty ? _appData.pages.last : null;
+      _appData.pages.lastOrNull;
 
   void _updateData() {
     super.handleData(tile: _appData);
