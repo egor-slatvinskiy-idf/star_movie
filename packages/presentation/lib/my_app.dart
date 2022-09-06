@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/app/app_bloc.dart';
 import 'package:presentation/app/data/app_data.dart';
+import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 
@@ -15,11 +16,11 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      color: const Color.fromRGBO(15, 27, 43, 1),
+      color: AppColors.colorTheme,
       theme: ThemeData(
-        canvasColor: const Color.fromRGBO(15, 27, 43, 1),
+        canvasColor: AppColors.colorTheme,
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromRGBO(15, 27, 43, 1),
+          backgroundColor: AppColors.colorTheme,
         ),
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           selectedItemColor: Colors.white,
