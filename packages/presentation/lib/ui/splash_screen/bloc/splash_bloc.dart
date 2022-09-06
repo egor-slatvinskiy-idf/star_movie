@@ -12,10 +12,10 @@ abstract class SplashBloc extends Bloc {
 }
 
 class SplashBlocImpl extends BlocImpl implements SplashBloc {
-  final SplashDurationUseCase durationUseCase;
+  final SplashDurationUseCase _durationUseCase;
 
   SplashBlocImpl(
-    this.durationUseCase,
+    this._durationUseCase,
   );
 
   @override
@@ -25,7 +25,7 @@ class SplashBlocImpl extends BlocImpl implements SplashBloc {
   }
 
   Future<void> nextScreen() async {
-    await durationUseCase();
+    await _durationUseCase();
     appNavigator.popAndPush(
       HomeWidget.page(),
     );
