@@ -36,15 +36,15 @@ class _SplashWidgetState extends BlocScreenState<SplashWidget, SplashBloc> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color.fromRGBO(229, 25, 55, 1),
-                    Color.fromRGBO(219, 82, 82, 1),
+                    AppColors.primaryColor,
+                    AppColors.primaryColorEnd,
                   ],
                 ),
               ),
               child: Center(
                 child: Image.asset(
                   image,
-                  // fit: BoxFit.cover,
+
                 ),
               ),
             ),
