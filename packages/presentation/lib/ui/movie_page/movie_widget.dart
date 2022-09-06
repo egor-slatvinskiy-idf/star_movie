@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/ui/movie_page/movie_coming_soon_widget.dart';
 import 'package:presentation/ui/movie_page/movie_now_showing_widget.dart';
 
@@ -10,7 +11,7 @@ class MovieWidget extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(15, 27, 43, 1),
+        backgroundColor: AppColors.colorTheme,
         appBar: AppBar(
           elevation: 0,
           title: const Padding(
@@ -46,8 +47,10 @@ class MovieWidget extends StatelessWidget {
               ),
               height: 50,
               decoration: BoxDecoration(
-                border: Border.all(color: const Color.fromRGBO(44, 63, 91, 1)),
-                color: const Color.fromRGBO(15, 27, 43, 1),
+                border: Border.all(
+                  color: AppColors.colorBorder,
+                ),
+                color: AppColors.colorTheme,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(

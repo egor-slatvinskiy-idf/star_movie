@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/app_colors/app_colors.dart';
 
 const image = 'packages/presentation/images/image.jpg';
 
@@ -37,7 +38,7 @@ class MovieNowShowingWidget extends StatelessWidget {
                 Icon(
                   Icons.star,
                   size: 13,
-                  color: Color.fromRGBO(255, 192, 69, 1),
+                  color: AppColors.colorStars,
                 ),
                 Text(
                   'Movie Genres',

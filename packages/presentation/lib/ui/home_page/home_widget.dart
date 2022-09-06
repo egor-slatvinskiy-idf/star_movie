@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/movie_page/movie_widget.dart';
 
@@ -33,7 +34,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(15, 27, 43, 1),
+      backgroundColor: AppColors.colorTheme,
       body: IndexedStack(
         index: _selectedTab,
         children: [
@@ -45,7 +46,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color.fromRGBO(15, 27, 43, 1),
+        backgroundColor: AppColors.colorTheme,
         currentIndex: _selectedTab,
         unselectedItemColor: Colors.grey,
         items: const [

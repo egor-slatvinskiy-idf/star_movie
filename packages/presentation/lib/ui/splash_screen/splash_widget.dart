@@ -44,7 +44,6 @@ class _SplashWidgetState extends BlocScreenState<SplashWidget, SplashBloc> {
               child: Center(
                 child: Image.asset(
                   image,
-
                 ),
               ),
             ),
