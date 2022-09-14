@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:presentation/Library/images_utils/images_utils.dart';
 import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/movie_page/movie_widget.dart';
@@ -45,38 +47,58 @@ class _HomeWidgetState extends State<HomeWidget> {
           // Container(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: AppColors.colorTheme,
-        currentIndex: _selectedTab,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.radar,
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: AppColors.colorBorder,
+              width: 1.0,
             ),
-            label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.no_accounts,
+          color: Colors.white,
+        ),
+        child: BottomNavigationBar(
+          selectedItemColor: AppColors.colorStars,
+          currentIndex: _selectedTab,
+          selectedFontSize: 12,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(ImagesUtils.movieReel),
+              label: '',
+              activeIcon: SvgPicture.asset(
+                ImagesUtils.movieReel,
+                color: AppColors.colorSelectedItem,
+              ),
             ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.movie_filter_rounded,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(ImagesUtils.eventTicket),
+              label: '',
+              activeIcon: SvgPicture.asset(
+                ImagesUtils.eventTicket,
+                color: AppColors.colorSelectedItem,
+              ),
             ),
-            label: 'Films',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.star,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(ImagesUtils.alarm),
+              label: '',
+              activeIcon: SvgPicture.asset(
+                ImagesUtils.alarm,
+                color: AppColors.colorSelectedItem,
+              ),
             ),
-            label: 'Favorites',
-          ),
-        ],
-        fixedColor: Colors.white,
-        onTap: onSelectedTab,
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(ImagesUtils.single),
+              label: '',
+              activeIcon: SvgPicture.asset(
+                ImagesUtils.single,
+                color: AppColors.colorSelectedItem,
+              ),
+            ),
+          ],
+          // fixedColor: Colors.white,
+          onTap: onSelectedTab,
+        ),
       ),
     );
   }

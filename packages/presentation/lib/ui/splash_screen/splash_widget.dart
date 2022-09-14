@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:presentation/Library/images_utils/images_utils.dart';
 import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/splash_screen/bloc/splash_bloc.dart';
-
-const image = 'packages/presentation/images/Frame.png';
 
 class SplashWidget extends StatefulWidget {
   const SplashWidget({Key? key}) : super(key: key);
@@ -43,7 +42,7 @@ class _SplashWidgetState extends BlocScreenState<SplashWidget, SplashBloc> {
               ),
               child: Center(
                 child: Image.asset(
-                  image,
+                  ImagesUtils.imageSplash,
                 ),
               ),
             ),
