@@ -6,7 +6,7 @@ import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
-class MovieListWidget extends StatelessWidget {
+class MovieListWidget extends StatefulWidget {
   final List<MovieRowData>? rowData;
   final MovieBloc bloc;
 
@@ -17,12 +17,22 @@ class MovieListWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MovieListWidget> createState() => _MovieListWidgetState();
+}
+
+class _MovieListWidgetState extends State<MovieListWidget>
+    with AutomaticKeepAliveClientMixin<MovieListWidget> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
-    if (rowData == null) {
+    if (widget.rowData == null) {
       return const ShimmerWidget();
     }
     return GridView.builder(
-      itemCount: rowData?.length,
+      itemCount: widget.rowData?.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         childAspectRatio: (.1 / .21),
         crossAxisCount: 2,
@@ -30,10 +40,10 @@ class MovieListWidget extends StatelessWidget {
         crossAxisSpacing: 8,
       ),
       itemBuilder: (_, index) {
-        final movie = rowData![index];
+        final movie = widget.rowData![index];
         return _CardMovieWidget(
           movie: movie,
-          bloc: bloc,
+          bloc: widget.bloc,
         );
       },
     );
@@ -71,61 +81,89 @@ class _CardMovieWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16.44),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  movie.title,
-                  style: const TextStyle(color: AppColors.colorTitle),
-                  textAlign: TextAlign.start,
-                  maxLines: 1,
+            _MovieTitleWidget(movie: movie),
+          ],
+        ),
+        _OnTapWidget(bloc: bloc, movie: movie)
+      ],
+    );
+  }
+}
+
+class _MovieTitleWidget extends StatelessWidget {
+  final MovieRowData movie;
+
+  const _MovieTitleWidget({
+    Key? key,
+    required this.movie,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const iconEmpty = Icon(
+      Icons.star_border_purple500_sharp,
+      color: AppColors.colorStars,
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          movie.title,
+          style: const TextStyle(color: AppColors.colorTitle),
+          textAlign: TextAlign.start,
+          maxLines: 1,
+        ),
+        RatingBar(
+          itemSize: 14,
+          initialRating: movie.rating,
+          itemCount: 5,
+          allowHalfRating: true,
+          ratingWidget: RatingWidget(
+            full: const Icon(
+              Icons.star,
+              color: AppColors.colorStars,
+            ),
+            half: iconEmpty,
+            empty: iconEmpty,
+          ),
+          onRatingUpdate: (r) {},
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                '${movie.genres} · '
+                '${movie.runtime} | ${movie.certification}',
+                style: const TextStyle(
+                  color: AppColors.colorSubTitle,
+                  fontSize: 12,
                 ),
-                RatingBar(
-                  itemSize: 14,
-                  initialRating: movie.rating,
-                  itemCount: 5,
-                  allowHalfRating: true,
-                  ratingWidget: RatingWidget(
-                    full: const Icon(
-                      Icons.star,
-                      color: AppColors.colorStars,
-                    ),
-                    half: const Icon(
-                      Icons.star_border_purple500_sharp,
-                      color: AppColors.colorStars,
-                    ),
-                    empty: const Icon(
-                      Icons.star_border_purple500_sharp,
-                      color: AppColors.colorStars,
-                    ),
-                  ),
-                  onRatingUpdate: (r) {},
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${movie.genres} · '
-                        '${movie.runtime} | ${movie.certification}',
-                        style: const TextStyle(
-                          color: AppColors.colorSubTitle,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
           ],
         ),
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-            onTap: () => bloc.onMovieTap(),
-          ),
-        )
       ],
+    );
+  }
+}
+
+class _OnTapWidget extends StatelessWidget {
+  final MovieBloc bloc;
+  final MovieRowData movie;
+
+  const _OnTapWidget({
+    Key? key,
+    required this.bloc,
+    required this.movie,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () => bloc.onMovieTap(movie: movie),
+      ),
     );
   }
 }

@@ -2,11 +2,12 @@ import 'package:domain/use_case/request_use_case_coming.dart';
 import 'package:domain/use_case/request_use_case_trending.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/navigation/base_arguments.dart';
+import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 import 'package:presentation/ui/movie_details/movie_details_widget.dart';
-import 'package:presentation/ui/movie_page/bloc/bloc_tile.dart';
+import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
-abstract class MovieBloc extends Bloc<BaseArguments, MovieTile> {
+abstract class MovieBloc extends Bloc<BaseArguments, MovieListTile> {
   factory MovieBloc(
     RequestUseCaseComing requestUseCaseComing,
     RequestUseCaseTrending requestUseCaseTrending,
@@ -16,12 +17,14 @@ abstract class MovieBloc extends Bloc<BaseArguments, MovieTile> {
         requestUseCaseTrending,
       );
 
-  void onMovieTap();
+  void onMovieTap({
+    required MovieRowData movie,
+  });
 }
 
-class MovieBlocImpl extends BlocImpl<BaseArguments, MovieTile>
+class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
     implements MovieBloc {
-  final _tile = MovieTile.init();
+  final _tile = MovieListTile.init();
   final RequestUseCaseComing _requestUseCaseComing;
   final RequestUseCaseTrending _requestUseCaseTrending;
 
@@ -58,10 +61,12 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieTile>
   }
 
   @override
-  void onMovieTap() {
+  void onMovieTap({
+    required MovieRowData movie,
+  }) {
     appNavigator.push(
       MovieDetailsWidget.page(
-        MovieDetailsArguments(),
+        MovieDetailsArguments(movie: movie),
       ),
     );
   }

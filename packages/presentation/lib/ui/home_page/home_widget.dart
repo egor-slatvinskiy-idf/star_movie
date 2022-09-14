@@ -24,7 +24,7 @@ class HomeWidget extends StatefulWidget {
 class _HomeWidgetState extends State<HomeWidget> {
   int _selectedTab = 0;
 
-  void onSelectedTab(int index) {
+  void _onSelectedTab(int index) {
     if (_selectedTab == index) return;
     setState(
       () {
@@ -44,7 +44,6 @@ class _HomeWidgetState extends State<HomeWidget> {
           Container(),
           Container(),
           Container(),
-          // Container(),
         ],
       ),
       bottomNavigationBar: Container(
@@ -55,10 +54,8 @@ class _HomeWidgetState extends State<HomeWidget> {
               width: 1.0,
             ),
           ),
-          color: Colors.white,
         ),
         child: BottomNavigationBar(
-          selectedItemColor: AppColors.colorStars,
           currentIndex: _selectedTab,
           selectedFontSize: 12,
           type: BottomNavigationBarType.fixed,
@@ -96,8 +93,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
             ),
           ],
-          // fixedColor: Colors.white,
-          onTap: onSelectedTab,
+          onTap: _onSelectedTab,
         ),
       ),
     );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
-import 'package:presentation/ui/movie_page/bloc/bloc_tile.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
+import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
 import 'package:presentation/ui/movie_page/movie_list_widget.dart';
 
 class MovieWidget extends StatefulWidget {
@@ -16,7 +16,7 @@ class MovieWidget extends StatefulWidget {
 class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<TileWrapper<MovieTile>>(
+    return StreamBuilder<TileWrapper<MovieListTile>>(
       stream: bloc.dataStream,
       builder: (context, snapshot) {
         final data = snapshot.data;

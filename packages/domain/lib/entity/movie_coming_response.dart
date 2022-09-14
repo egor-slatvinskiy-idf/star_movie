@@ -1,6 +1,5 @@
-import 'package:domain/entity/movie_trending_response.dart';
+import 'package:domain/entity/movie_response.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 part 'movie_coming_response.g.dart';
 
 @JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)

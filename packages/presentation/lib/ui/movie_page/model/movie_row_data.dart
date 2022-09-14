@@ -1,4 +1,4 @@
-import 'package:domain/entity/movie_trending_response.dart';
+import 'package:domain/entity/movie_response.dart';
 
 class MovieRowData {
   final String title;

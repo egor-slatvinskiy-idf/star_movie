@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/navigation/base_arguments.dart';
+import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/navigation/base_page.dart';
-
-class MovieDetailsArguments extends BaseArguments {
-  MovieDetailsArguments({
-    Function(dynamic value)? result,
-  }) : super(result: result);
-}
+import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 
 class MovieDetailsWidget extends StatelessWidget {
   const MovieDetailsWidget({Key? key}) : super(key: key);
@@ -28,7 +23,10 @@ class MovieDetailsWidget extends StatelessWidget {
       body: const Center(
         child: Text(
           "On development stage",
-          style: TextStyle(fontSize: 34, color: Colors.white),
+          style: TextStyle(
+            fontSize: 34,
+            color: AppColors.colorBorder,
+          ),
         ),
       ),
     );

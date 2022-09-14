@@ -1,6 +1,6 @@
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/ui/movie_details/data/movie_details_screen_data.dart';
-import 'package:presentation/ui/movie_details/movie_details_widget.dart';
+import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 
 abstract class MovieDetailsBloc
     extends Bloc<MovieDetailsArguments, MovieDetailsScreenData> {
@@ -17,7 +17,7 @@ class MovieDetailsBlocImpl
   @override
   void initArgs(MovieDetailsArguments arguments) {
     super.initArgs(arguments);
-    _screenData = MovieDetailsScreenData();
+    _screenData = MovieDetailsScreenData(movie: arguments.movie);
     _updateData();
   }
 

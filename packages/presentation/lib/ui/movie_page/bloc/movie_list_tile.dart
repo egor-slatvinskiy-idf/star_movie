@@ -1,35 +1,25 @@
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
-enum OnTapTabBar {
-  trending,
-  coming,
-}
-
-class MovieTile<D> {
+class MovieListTile {
   final List<MovieRowData> movieTrending;
   final List<MovieRowData> movieComing;
-  final OnTapTabBar onTap;
 
-  MovieTile({
+  MovieListTile({
     required this.movieTrending,
     required this.movieComing,
-    required this.onTap,
   });
 
-  MovieTile<D> copyWith({
+  MovieListTile copyWith({
     List<MovieRowData>? movieTrending,
     List<MovieRowData>? movieComing,
-    OnTapTabBar? onTap,
   }) =>
-      MovieTile(
+      MovieListTile(
         movieTrending: movieTrending ?? this.movieTrending,
         movieComing: movieComing ?? this.movieTrending,
-        onTap: onTap ?? this.onTap,
       );
 
-  factory MovieTile.init() => MovieTile(
+  factory MovieListTile.init() => MovieListTile(
         movieTrending: [],
         movieComing: [],
-        onTap: OnTapTabBar.trending,
       );
 }
