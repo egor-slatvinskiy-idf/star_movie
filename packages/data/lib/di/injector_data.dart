@@ -1,3 +1,4 @@
+import 'package:data/configuration/base_options_configuration.dart';
 import 'package:data/interceptor/interceptor.dart';
 import 'package:data/repository/network_repository.dart';
 import 'package:data/services/api_base_service.dart';
@@ -33,7 +34,12 @@ void _initModuleRepository() {
 }
 
 Dio _buildMovieDio() {
-  final options = BaseOptions();
+  final options = BaseOptions(
+    receiveTimeout: BaseOptionsConfiguration.receiveTimeout,
+    connectTimeout: BaseOptionsConfiguration.connectTimeout,
+    sendTimeout: BaseOptionsConfiguration.sendTimeout,
+    baseUrl: BaseOptionsConfiguration.traktUrl,
+  );
   final dio = Dio(options);
   dio.interceptors.add(HeaderInterceptor());
   return dio;

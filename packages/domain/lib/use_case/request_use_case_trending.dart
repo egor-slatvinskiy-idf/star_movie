@@ -12,23 +12,25 @@ class RequestUseCaseTrending
   @override
   Future<List<MovieTrendingResponse>> call() async {
     final response = await _networkRepository.requestMovie(
-      apiPath: Configuration.apiPathTrending,
+      apiPath: Configuration.endPointTrending,
       queryParameters: Configuration.queryEmpty,
     );
     final List<MovieTrendingResponse> movieTrending = [];
-    final countMovie = (response.headers['x-pagination-limit']).first;
-    final count = int.parse(countMovie);
-    if (count > 5) {
+    final countPage = int.tryParse(
+      response.headers[Configuration.pageCount][0] ??
+          [Configuration.pageLimit].first,
+    );
+    if (countPage! >= 5) {
       final responseFull = await _networkRepository.requestMovie(
         queryParameters: Configuration.queryParameters,
-        apiPath: Configuration.apiPathTrending,
+        apiPath: Configuration.endPointTrending,
       );
       movieTrending.addAll(
         responseFull.body.map(
           (e) => MovieTrendingResponse.fromJson(e),
         ),
       );
-    } else if (count < 5) {
+    } else {
       movieTrending.addAll(
         response.body.map(
           (e) => MovieTrendingResponse.fromJson(e),

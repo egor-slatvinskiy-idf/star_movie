@@ -1,8 +1,11 @@
 class Configuration {
   Configuration._();
 
-  static const apiPathTrending = 'https://api.trakt.tv/movies/trending';
-  static const apiPathComingSoon = 'https://api.trakt.tv/movies/anticipated';
+  static const endPointTrending = 'movies/trending';
+  static const endPointComing = 'movies/anticipated';
+  static const pageCount = 'x-pagination-page-count';
+  static const pageLimit = 'x-pagination-limit';
+
   static const Map<String, dynamic> queryParameters = {
     'extended': 'full',
     'limit': '50'

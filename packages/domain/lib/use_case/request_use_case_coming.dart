@@ -14,23 +14,25 @@ class RequestUseCaseComing
   @override
   Future<List<MovieResponseComing>> call() async {
     final response = await _networkRepository.requestMovie(
-      apiPath: Configuration.apiPathComingSoon,
+      apiPath: Configuration.endPointComing,
       queryParameters: Configuration.queryEmpty,
     );
     final List<MovieResponseComing> movieComing = [];
-    final countMovie = (response.headers['x-pagination-limit']).first;
-    final count = int.parse(countMovie);
-    if (count > 5) {
+    final countPage = int.tryParse(
+      response.headers[Configuration.pageCount][0] ??
+          [Configuration.pageLimit].first,
+    );
+    if (countPage! >= 5) {
       final responseFull = await _networkRepository.requestMovie(
         queryParameters: Configuration.queryParameters,
-        apiPath: Configuration.apiPathComingSoon,
+        apiPath: Configuration.endPointComing,
       );
       movieComing.addAll(
         responseFull.body.map(
           (e) => MovieResponseComing.fromJson(e),
         ),
       );
-    } else if (count < 5) {
+    } else {
       movieComing.addAll(
         response.body.map(
           (e) => MovieResponseComing.fromJson(e),
