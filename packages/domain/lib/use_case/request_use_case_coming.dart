@@ -18,6 +18,9 @@ class RequestUseCaseComing
       queryParameters: Configuration.queryEmpty,
     );
     final List<MovieResponseComing> movieComing = [];
+    final countItem = int.tryParse(
+      response.headers[Configuration.itemCount][0],
+    );
     final countPage = int.tryParse(
       response.headers[Configuration.pageCount][0] ??
           [Configuration.pageLimit].first,
@@ -33,8 +36,15 @@ class RequestUseCaseComing
         ),
       );
     } else {
+      final responseSpare = await _networkRepository.requestMovie(
+        apiPath: Configuration.endPointTrending,
+        queryParameters: Configuration.queryParameters.update(
+          Configuration.nameLimit,
+          (v) => '$countItem',
+        ),
+      );
       movieComing.addAll(
-        response.body.map(
+        responseSpare.body.map(
           (e) => MovieResponseComing.fromJson(e),
         ),
       );

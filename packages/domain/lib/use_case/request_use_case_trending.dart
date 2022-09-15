@@ -16,6 +16,9 @@ class RequestUseCaseTrending
       queryParameters: Configuration.queryEmpty,
     );
     final List<MovieTrendingResponse> movieTrending = [];
+    final countItem = int.tryParse(
+      response.headers[Configuration.itemCount][0],
+    );
     final countPage = int.tryParse(
       response.headers[Configuration.pageCount][0] ??
           [Configuration.pageLimit].first,
@@ -30,9 +33,16 @@ class RequestUseCaseTrending
           (e) => MovieTrendingResponse.fromJson(e),
         ),
       );
-    } else {
+    } else if (countPage < 5) {
+      final responseMin = await _networkRepository.requestMovie(
+        apiPath: Configuration.endPointTrending,
+        queryParameters: Configuration.queryParameters.update(
+          Configuration.nameLimit,
+          (v) => '$countItem',
+        ),
+      );
       movieTrending.addAll(
-        response.body.map(
+        responseMin.body.map(
           (e) => MovieTrendingResponse.fromJson(e),
         ),
       );
