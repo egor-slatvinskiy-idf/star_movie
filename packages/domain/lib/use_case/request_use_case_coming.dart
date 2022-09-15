@@ -1,4 +1,5 @@
 import 'package:domain/const/configuration.dart';
+import 'package:domain/const/query_configuration.dart';
 import 'package:domain/entity/movie_coming_response.dart';
 import 'package:domain/repository/network_repository.dart';
 import 'package:domain/use_case/sample_use_case/use_case_out.dart';
@@ -39,7 +40,7 @@ class RequestUseCaseComing
       final responseSpare = await _networkRepository.requestMovie(
         apiPath: Configuration.endPointTrending,
         queryParameters: Configuration.queryParameters.update(
-          Configuration.nameLimit,
+          QueryConfiguration.queryNameLimit,
           (v) => '$countItem',
         ),
       );

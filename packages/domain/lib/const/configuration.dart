@@ -1,18 +1,19 @@
+import 'package:domain/const/query_configuration.dart';
+
 class Configuration {
-  final int countItem;
-  Configuration._(this.countItem);
+  Configuration._();
 
   static const endPointTrending = 'movies/trending';
   static const endPointComing = 'movies/anticipated';
   static const pageCount = 'x-pagination-page-count';
-  static const nameLimit = 'limit';
   static const pageLimit = 'x-pagination-limit';
   static const itemCount = 'x-pagination-item-count';
 
   static const Map<String, dynamic> queryParameters = {
-    'extended': 'full',
-    'limit': '50',
-    'page': '1',
+    QueryConfiguration.queryNameExtended:
+        QueryConfiguration.queryConfigExtended,
+    QueryConfiguration.queryNameLimit: QueryConfiguration.queryConfigLimit,
+    QueryConfiguration.queryNamePage: QueryConfiguration.queryConfigPage,
   };
 
   static const Map<String, dynamic> queryEmpty = {};
