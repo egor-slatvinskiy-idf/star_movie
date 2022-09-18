@@ -10,37 +10,46 @@ import 'package:get_it/get_it.dart';
 final getIt = GetIt.instance;
 
 void initInjectorData() {
+  _initModuleInterceptor();
   _initModuleApi();
   _initModuleRepository();
 }
 
 void _initModuleApi() {
   GetIt.instance.registerSingleton<Dio>(
-    _buildMovieDio(),
-    instanceName: "movieDio",
+    _buildMovieDio(
+      GetIt.instance.get<HeaderInterceptor>(),
+    ),
   );
   GetIt.instance.registerSingleton<ApiBaseService<ServicePayLoad>>(
-    ApiBaseServiceImpl(GetIt.instance.get(instanceName: "movieDio")),
-    instanceName: "movieService",
+    ApiBaseServiceImpl(
+      GetIt.instance.get<Dio>(),
+    ),
   );
 }
 
 void _initModuleRepository() {
   GetIt.instance.registerSingleton<NetworkRepository>(
     NetworkRepositoryImpl(
-      GetIt.instance.get<ApiBaseService>(instanceName: "movieService"),
+      GetIt.instance.get<ApiBaseService>(),
     ),
   );
 }
 
-Dio _buildMovieDio() {
+void _initModuleInterceptor() {
+  GetIt.instance.registerSingleton<HeaderInterceptor>(
+    HeaderInterceptor(),
+  );
+}
+
+Dio _buildMovieDio(Interceptor interceptor) {
   final options = BaseOptions(
-    receiveTimeout: BaseOptionsConfiguration.receiveTimeout,
-    connectTimeout: BaseOptionsConfiguration.connectTimeout,
-    sendTimeout: BaseOptionsConfiguration.sendTimeout,
-    baseUrl: BaseOptionsConfiguration.traktUrl,
+    receiveTimeout: ConfigurationRequest.receiveTimeout,
+    connectTimeout: ConfigurationRequest.connectTimeout,
+    sendTimeout: ConfigurationRequest.sendTimeout,
+    baseUrl: ConfigurationRequest.traktUrl,
   );
   final dio = Dio(options);
-  dio.interceptors.add(HeaderInterceptor());
+  dio.interceptors.add(interceptor);
   return dio;
 }

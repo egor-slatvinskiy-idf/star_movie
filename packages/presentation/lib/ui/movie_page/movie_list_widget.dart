@@ -1,19 +1,24 @@
+// ignore_for_file: must_call_super
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:presentation/Library/images_utils/images_utils.dart';
 import 'package:presentation/Library/widgets/shimmer_movie.dart';
 import 'package:presentation/app_colors/app_colors.dart';
+import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
+import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
 class MovieListWidget extends StatefulWidget {
   final List<MovieRowData>? rowData;
+  final TileWrapper<MovieListTile>? data;
   final MovieBloc bloc;
 
   const MovieListWidget({
     Key? key,
     required this.rowData,
     required this.bloc,
+    required this.data,
   }) : super(key: key);
 
   @override
@@ -26,9 +31,8 @@ class _MovieListWidgetState extends State<MovieListWidget>
   bool get wantKeepAlive => true;
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
-    if (widget.rowData == null) {
+    if (widget.rowData == null || widget.data!.isLoading == true) {
       return const ShimmerWidget();
     }
     return GridView.builder(

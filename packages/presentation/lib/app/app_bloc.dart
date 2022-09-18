@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/material.dart';
 import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/navigation/base_page.dart';
@@ -8,10 +8,13 @@ abstract class AppBloc extends Bloc {
   factory AppBloc() => _AppBloc();
 
   void handleRemoveRouteSettings(RouteSettings value);
+
+  void onSelectedTab(int index);
 }
 
 class _AppBloc extends BlocImpl implements AppBloc {
   final _appData = AppData.init();
+  int? selectedTab;
 
   @override
   void initState() {
@@ -95,10 +98,19 @@ class _AppBloc extends BlocImpl implements AppBloc {
     _updateData();
   }
 
-  BasePage? _currentPage() =>
-      _appData.pages.lastOrNull;
+  BasePage? _currentPage() => _appData.pages.lastOrNull;
 
   void _updateData() {
+    _appData.showBottomBar = _currentPage()!.showBottomBar;
     super.handleData(tile: _appData);
+  }
+
+  @override
+  void onSelectedTab(int index) {
+    if (selectedTab == index) return;
+    selectedTab = index;
+    super.handleData(
+      tile: _appData.copyWith(selectedTab: index),
+    );
   }
 }

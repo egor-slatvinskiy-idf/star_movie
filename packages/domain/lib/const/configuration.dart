@@ -1,15 +1,16 @@
+import 'package:domain/const/api_key.dart';
 import 'package:domain/const/query_configuration.dart';
 
 class Configuration {
   Configuration._();
 
-  static const endPointTrending = 'movies/trending';
-  static const endPointComing = 'movies/anticipated';
+  static const imageUrl =
+      'http://img.omdbapi.com/?apikey=${ApiKey.apiKeyOMDB}=';
   static const pageCount = 'x-pagination-page-count';
   static const pageLimit = 'x-pagination-limit';
   static const itemCount = 'x-pagination-item-count';
 
-  static const Map<String, dynamic> queryParameters = {
+  static final Map<String, dynamic> queryParameters = {
     QueryConfiguration.queryNameExtended:
         QueryConfiguration.queryConfigExtended,
     QueryConfiguration.queryNameLimit: QueryConfiguration.queryConfigLimit,

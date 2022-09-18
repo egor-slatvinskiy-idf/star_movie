@@ -1,21 +1,25 @@
-import 'package:domain/use_case/request_use_case_coming.dart';
-import 'package:domain/use_case/request_use_case_trending.dart';
+import 'package:domain/use_case/request_movie_list_use_case.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/navigation/base_arguments.dart';
 import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 import 'package:presentation/ui/movie_details/movie_details_widget.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
+import 'package:presentation/ui/movie_page/mapper/mapper_movie_list.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
 abstract class MovieBloc extends Bloc<BaseArguments, MovieListTile> {
   factory MovieBloc(
-    RequestUseCaseComing requestUseCaseComing,
-    RequestUseCaseTrending requestUseCaseTrending,
+    RequestMovieListUseCase requestMovieListUseCase,
+    MapperMovieList mapperMovieList,
   ) =>
       MovieBlocImpl(
-        requestUseCaseComing,
-        requestUseCaseTrending,
+        requestMovieListUseCase,
+        mapperMovieList,
       );
+
+  void loadMovieComing();
+
+  void loadMovieTrending();
 
   void onMovieTap({
     required MovieRowData movie,
@@ -25,38 +29,49 @@ abstract class MovieBloc extends Bloc<BaseArguments, MovieListTile> {
 class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
     implements MovieBloc {
   final _tile = MovieListTile.init();
-  final RequestUseCaseComing _requestUseCaseComing;
-  final RequestUseCaseTrending _requestUseCaseTrending;
+  final RequestMovieListUseCase _requestMovieListUseCase;
+  final MapperMovieList _mapperMovieList;
 
   MovieBlocImpl(
-    this._requestUseCaseComing,
-    this._requestUseCaseTrending,
+    this._requestMovieListUseCase,
+    this._mapperMovieList,
   );
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    await loadMovie();
+    loadMovieTrending();
   }
 
-  Future<void> loadMovie() async {
-    final movieResponseTrending = await _requestUseCaseTrending();
-    final movieResponseComing = await _requestUseCaseComing();
-    final movieMapTrending = movieResponseTrending
-        .map(
-          (e) => MovieRowData.fromMovieListResponse(e.movie),
-        )
-        .toList();
-    final movieMapComing = movieResponseComing
-        .map(
-          (e) => MovieRowData.fromMovieListResponse(e.movie),
-        )
-        .toList();
+  @override
+  void loadMovieTrending() async {
+    handleData(isLoading: true);
+    final movieResponseTrending = await _requestMovieListUseCase(
+      TypeListMovie.trending,
+    );
+    final movieMapTrending = _mapperMovieList(
+      movieResponseTrending,
+    );
+    handleData(
+      isLoading: false,
+      tile: _tile.copyWith(movieTrending: movieMapTrending),
+    );
+  }
+
+  @override
+  void loadMovieComing() async {
+    handleData(isLoading: true);
+    final movieResponseComing = await _requestMovieListUseCase(
+      TypeListMovie.coming,
+    );
+    final movieMapComing = _mapperMovieList(
+      movieResponseComing,
+    );
     handleData(
       tile: _tile.copyWith(
-        movieTrending: movieMapTrending,
         movieComing: movieMapComing,
       ),
+      isLoading: false,
     );
   }
 

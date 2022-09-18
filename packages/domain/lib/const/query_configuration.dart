@@ -1,4 +1,6 @@
 class QueryConfiguration {
+  QueryConfiguration._();
+
   static const queryNameExtended = 'extended';
   static const queryNameLimit = 'limit';
   static const queryNamePage = 'page';

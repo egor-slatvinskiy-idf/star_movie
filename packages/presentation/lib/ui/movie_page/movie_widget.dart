@@ -2,12 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
+import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
 import 'package:presentation/ui/movie_page/movie_list_widget.dart';
 
 class MovieWidget extends StatefulWidget {
   const MovieWidget({Key? key}) : super(key: key);
+
+  static const _routeName = '/MovieWidget';
+
+  static BasePage page() => BasePage(
+        key: const ValueKey(_routeName),
+        name: _routeName,
+        builder: (context) => const MovieWidget(),
+        showSlideAnim: true,
+        showBottomBar: true,
+      );
 
   @override
   State createState() => _MovieWidgetState();
@@ -69,6 +80,13 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                   child: Padding(
                     padding: const EdgeInsets.all(4),
                     child: TabBar(
+                      onTap: (index) {
+                        if (index == 0) {
+                          bloc.loadMovieTrending();
+                        } else if (index == 1) {
+                          bloc.loadMovieComing();
+                        }
+                      },
                       indicator: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(16),
@@ -115,10 +133,12 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                     child: TabBarView(
                       children: [
                         MovieListWidget(
+                          data: data,
                           rowData: movieTile?.movieTrending,
                           bloc: bloc,
                         ),
                         MovieListWidget(
+                          data: data,
                           rowData: movieTile?.movieComing,
                           bloc: bloc,
                         ),

@@ -4,8 +4,10 @@ import 'package:presentation/navigation/base_arguments.dart';
 class BasePage<T extends BaseArguments> extends Page {
   final WidgetBuilder builder;
   final bool? showSlideAnim;
+  final bool showBottomBar;
 
   const BasePage({
+    required this.showBottomBar,
     required LocalKey key,
     required String name,
     required this.builder,

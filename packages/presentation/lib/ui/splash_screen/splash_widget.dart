@@ -15,6 +15,7 @@ class SplashWidget extends StatefulWidget {
         name: _routeName,
         builder: (context) => const SplashWidget(),
         showSlideAnim: true,
+        showBottomBar: false,
       );
 
   @override

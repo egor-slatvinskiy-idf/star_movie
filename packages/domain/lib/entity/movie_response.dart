@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+
 part 'movie_response.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
@@ -22,7 +23,6 @@ class Movie {
   final List<String>? availableTranslations;
   final List<String>? genres;
   final String? certification;
-  final String? imageUrl;
 
   Movie({
     required this.title,
@@ -44,7 +44,7 @@ class Movie {
     required this.availableTranslations,
     required this.genres,
     required this.certification,
-  }) : imageUrl = 'http://img.omdbapi.com/?apikey=956febbc&i=${ids?.imdb}';
+  });
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 

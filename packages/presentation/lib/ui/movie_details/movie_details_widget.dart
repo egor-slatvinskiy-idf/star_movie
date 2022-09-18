@@ -14,6 +14,7 @@ class MovieDetailsWidget extends StatelessWidget {
         builder: (context) => const MovieDetailsWidget(),
         showSlideAnim: true,
         arguments: arguments,
+    showBottomBar: true,
       );
 
   @override
