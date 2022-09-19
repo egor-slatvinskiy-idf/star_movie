@@ -1,6 +1,6 @@
 import 'package:domain/use_case/sample_use_case/use_case_out.dart';
 
-const _duration = 3;
+const _duration = 1;
 
 class SplashDurationUseCase extends UseCaseOut<Future<void>> {
   @override

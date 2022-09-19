@@ -1,0 +1,3 @@
+class EventTicketScreenData {
+  EventTicketScreenData();
+}
