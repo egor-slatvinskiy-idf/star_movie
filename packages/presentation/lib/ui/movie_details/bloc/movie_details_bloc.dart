@@ -5,6 +5,8 @@ import 'package:presentation/ui/movie_details/details_arguments/movie_details_ar
 abstract class MovieDetailsBloc
     extends Bloc<MovieDetailsArguments, MovieDetailsScreenData> {
   factory MovieDetailsBloc() => MovieDetailsBlocImpl();
+
+  void onTapBackArrow();
 }
 
 class MovieDetailsBlocImpl
@@ -23,5 +25,10 @@ class MovieDetailsBlocImpl
 
   _updateData() {
     handleData(tile: _screenData);
+  }
+
+  @override
+  void onTapBackArrow() {
+    appNavigator.pop();
   }
 }
