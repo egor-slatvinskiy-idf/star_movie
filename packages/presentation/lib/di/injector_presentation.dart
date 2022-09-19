@@ -7,7 +7,6 @@ import 'package:presentation/navigation/app_navigator.dart';
 import 'package:presentation/ui/movie_details/bloc/movie_details_bloc.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/mapper/mapper_movie_list.dart';
-import 'package:presentation/ui/movie_page/mapper/mapper_movie_row_data.dart';
 import 'package:presentation/ui/splash_screen/bloc/splash_bloc.dart';
 
 void initInjectorPresentation() {
@@ -43,14 +42,9 @@ void _initModuleApp() {
 }
 
 void _initModuleMappers() {
-  GetIt.instance.registerFactory<MapperMovieRowData>(
-    () => MapperMovieRowData(
-      mapperImageUrl: GetIt.instance.get<MapperImageUrl>(),
-    ),
-  );
   GetIt.instance.registerFactory<MapperMovieList>(
     () => MapperMovieList(
-      mapperMovieRowData: GetIt.instance.get<MapperMovieRowData>(),
+      mapperImageUrl: GetIt.instance.get<MapperImageUrl>(),
     ),
   );
 }

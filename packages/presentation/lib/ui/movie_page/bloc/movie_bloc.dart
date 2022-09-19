@@ -28,7 +28,7 @@ abstract class MovieBloc extends Bloc<BaseArguments, MovieListTile> {
 
 class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
     implements MovieBloc {
-  final _tile = MovieListTile.init();
+  var _tile = MovieListTile.init();
   final RequestMovieListUseCase _requestMovieListUseCase;
   final MapperMovieList _mapperMovieList;
 
@@ -52,9 +52,10 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
     final movieMapTrending = _mapperMovieList(
       movieResponseTrending,
     );
+    _tile = _tile.copyWith(movieTrending: movieMapTrending);
     handleData(
+      tile: _tile,
       isLoading: false,
-      tile: _tile.copyWith(movieTrending: movieMapTrending),
     );
   }
 
@@ -67,10 +68,9 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
     final movieMapComing = _mapperMovieList(
       movieResponseComing,
     );
+    _tile = _tile.copyWith(movieComing: movieMapComing);
     handleData(
-      tile: _tile.copyWith(
-        movieComing: movieMapComing,
-      ),
+      tile: _tile,
       isLoading: false,
     );
   }

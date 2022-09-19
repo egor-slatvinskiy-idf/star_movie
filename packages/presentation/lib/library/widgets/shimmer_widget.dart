@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:presentation/app_colors/app_colors.dart';
 
-enum ShimmerDirection { ltr }
+enum ShimmerDirection {
+  ltr,
+}
 
 class Shimmer extends StatefulWidget {
   final Widget child;
@@ -61,8 +63,10 @@ class _ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.period)
-      ..addStatusListener((AnimationStatus status) {
+    _controller = AnimationController(
+      vsync: this,
+      duration: widget.period,
+    )..addStatusListener((AnimationStatus status) {
         if (status != AnimationStatus.completed) {
           return;
         }
@@ -123,11 +127,18 @@ class _Shimmer extends SingleChildRenderObjectWidget {
 
   @override
   _ShimmerFilter createRenderObject(BuildContext context) {
-    return _ShimmerFilter(percent, direction, gradient);
+    return _ShimmerFilter(
+      percent,
+      direction,
+      gradient,
+    );
   }
 
   @override
-  void updateRenderObject(BuildContext context, _ShimmerFilter shimmer) {
+  void updateRenderObject(
+    BuildContext context,
+    _ShimmerFilter shimmer,
+  ) {
     shimmer.percent = percent;
     shimmer.gradient = gradient;
     shimmer.direction = direction;
@@ -139,7 +150,11 @@ class _ShimmerFilter extends RenderProxyBox {
   Gradient _gradient;
   double _percent;
 
-  _ShimmerFilter(this._percent, this._direction, this._gradient);
+  _ShimmerFilter(
+    this._percent,
+    this._direction,
+    this._gradient,
+  );
 
   @override
   ShaderMaskLayer? get layer => super.layer as ShaderMaskLayer?;
@@ -172,23 +187,43 @@ class _ShimmerFilter extends RenderProxyBox {
   }
 
   @override
-  void paint(PaintingContext context, Offset offset) {
+  void paint(
+    PaintingContext context,
+    Offset offset,
+  ) {
     final double width = child!.size.width;
     final double height = child!.size.height;
     Rect rect;
     double dx, dy;
-    dx = _offset(-width, width, _percent);
+    dx = _offset(
+      -width,
+      width,
+      _percent,
+    );
     dy = 0.0;
-    rect = Rect.fromLTWH(dx - width, dy, 3 * width, height);
+    rect = Rect.fromLTWH(
+      dx - width,
+      dy,
+      3 * width,
+      height,
+    );
     layer ??= ShaderMaskLayer();
     layer!
       ..shader = _gradient.createShader(rect)
       ..maskRect = offset & size
       ..blendMode = BlendMode.srcIn;
-    context.pushLayer(layer!, super.paint, offset);
+    context.pushLayer(
+      layer!,
+      super.paint,
+      offset,
+    );
   }
 
-  double _offset(double start, double end, double percent) {
+  double _offset(
+    double start,
+    double end,
+    double percent,
+  ) {
     return start + (end - start) * percent;
   }
 }

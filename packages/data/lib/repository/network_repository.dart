@@ -1,4 +1,5 @@
 import 'package:data/configuration/base_options_configuration.dart';
+import 'package:data/configuration/query_parameters.dart';
 import 'package:data/services/api_base_service.dart';
 import 'package:data/services/service_payload.dart';
 import 'package:domain/model/get_data_response.dart';
@@ -13,12 +14,12 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
   @override
   Future<GetDataResponse> requestMovieListTrending({
-    required Map<String, dynamic> queryParameters,
+    required String? limit,
   }) async {
     return _apiService
         .get(
       path: ConfigurationRequest.endPointTrending,
-      queryParameters: queryParameters,
+      queryParameters: queryParametersMovieList(limit: limit),
     )
         .then(
       (value) {
@@ -34,12 +35,12 @@ class NetworkRepositoryImpl implements NetworkRepository {
 
   @override
   Future<GetDataResponse> requestMovieListComing({
-    required Map<String, dynamic> queryParameters,
+    required String? limit,
   }) async {
     return _apiService
         .get(
       path: ConfigurationRequest.endPointComing,
-      queryParameters: queryParameters,
+      queryParameters: queryParametersMovieList(limit: limit),
     )
         .then(
       (value) {

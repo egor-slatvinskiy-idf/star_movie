@@ -1,5 +1,4 @@
 import 'package:domain/const/configuration.dart';
-import 'package:domain/const/query_configuration.dart';
 import 'package:domain/entity/movie_list_response.dart';
 import 'package:domain/repository/network_repository.dart';
 import 'package:domain/use_case/sample_use_case/use_case_in_out.dart';
@@ -21,17 +20,17 @@ class RequestMovieListUseCase
   Future<List<MovieListResponse>> call(TypeListMovie params) async {
     final response = params == TypeListMovie.trending
         ? await _networkRepository.requestMovieListTrending(
-            queryParameters: Configuration.queryEmpty,
+            limit: null,
           )
         : await _networkRepository.requestMovieListComing(
-            queryParameters: Configuration.queryEmpty,
+            limit: null,
           );
     final List<MovieListResponse> movieList = [];
     final countPage = int.tryParse(
       response.headers[Configuration.pageCount][0],
     );
     final countItem = countPage! >= 5
-        ? QueryConfiguration.queryConfigLimit
+        ? Configuration.queryConfigLimit
         : response.headers[Configuration.itemCount][0];
     await _requestListMovie(
       movieList: movieList,
@@ -46,14 +45,12 @@ class RequestMovieListUseCase
     required String countItem,
     TypeListMovie? params,
   }) async {
-    Configuration.queryParameters
-        .update(QueryConfiguration.queryNameLimit, (value) => countItem);
     final response = params == TypeListMovie.trending
         ? await _networkRepository.requestMovieListTrending(
-            queryParameters: Configuration.queryParameters,
+            limit: countItem,
           )
         : await _networkRepository.requestMovieListComing(
-            queryParameters: Configuration.queryParameters,
+            limit: countItem,
           );
     movieList.addAll(
       response.body.map(

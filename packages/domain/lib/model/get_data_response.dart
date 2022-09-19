@@ -1,6 +1,6 @@
 class GetDataResponse {
   final Map<String, dynamic> headers;
-  final List body;
+  final List<Map<String, dynamic>> body;
 
   GetDataResponse({
     required this.headers,

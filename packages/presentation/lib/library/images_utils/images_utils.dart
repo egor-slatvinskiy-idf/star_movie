@@ -1,4 +1,6 @@
 class ImagesUtils {
+  ImagesUtils._();
+
   static const alarm = 'packages/presentation/images/alarm.svg';
 
   static const eventTicket = 'packages/presentation/images/event_ticket.svg';
