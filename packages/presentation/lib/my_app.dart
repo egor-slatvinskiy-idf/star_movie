@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/app/app_bloc.dart';
 import 'package:presentation/app/data/app_data.dart';
@@ -6,6 +7,7 @@ import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
+import 'package:presentation/generated/l10n.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -18,6 +20,13 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       color: AppColors.colorTheme,
       theme: ThemeData(
         canvasColor: AppColors.colorTheme,

@@ -6,6 +6,7 @@ class MovieRowData {
   final String? certification;
   final String image;
   final int? ids;
+  final String overview;
 
   MovieRowData({
     required this.image,
@@ -15,5 +16,6 @@ class MovieRowData {
     required this.runtime,
     required this.certification,
     required this.ids,
+    required this.overview,
   });
 }

@@ -1,16 +1,32 @@
-import 'package:data/configuration/base_options_configuration.dart';
+import 'package:data/configuration/configuration_request.dart';
 import 'package:data/configuration/query_parameters.dart';
 import 'package:data/services/api_base_service.dart';
 import 'package:data/services/service_payload.dart';
+import 'package:domain/entity/movie_people_response.dart';
 import 'package:domain/model/get_data_response.dart';
-import 'package:domain/repository/network_repository.dart';
+import 'package:domain/repository/network_trakt_repository.dart';
 
-class NetworkRepositoryImpl implements NetworkRepository {
+class NetworkTraktRepositoryImpl implements NetworkTraktRepository {
   final ApiBaseService<ServicePayLoad> _apiService;
 
-  NetworkRepositoryImpl(
+  NetworkTraktRepositoryImpl(
     this._apiService,
   );
+
+  @override
+  Future<ResponseMoviePeople> requestMoviePeople({
+    required int? id,
+  }) async {
+    return _apiService
+        .get(
+      path: endPointDetails(id: id),
+    )
+        .then(
+      (value) {
+        return ResponseMoviePeople.fromJson(value.data);
+      },
+    );
+  }
 
   @override
   Future<GetDataResponse> requestMovieListTrending({

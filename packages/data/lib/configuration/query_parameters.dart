@@ -7,3 +7,15 @@ Map<String, dynamic> queryParametersMovieList({
     'page': '1',
   };
 }
+
+String endPointDetails({
+  required int? id,
+}) {
+  return 'movies/$id/people';
+}
+
+String endPointTMDBPeople({
+  required int? id,
+}) {
+  return 'person/$id/images';
+}

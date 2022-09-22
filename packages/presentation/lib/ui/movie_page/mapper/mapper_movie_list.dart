@@ -32,6 +32,7 @@ class MapperMovieList
       genres: movie.genres?.first.capitalize,
       runtime: movie.runtime!.formatter,
       certification: movie.certification ?? '',
+      overview: movie.overview ?? '',
     );
   }
 }

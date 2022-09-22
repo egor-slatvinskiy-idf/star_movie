@@ -1,6 +1,6 @@
 import 'package:domain/const/configuration.dart';
 import 'package:domain/entity/movie_list_response.dart';
-import 'package:domain/repository/network_repository.dart';
+import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:domain/use_case/sample_use_case/use_case_in_out.dart';
 
 enum TypeListMovie {
@@ -10,7 +10,7 @@ enum TypeListMovie {
 
 class RequestMovieListUseCase
     extends UseCaseInOut<TypeListMovie, Future<List<MovieListResponse>>> {
-  final NetworkRepository _networkRepository;
+  final NetworkTraktRepository _networkRepository;
 
   RequestMovieListUseCase(
     this._networkRepository,
