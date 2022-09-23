@@ -8,13 +8,13 @@ Map<String, dynamic> queryParametersMovieList({
   };
 }
 
-String endPointDetails({
+String endPointCastTrakt({
   required int? id,
 }) {
   return 'movies/$id/people';
 }
 
-String endPointTMDBPeople({
+String endPointPersonTMDB({
   required int? id,
 }) {
   return 'person/$id/images';

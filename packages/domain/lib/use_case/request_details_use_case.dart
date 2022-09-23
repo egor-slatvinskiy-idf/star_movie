@@ -29,19 +29,22 @@ class RequestDetailsUseCase
         ? maxLengthPeople
         : responseCast.cast?.length;
     final sortedCast = responseCast.cast?.take(peopleLength ?? 0).toList();
-    final List<TMDBPeopleResponse> imageTMDBList =
+    final List<TMDBPeopleResponse> responseTMDBPerson =
         await requestTMDBImage(sortedCast);
     return _mapperPeopleModel(
       responseCast.cast ?? [],
-      imageTMDBList,
+      responseTMDBPerson,
     );
   }
 
-  Future<List<TMDBPeopleResponse>> requestTMDBImage(List<Cast>? cast) async {
+  Future<List<TMDBPeopleResponse>> requestTMDBImage(
+    List<Cast>? cast,
+  ) async {
     return await Future.wait(
       cast!.map(
-        (e) async => await _networkRepositoryTMDB.requestPeopleImages(
-            id: e.person?.ids?.tmdb),
+        (e) async => await _networkRepositoryTMDB.requestPersonTMDB(
+          id: e.person?.ids?.tmdb,
+        ),
       ),
     );
   }

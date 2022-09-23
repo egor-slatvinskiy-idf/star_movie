@@ -426,10 +426,8 @@ class _PosterWidget extends StatelessWidget {
           child: SizedBox(
             height: Dimens.height250,
             width: Dimens.width166,
-            child: Expanded(
-              child: imagePoster(
-                imageNetwork: movie.image,
-              ),
+            child: imagePoster(
+              imageNetwork: movie.image,
             ),
           ),
         ),
@@ -487,16 +485,14 @@ class _CastWidget extends StatelessWidget {
                       const SizedBox(
                         width: Dimens.width22,
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          width: Dimens.width96,
-                          child: Text(
-                            e.person!,
-                            maxLines: 3,
-                            textAlign: TextAlign.start,
-                            style: sfProMed14(
-                              color: AppColors.colorTitle,
-                            ),
+                      SizedBox(
+                        width: Dimens.width96,
+                        child: Text(
+                          e.person!,
+                          maxLines: 3,
+                          textAlign: TextAlign.start,
+                          style: sfProMed14(
+                            color: AppColors.colorTitle,
                           ),
                         ),
                       ),

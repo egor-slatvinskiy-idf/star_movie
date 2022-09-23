@@ -12,12 +12,14 @@ class NetworkTMDBRepositoryImpl implements NetworkTMDBRepository {
   );
 
   @override
-  Future<TMDBPeopleResponse> requestPeopleImages({
+  Future<TMDBPeopleResponse> requestPersonTMDB({
     required int? id,
   }) async {
     return _apiService
         .get(
-      path: endPointTMDBPeople(id: id),
+      path: endPointPersonTMDB(
+        id: id,
+      ),
     )
         .then(
       (value) {

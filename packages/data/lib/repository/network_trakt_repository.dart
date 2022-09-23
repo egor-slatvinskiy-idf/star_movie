@@ -19,7 +19,7 @@ class NetworkTraktRepositoryImpl implements NetworkTraktRepository {
   }) async {
     return _apiService
         .get(
-      path: endPointDetails(id: id),
+      path: endPointCastTrakt(id: id),
     )
         .then(
       (value) {
