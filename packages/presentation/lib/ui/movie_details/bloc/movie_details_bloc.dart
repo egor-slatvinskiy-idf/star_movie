@@ -29,9 +29,7 @@ class _MovieDetailsBlocImpl
   void initArgs(MovieDetailsArguments arguments) async {
     super.initArgs(arguments);
     final id = arguments.movie.ids;
-    _screenData = MovieDetailsScreenData(
-      movie: arguments.movie,
-    );
+    _screenData = _screenData.copyWith(movie: arguments.movie);
     _updateData();
     _dataCast(id);
   }
