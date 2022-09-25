@@ -29,11 +29,16 @@ class _MovieDetailsBlocImpl
   void initArgs(MovieDetailsArguments arguments) async {
     super.initArgs(arguments);
     final id = arguments.movie.ids;
-    final response = await _detailsUseCase(id!);
     _screenData = MovieDetailsScreenData(
       movie: arguments.movie,
-      cast: response,
     );
+    _updateData();
+    _dataCast(id);
+  }
+
+  void _dataCast(int id) async {
+    final response = await _detailsUseCase(id);
+    _screenData = _screenData.copyWith(cast: response);
     _updateData();
   }
 
@@ -46,6 +51,5 @@ class _MovieDetailsBlocImpl
   @override
   void onTapBackArrow() {
     appNavigator.pop();
-    _updateData();
   }
 }

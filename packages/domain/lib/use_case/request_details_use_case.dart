@@ -25,25 +25,25 @@ class RequestDetailsUseCase
     final responseCast = await _networkRepositoryTrakt.requestMoviePeople(
       id: params,
     );
-    final peopleLength = responseCast.cast!.length >= maxLengthPeople
-        ? maxLengthPeople
-        : responseCast.cast?.length;
-    final sortedCast = responseCast.cast?.take(peopleLength ?? 0).toList();
+    final cast = responseCast.cast ?? List.empty();
+    final peopleLength =
+        cast.length >= maxLengthPeople ? maxLengthPeople : cast.length;
+    final sortedCast = cast.take(peopleLength).toList();
     final List<TMDBPeopleResponse> responseTMDBPerson =
         await requestTMDBImage(sortedCast);
     return _mapperPeopleModel(
-      responseCast.cast ?? [],
+      cast,
       responseTMDBPerson,
     );
   }
 
   Future<List<TMDBPeopleResponse>> requestTMDBImage(
-    List<Cast>? cast,
+    List<Cast> cast,
   ) async {
     return await Future.wait(
-      cast!.map(
+      cast.map(
         (e) async => await _networkRepositoryTMDB.requestPersonTMDB(
-          id: e.person?.ids?.tmdb,
+          id: e.person?.ids?.tmdb ?? 0,
         ),
       ),
     );

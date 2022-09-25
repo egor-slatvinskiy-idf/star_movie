@@ -1,6 +1,6 @@
 class ResponseModelPeople {
-  final String? characters;
-  final String? person;
+  final String characters;
+  final String person;
   final String image;
 
   ResponseModelPeople({

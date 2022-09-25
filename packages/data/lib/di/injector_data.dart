@@ -21,31 +21,29 @@ void initInjectorData() {
 }
 
 void _initModuleApi() {
-  GetIt.instance.registerSingleton<Dio>(
-    _buildMovieDioTraktApi(
+  GetIt.instance.registerFactory<Dio>(
+    () => _buildMovieDioTraktApi(
       GetIt.instance.get<HeaderInterceptorTraktApi>(),
     ),
     instanceName: traktApi,
   );
-
-  GetIt.instance.registerSingleton<ApiBaseService<ServicePayLoad>>(
-    ApiBaseServiceImpl(
+  GetIt.instance.registerFactory<ApiBaseService<ServicePayLoad>>(
+    () => ApiBaseServiceImpl(
       GetIt.instance.get(
         instanceName: traktApi,
       ),
     ),
     instanceName: traktService,
   );
-
-  GetIt.instance.registerSingleton<Dio>(
-    _buildMovieDioTMDBApi(
+  GetIt.instance.registerFactory<Dio>(
+    () => _buildMovieDioTMDBApi(
       GetIt.instance.get<HeaderInterceptorTMDBApi>(),
     ),
     instanceName: tMDBApi,
   );
 
-  GetIt.instance.registerSingleton<ApiBaseService<ServicePayLoad>>(
-    ApiBaseServiceImpl(
+  GetIt.instance.registerFactory<ApiBaseService<ServicePayLoad>>(
+    () => ApiBaseServiceImpl(
       GetIt.instance.get(
         instanceName: tMDBApi,
       ),
@@ -55,8 +53,8 @@ void _initModuleApi() {
 }
 
 void _initModuleRepository() {
-  GetIt.instance.registerSingleton<NetworkTraktRepository>(
-    NetworkTraktRepositoryImpl(
+  GetIt.instance.registerFactory<NetworkTraktRepository>(
+    () => NetworkTraktRepositoryImpl(
       GetIt.instance.get(
         instanceName: traktService,
       ),
@@ -72,11 +70,11 @@ void _initModuleRepository() {
 }
 
 void _initModuleInterceptor() {
-  GetIt.instance.registerSingleton<HeaderInterceptorTraktApi>(
-    HeaderInterceptorTraktApi(),
+  GetIt.instance.registerFactory<HeaderInterceptorTraktApi>(
+    () => HeaderInterceptorTraktApi(),
   );
-  GetIt.instance.registerSingleton<HeaderInterceptorTMDBApi>(
-    HeaderInterceptorTMDBApi(),
+  GetIt.instance.registerFactory<HeaderInterceptorTMDBApi>(
+    () => HeaderInterceptorTMDBApi(),
   );
 }
 

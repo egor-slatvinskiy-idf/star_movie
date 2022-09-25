@@ -1,3 +1,4 @@
+import 'package:domain/model/response_model_people.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -5,10 +6,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
+import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
 import 'package:presentation/library/images_utils/style_image.dart';
 import 'package:presentation/library/style/text_style.dart';
+import 'package:presentation/library/widgets/shimmer_details_cast.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/movie_details/bloc/movie_details_bloc.dart';
 import 'package:presentation/ui/movie_details/data/movie_details_screen_data.dart';
@@ -109,11 +112,11 @@ class _MovieDetailsWidgetState
                         ),
                         const _ViewAllWidget(),
                         _CastWidget(
-                          screenData: screenData,
+                          screenData: screenData!,
                         ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -181,16 +184,16 @@ class _ViewAllWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Cast & Crew',
+            S.of(context).castCrew,
             style: sfProMed14(
               color: AppColors.colorTitle,
             ),
           ),
           TextButton(
             onPressed: () {},
-            child: const Text(
-              'View All',
-              style: TextStyle(
+            child: Text(
+              S.of(context).viewAll,
+              style: const TextStyle(
                 fontSize: Dimens.size14,
               ),
             ),
@@ -223,7 +226,7 @@ class _OverViewWidget extends StatelessWidget {
           children: [
             ExpandablePanel(
               header: Text(
-                'Synopsis',
+                S.of(context).synopsis,
                 style: sfProMed18(
                   color: AppColors.colorTitle,
                 ),
@@ -297,7 +300,7 @@ class _TabBarWidget extends StatelessWidget {
                       width: Dimens.width6,
                     ),
                     Text(
-                      'Details',
+                      S.of(context).details,
                       style: sfProMed14(
                         color: AppColors.colorTitle,
                       ),
@@ -313,7 +316,7 @@ class _TabBarWidget extends StatelessWidget {
                       width: Dimens.width6,
                     ),
                     Text(
-                      'Reviews',
+                      S.of(context).reviews,
                       style: sfProMed14(
                         color: AppColors.colorTitle,
                       ),
@@ -329,7 +332,7 @@ class _TabBarWidget extends StatelessWidget {
                       width: Dimens.width6,
                     ),
                     Text(
-                      'Showtime',
+                      S.of(context).showtime,
                       style: sfProMed14(
                         color: AppColors.colorTitle,
                       ),
@@ -442,10 +445,14 @@ class _CastWidget extends StatelessWidget {
     required this.screenData,
   }) : super(key: key);
 
-  final MovieDetailsScreenData? screenData;
+  final MovieDetailsScreenData screenData;
 
   @override
   Widget build(BuildContext context) {
+    final List<ResponseModelPeople>? cast = screenData.cast;
+    if (cast == null) {
+      return const ShimmerDetailsCast();
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: Dimens.padding18,
@@ -453,32 +460,36 @@ class _CastWidget extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Column(
-          children: screenData!.cast!
+          children: cast
               .map(
                 (e) => Padding(
-                  padding: const EdgeInsets.all(Dimens.padding8),
+                  padding: const EdgeInsets.all(
+                    Dimens.padding8,
+                  ),
                   child: Row(
                     children: [
                       SizedBox(
                         width: Dimens.width50,
                         height: Dimens.height50,
-                        child: Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                              Dimens.border24,
-                            ),
-                            child: FadeInImage.assetNetwork(
-                              alignment: Alignment.centerLeft,
-                              placeholder: ImagesUtils.imageStarMovie,
-                              image: e.image,
-                              fit: BoxFit.cover,
-                              imageErrorBuilder: (context, error, stackTrace) {
-                                return Image.asset(
-                                  ImagesUtils.imageStarMovie,
-                                  fit: BoxFit.cover,
-                                );
-                              },
-                            ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                            Dimens.border24,
+                          ),
+                          child: FadeInImage.assetNetwork(
+                            alignment: Alignment.centerLeft,
+                            placeholder: ImagesUtils.imageStarMovie,
+                            image: e.image,
+                            fit: BoxFit.cover,
+                            imageErrorBuilder: (
+                              context,
+                              error,
+                              stackTrace,
+                            ) {
+                              return Image.asset(
+                                ImagesUtils.imageStarMovie,
+                                fit: BoxFit.cover,
+                              );
+                            },
                           ),
                         ),
                       ),
@@ -488,7 +499,7 @@ class _CastWidget extends StatelessWidget {
                       SizedBox(
                         width: Dimens.width96,
                         child: Text(
-                          e.person!,
+                          e.person,
                           maxLines: 3,
                           textAlign: TextAlign.start,
                           style: sfProMed14(
@@ -512,7 +523,7 @@ class _CastWidget extends StatelessWidget {
                         child: SizedBox(
                           width: 70,
                           child: Text(
-                            e.characters!,
+                            e.characters,
                             maxLines: 2,
                             textAlign: TextAlign.start,
                             style: sfProMed14(

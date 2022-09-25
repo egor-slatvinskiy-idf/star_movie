@@ -11,14 +11,17 @@ class MapperPeopleModel extends MapperTwoIn<List<Cast>,
     List<Cast> params,
     List<TMDBPeopleResponse> twoParams,
   ) {
+    if (params.isEmpty || twoParams.isEmpty) return List.empty();
     return twoParams.map(
       (e) {
-        final Cast person = params.first;
+        final Cast person = params.firstWhere(
+          (element) => element.person?.ids!.tmdb == e.id,
+        );
         return ResponseModelPeople(
-          characters: person.characters?.first,
-          person: person.person?.name,
+          characters: person.characters?.first ?? '',
+          person: person.person?.name ?? '',
           image: '${Configuration.imageTMDBUrl}'
-                 '${e.profiles?.first?.filePath}',
+              '${e.profiles?.first?.filePath ?? ''}',
         );
       },
     ).toList();

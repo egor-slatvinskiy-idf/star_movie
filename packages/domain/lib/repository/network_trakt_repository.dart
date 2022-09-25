@@ -12,6 +12,6 @@ abstract class NetworkTraktRepository {
   });
 
   Future<ResponseMoviePeople> requestMoviePeople({
-    required int? id,
+    required int id,
   });
 }

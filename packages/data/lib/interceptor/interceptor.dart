@@ -8,7 +8,7 @@ class HeaderInterceptorTraktApi extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     options.headers.addAll(
-      Configuration.apiKey,
+      Configuration.apiKeyTrakt,
     );
     handler.next(options);
   }

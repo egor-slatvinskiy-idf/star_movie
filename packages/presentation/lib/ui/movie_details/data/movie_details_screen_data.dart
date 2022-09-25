@@ -9,4 +9,14 @@ class MovieDetailsScreenData {
     this.movie,
     this.cast,
   });
+
+  MovieDetailsScreenData copyWith({
+    MovieRowData? movie,
+    List<ResponseModelPeople>? cast,
+  }) {
+    return MovieDetailsScreenData(
+      movie: movie ?? this.movie,
+      cast: cast ?? this.cast,
+    );
+  }
 }

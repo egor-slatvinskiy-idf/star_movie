@@ -15,7 +15,7 @@ class NetworkTraktRepositoryImpl implements NetworkTraktRepository {
 
   @override
   Future<ResponseMoviePeople> requestMoviePeople({
-    required int? id,
+    required int id,
   }) async {
     return _apiService
         .get(

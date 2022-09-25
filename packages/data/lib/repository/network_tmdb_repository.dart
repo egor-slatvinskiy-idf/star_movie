@@ -13,7 +13,7 @@ class NetworkTMDBRepositoryImpl implements NetworkTMDBRepository {
 
   @override
   Future<TMDBPeopleResponse> requestPersonTMDB({
-    required int? id,
+    required int id,
   }) async {
     return _apiService
         .get(

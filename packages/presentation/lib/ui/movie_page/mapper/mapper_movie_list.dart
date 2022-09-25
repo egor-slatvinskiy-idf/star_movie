@@ -25,12 +25,12 @@ class MapperMovieList
 
   MovieRowData mapperMovieRowData(Movie movie) {
     return MovieRowData(
-      ids: movie.ids?.trakt,
+      ids: movie.ids?.trakt ?? 0,
       image: mapperImageUrl(movie.ids?.imdb),
       title: movie.title ?? '',
       rating: movie.rating != null ? movie.rating! / 2 : 0,
       genres: movie.genres?.first.capitalize,
-      runtime: movie.runtime!.formatter,
+      runtime: movie.runtime?.formatter ?? '',
       certification: movie.certification ?? '',
       overview: movie.overview ?? '',
     );

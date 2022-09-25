@@ -5,7 +5,7 @@ class MovieRowData {
   final String runtime;
   final String? certification;
   final String image;
-  final int? ids;
+  final int ids;
   final String overview;
 
   MovieRowData({
