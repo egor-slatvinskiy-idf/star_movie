@@ -7,7 +7,7 @@ import 'package:domain/repository/network_tmdb_repository.dart';
 class NetworkTMDBRepositoryImpl implements NetworkTMDBRepository {
   final ApiBaseService<ServicePayLoad> _apiService;
 
-  NetworkTMDBRepositoryImpl(this._apiService,);
+  const NetworkTMDBRepositoryImpl(this._apiService);
 
   @override
   Future<TMDBPeopleResponse> requestPersonTMDB({

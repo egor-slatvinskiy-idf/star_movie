@@ -9,9 +9,7 @@ import 'package:domain/repository/network_trakt_repository.dart';
 class NetworkTraktRepositoryImpl implements NetworkTraktRepository {
   final ApiBaseService<ServicePayLoad> _apiService;
 
-  NetworkTraktRepositoryImpl(
-    this._apiService,
-  );
+  const NetworkTraktRepositoryImpl(this._apiService);
 
   @override
   Future<ResponseMoviePeople> requestMoviePeople({
