@@ -53,4 +53,13 @@ class TextStyles {
         fontSize: Dimens.size18,
         fontFamily: _fontFamilySFProMedium,
       );
+
+  static TextStyle sfProMed12({
+    Color color = ColorsApplication.colorTitle,
+  }) =>
+      TextStyle(
+        color: color,
+        fontSize: Dimens.size12,
+        fontFamily: _fontFamilySFProMedium,
+      );
 }

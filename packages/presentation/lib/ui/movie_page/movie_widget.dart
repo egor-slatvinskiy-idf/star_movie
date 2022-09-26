@@ -51,7 +51,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                 ),
                 child: Text(
                   S.of(context).starMovie,
-                  style: sfProSemi24(
+                  style: TextStyles.sfProSemi24(
                     color: ColorsApplication.colorTitle,
                   ),
                 ),
@@ -117,9 +117,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                               const SizedBox(width: Dimens.width6),
                               Text(
                                 S.of(context).nowShowing,
-                                style: sfProMed14(
-                                  color: ColorsApplication.colorTitle,
-                                ),
+                                style: TextStyles.sfProMed14(),
                               ),
                             ],
                           ),
@@ -131,9 +129,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                               const SizedBox(width: Dimens.width6),
                               Text(
                                 S.of(context).comingSoon,
-                                style: sfProMed14(
-                                  color: ColorsApplication.colorTitle,
-                                ),
+                                style: TextStyles.sfProMed14(),
                               ),
                             ],
                           ),

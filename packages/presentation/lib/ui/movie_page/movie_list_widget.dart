@@ -122,9 +122,7 @@ class _MovieTitleWidget extends StatelessWidget {
       children: [
         Text(
           movie.title,
-          style: sfProSemi16(
-            color: ColorsApplication.colorTitle,
-          ),
+          style: TextStyles.sfProSemi16(),
           textAlign: TextAlign.start,
           maxLines: _textMaxLines1,
         ),
@@ -149,7 +147,7 @@ class _MovieTitleWidget extends StatelessWidget {
               child: Text(
                 '${movie.genres} · '
                 '${movie.runtime} | ${movie.certification}',
-                style: sfProMed12(
+                style: TextStyles.sfProMed12(
                   color: ColorsApplication.colorSubTitle,
                 ),
               ),
