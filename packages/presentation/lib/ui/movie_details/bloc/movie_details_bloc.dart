@@ -18,7 +18,7 @@ abstract class MovieDetailsBloc
 class _MovieDetailsBlocImpl
     extends BlocImpl<MovieDetailsArguments, MovieDetailsScreenData>
     implements MovieDetailsBloc {
-  MovieDetailsScreenData _screenData = MovieDetailsScreenData();
+  MovieDetailsScreenData _screenData = const MovieDetailsScreenData();
   final RequestDetailsUseCase _detailsUseCase;
 
   _MovieDetailsBlocImpl(
@@ -26,7 +26,7 @@ class _MovieDetailsBlocImpl
   );
 
   @override
-  void initArgs(MovieDetailsArguments arguments) async {
+  void initArgs(MovieDetailsArguments arguments) {
     super.initArgs(arguments);
     final id = arguments.movie.ids;
     _screenData = _screenData.copyWith(movie: arguments.movie);

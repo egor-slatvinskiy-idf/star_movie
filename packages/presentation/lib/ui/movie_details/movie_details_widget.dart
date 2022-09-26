@@ -141,9 +141,7 @@ class _TitleWidget extends StatelessWidget {
       children: [
         Text(
           movie.title,
-          style: sfProSemi24(
-            color: ColorsApplication.colorTitle,
-          ),
+          style: TextStyles.sfProSemi24(),
           maxLines: 2,
         ),
         const SizedBox(
@@ -151,14 +149,14 @@ class _TitleWidget extends StatelessWidget {
         ),
         Text(
           '${movie.runtime} | ${movie.certification}',
-          style: sfProSemi16(
+          style: TextStyles.sfProSemi16(
             color: ColorsApplication.colorSubTitle,
           ),
         ),
-        const SizedBox(height: 9),
+        const SizedBox(height: Dimens.height8),
         Text(
           '${movie.genres}',
-          style: sfProSemi16(
+          style: TextStyles.sfProSemi16(
             color: ColorsApplication.colorSubTitle,
           ),
         ),
@@ -185,17 +183,13 @@ class _ViewAllWidget extends StatelessWidget {
         children: [
           Text(
             S.of(context).castCrew,
-            style: sfProMed14(
-              color: ColorsApplication.colorTitle,
-            ),
+            style: TextStyles.sfProMed14(),
           ),
           TextButton(
             onPressed: () {},
             child: Text(
               S.of(context).viewAll,
-              style: const TextStyle(
-                fontSize: Dimens.size14,
-              ),
+              style: TextStyles.sfProMed14(),
             ),
           ),
         ],
@@ -227,24 +221,18 @@ class _OverViewWidget extends StatelessWidget {
             ExpandablePanel(
               header: Text(
                 S.of(context).synopsis,
-                style: sfProMed18(
-                  color: ColorsApplication.colorTitle,
-                ),
+                style: TextStyles.sfProMed18(),
               ),
               collapsed: Text(
                 movie.overview,
-                style: sfProMed14(
-                  color: ColorsApplication.colorTitle,
-                ),
+                style: TextStyles.sfProMed14(),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 4,
                 softWrap: true,
               ),
               expanded: Text(
                 movie.overview,
-                style: sfProMed14(
-                  color: ColorsApplication.colorTitle,
-                ),
+                style: TextStyles.sfProMed14(),
               ),
             ),
           ],
@@ -301,9 +289,7 @@ class _TabBarWidget extends StatelessWidget {
                     ),
                     Text(
                       S.of(context).details,
-                      style: sfProMed14(
-                        color: ColorsApplication.colorTitle,
-                      ),
+                      style: TextStyles.sfProMed14(),
                     ),
                   ],
                 ),
@@ -317,9 +303,7 @@ class _TabBarWidget extends StatelessWidget {
                     ),
                     Text(
                       S.of(context).reviews,
-                      style: sfProMed14(
-                        color: ColorsApplication.colorTitle,
-                      ),
+                      style: TextStyles.sfProMed14(),
                     ),
                   ],
                 ),
@@ -333,9 +317,7 @@ class _TabBarWidget extends StatelessWidget {
                     ),
                     Text(
                       S.of(context).showtime,
-                      style: sfProMed14(
-                        color: ColorsApplication.colorTitle,
-                      ),
+                      style: TextStyles.sfProMed14(),
                     ),
                   ],
                 ),
@@ -352,7 +334,6 @@ class _RatingBarWidget extends StatelessWidget {
   final MovieRowData movie;
   final Icon iconEmpty;
 
-
   const _RatingBarWidget({
     Key? key,
     required this.movie,
@@ -366,9 +347,7 @@ class _RatingBarWidget extends StatelessWidget {
       children: [
         Text(
           '${movie.rating.toStringAsFixed(1)}/5',
-          style: sfProSemi30(
-            color: ColorsApplication.colorTitle,
-          ),
+          style: TextStyles.sfProSemi30(),
         ),
         const SizedBox(
           width: Dimens.width8,
@@ -503,9 +482,7 @@ class _CastWidget extends StatelessWidget {
                           e.person,
                           maxLines: 3,
                           textAlign: TextAlign.start,
-                          style: sfProMed14(
-                            color: ColorsApplication.colorTitle,
-                          ),
+                          style: TextStyles.sfProMed14(),
                         ),
                       ),
                       const SizedBox(
@@ -513,7 +490,7 @@ class _CastWidget extends StatelessWidget {
                       ),
                       Text(
                         '• • •',
-                        style: sfProMed14(
+                        style: TextStyles.sfProMed14(
                           color: ColorsApplication.colorSubTitle,
                         ),
                       ),
@@ -522,12 +499,12 @@ class _CastWidget extends StatelessWidget {
                       ),
                       Expanded(
                         child: SizedBox(
-                          width: 70,
+                          width: Dimens.width70,
                           child: Text(
                             e.characters,
                             maxLines: 2,
                             textAlign: TextAlign.start,
-                            style: sfProMed14(
+                            style: TextStyles.sfProMed14(
                               color: ColorsApplication.colorSubTitle,
                             ),
                           ),
