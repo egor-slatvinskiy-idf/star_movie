@@ -28,9 +28,8 @@ class NetworkTraktRepositoryImpl implements NetworkTraktRepository {
   }) async {
     return _apiService
         .get(
-      path: ConfigurationRequest.endPointTrending,
-      queryParameters: queryParametersMovieList(limit: limit),
-    )
+            path: ConfigurationRequest.endPointTrending,
+            queryParameters: queryParametersMovieList(limit: limit))
         .then(
       (value) {
         return GetDataResponse(
@@ -49,9 +48,8 @@ class NetworkTraktRepositoryImpl implements NetworkTraktRepository {
   }) async {
     return _apiService
         .get(
-      path: ConfigurationRequest.endPointComing,
-      queryParameters: queryParametersMovieList(limit: limit),
-    )
+            path: ConfigurationRequest.endPointComing,
+            queryParameters: queryParametersMovieList(limit: limit))
         .then(
       (value) {
         return GetDataResponse(

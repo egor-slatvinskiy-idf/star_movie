@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/colors_application/colors_application.dart';
+import 'package:presentation/generated/l10n.dart';
+import 'package:presentation/library/dimens/dimens.dart';
+import 'package:presentation/library/style/text_style.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
 import 'package:presentation/ui/movie_page/movie_list_widget.dart';
 
+const _nowShowingIndex = 0;
+const _comingSoonIndex = 1;
+const _lengthController = 2;
+
 class MovieWidget extends StatefulWidget {
-  const MovieWidget({Key? key}) : super(key: key);
+  const MovieWidget({super.key});
 
   static const _routeName = '/MovieWidget';
 
@@ -33,28 +40,32 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
         final data = snapshot.data;
         final movieTile = data?.data;
         return DefaultTabController(
-          length: 2,
+          length: _lengthController,
           child: Scaffold(
             backgroundColor: ColorsApplication.colorTheme,
             appBar: AppBar(
-              elevation: 0,
-              title: const Padding(
-                padding: EdgeInsets.only(left: 12),
+              elevation: Dimens.size0,
+              title: Padding(
+                padding: const EdgeInsets.only(
+                  left: Dimens.padding12,
+                ),
                 child: Text(
-                  'Star Movie',
-                  style: TextStyle(
-                    fontSize: 24,
+                  S.of(context).starMovie,
+                  style: sfProSemi24(
+                    color: ColorsApplication.colorTitle,
                   ),
                 ),
               ),
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 12),
+                  padding: const EdgeInsets.only(
+                    right: Dimens.padding12,
+                  ),
                   child: IconButton(
                     onPressed: () {},
                     icon: const Icon(
                       Icons.search,
-                      size: 24,
+                      size: Dimens.size24,
                     ),
                   ),
                 ),
@@ -64,60 +75,66 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
               children: [
                 Container(
                   margin: const EdgeInsets.only(
-                    bottom: 24,
-                    top: 7,
-                    right: 17,
-                    left: 17,
+                    bottom: Dimens.padding24,
+                    top: Dimens.padding8,
+                    right: Dimens.padding18,
+                    left: Dimens.padding18,
                   ),
-                  height: 50,
+                  height: Dimens.height50,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: ColorsApplication.colorBorder,
                     ),
                     color: ColorsApplication.colorTheme,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(
+                      Dimens.border20,
+                    ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(4),
+                    padding: const EdgeInsets.all(
+                      Dimens.padding4,
+                    ),
                     child: TabBar(
                       onTap: (index) {
-                        if (index == 0) {
+                        if (index == _nowShowingIndex) {
                           bloc.loadMovieTrending();
-                        } else if (index == 1) {
+                        } else if (index == _comingSoonIndex) {
                           bloc.loadMovieComing();
                         }
                       },
                       indicator: BoxDecoration(
                         color: Colors.red,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(
+                          Dimens.border16,
+                        ),
                       ),
                       tabs: [
                         Tab(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(Icons.play_circle),
-                              SizedBox(width: 6.28),
+                            children: [
+                              const Icon(Icons.play_circle),
+                              const SizedBox(width: Dimens.width6),
                               Text(
-                                'Now Showing',
-                                style: TextStyle(
-                                  fontSize: 14,
+                                S.of(context).nowShowing,
+                                style: sfProMed14(
+                                  color: ColorsApplication.colorTitle,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
                         Tab(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              SizedBox(width: 6.28),
+                            children: [
+                              const SizedBox(width: Dimens.width6),
                               Text(
-                                'Coming Soon',
-                                style: TextStyle(
-                                  fontSize: 14,
+                                S.of(context).comingSoon,
+                                style: sfProMed14(
+                                  color: ColorsApplication.colorTitle,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -128,7 +145,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
+                      horizontal: Dimens.padding18,
                     ),
                     child: TabBarView(
                       children: [

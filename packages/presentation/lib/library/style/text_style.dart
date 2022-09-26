@@ -5,6 +5,7 @@ import 'package:presentation/library/dimens/dimens.dart';
 const _fontFamilySFProSemiBold = 'SF Pro Text Semibold';
 const _fontFamilySFProMedium = 'SF Pro Text Medium';
 
+
 class TextStyles {
   TextStyles._();
 

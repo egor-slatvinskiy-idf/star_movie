@@ -1,4 +1,7 @@
 {
+  "starMovie" : "Star Movie",
+  "nowShowing" : "nowShowing",
+  "comingSoon" : "Coming Soon",
   "details" : "Details",
   "reviews" : "Reviews",
   "showtime" : "Showtime",

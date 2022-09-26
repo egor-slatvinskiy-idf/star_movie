@@ -34,6 +34,7 @@ class Dimens {
 
   ///width
   static const double widthInfinity = double.infinity;
+  static const double width1 = 1;
   static const double width2 = 2;
   static const double width4 = 4;
   static const double width6 = 6;
@@ -118,6 +119,9 @@ class Dimens {
   static const double border50 = 50;
 
   ///size
+  static const double size021 = .21;
+  static const double size01 = .1;
+  static const double size0 = 0;
   static const double size2 = 2;
   static const double size4 = 4;
   static const double size6 = 6;

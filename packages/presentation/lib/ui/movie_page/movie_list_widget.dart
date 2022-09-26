@@ -5,9 +5,15 @@ import 'package:presentation/Library/images_utils/images_utils.dart';
 import 'package:presentation/Library/widgets/shimmer_movie.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/colors_application/colors_application.dart';
+import 'package:presentation/library/dimens/dimens.dart';
+import 'package:presentation/library/style/text_style.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
+
+const _axisCount = 2;
+const _ratingItemCount = 5;
+const _textMaxLines1 = 1;
 
 class MovieListWidget extends StatefulWidget {
   final List<MovieRowData>? rowData;
@@ -15,11 +21,11 @@ class MovieListWidget extends StatefulWidget {
   final MovieBloc bloc;
 
   const MovieListWidget({
-    Key? key,
     required this.rowData,
     required this.bloc,
     required this.data,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<MovieListWidget> createState() => _MovieListWidgetState();
@@ -38,10 +44,10 @@ class _MovieListWidgetState extends State<MovieListWidget>
     return GridView.builder(
       itemCount: widget.rowData?.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: (.1 / .21),
-        crossAxisCount: 2,
-        mainAxisSpacing: 30,
-        crossAxisSpacing: 8,
+        childAspectRatio: (Dimens.size01 / Dimens.size021),
+        crossAxisCount: _axisCount,
+        mainAxisSpacing: Dimens.size30,
+        crossAxisSpacing: Dimens.size8,
       ),
       itemBuilder: (_, index) {
         final movie = widget.rowData![index];
@@ -59,10 +65,9 @@ class _CardMovieWidget extends StatelessWidget {
   final MovieBloc bloc;
 
   const _CardMovieWidget({
-    Key? key,
     required this.movie,
     required this.bloc,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +81,11 @@ class _CardMovieWidget extends StatelessWidget {
                 placeholder: ImagesUtils.imageStarMovie,
                 image: movie.image,
                 fit: BoxFit.cover,
-                imageErrorBuilder: (context, error, stackTrace) {
+                imageErrorBuilder: (
+                  context,
+                  error,
+                  stackTrace,
+                ) {
                   return Image.asset(
                     ImagesUtils.imageStarMovie,
                     fit: BoxFit.cover,
@@ -84,11 +93,14 @@ class _CardMovieWidget extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 16.44),
+            const SizedBox(height: Dimens.height16),
             _MovieTitleWidget(movie: movie),
           ],
         ),
-        _OnTapWidget(bloc: bloc, movie: movie)
+        _OnTapWidget(
+          bloc: bloc,
+          movie: movie,
+        ),
       ],
     );
   }
@@ -97,10 +109,7 @@ class _CardMovieWidget extends StatelessWidget {
 class _MovieTitleWidget extends StatelessWidget {
   final MovieRowData movie;
 
-  const _MovieTitleWidget({
-    Key? key,
-    required this.movie,
-  }) : super(key: key);
+  const _MovieTitleWidget({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -113,14 +122,16 @@ class _MovieTitleWidget extends StatelessWidget {
       children: [
         Text(
           movie.title,
-          style: const TextStyle(color: ColorsApplication.colorTitle),
+          style: sfProSemi16(
+            color: ColorsApplication.colorTitle,
+          ),
           textAlign: TextAlign.start,
-          maxLines: 1,
+          maxLines: _textMaxLines1,
         ),
         RatingBar(
-          itemSize: 14,
+          itemSize: Dimens.size14,
           initialRating: movie.rating,
-          itemCount: 5,
+          itemCount: _ratingItemCount,
           allowHalfRating: true,
           ratingWidget: RatingWidget(
             full: const Icon(
@@ -138,9 +149,8 @@ class _MovieTitleWidget extends StatelessWidget {
               child: Text(
                 '${movie.genres} · '
                 '${movie.runtime} | ${movie.certification}',
-                style: const TextStyle(
+                style: sfProMed12(
                   color: ColorsApplication.colorSubTitle,
-                  fontSize: 12,
                 ),
               ),
             ),
@@ -156,10 +166,9 @@ class _OnTapWidget extends StatelessWidget {
   final MovieRowData movie;
 
   const _OnTapWidget({
-    Key? key,
     required this.bloc,
     required this.movie,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

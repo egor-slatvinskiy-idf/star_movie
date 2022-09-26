@@ -6,11 +6,14 @@ import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/colors_application/colors_application.dart';
+import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
 import 'package:presentation/generated/l10n.dart';
 
+const _emptyString = '';
+
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -33,9 +36,6 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
         appBarTheme: const AppBarTheme(
           backgroundColor: ColorsApplication.colorTheme,
         ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          selectedItemColor: Colors.white,
-        ),
       ),
       home: StreamBuilder<TileWrapper>(
         stream: bloc.dataStream,
@@ -57,18 +57,18 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                         border: Border(
                           top: BorderSide(
                             color: ColorsApplication.colorBorder,
-                            width: 1.0,
+                            width: Dimens.width1,
                           ),
                         ),
                       ),
                       child: BottomNavigationBar(
                         currentIndex: appData.selectedTab,
-                        selectedFontSize: 12,
+                        selectedFontSize: Dimens.size12,
                         type: BottomNavigationBarType.fixed,
                         items: <BottomNavigationBarItem>[
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(ImagesUtils.movieReel),
-                            label: '',
+                            label: _emptyString,
                             activeIcon: SvgPicture.asset(
                               ImagesUtils.movieReel,
                               color: ColorsApplication.colorSelectedItem,
@@ -76,7 +76,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(ImagesUtils.eventTicket),
-                            label: '',
+                            label: _emptyString,
                             activeIcon: SvgPicture.asset(
                               ImagesUtils.eventTicket,
                               color: ColorsApplication.colorSelectedItem,
@@ -84,7 +84,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(ImagesUtils.alarm),
-                            label: '',
+                            label: _emptyString,
                             activeIcon: SvgPicture.asset(
                               ImagesUtils.alarm,
                               color: ColorsApplication.colorSelectedItem,
@@ -92,7 +92,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(ImagesUtils.single),
-                            label: '',
+                            label: _emptyString,
                             activeIcon: SvgPicture.asset(
                               ImagesUtils.single,
                               color: ColorsApplication.colorSelectedItem,
