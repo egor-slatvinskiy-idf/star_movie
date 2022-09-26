@@ -2,8 +2,8 @@ import 'package:domain/base/extension/capitalize_extension.dart';
 import 'package:domain/base/extension/formatter_time_extension.dart';
 import 'package:domain/base/mappers/base_mappers/mapper_base.dart';
 import 'package:domain/base/mappers/mapper_image_url.dart';
-import 'package:domain/entity/movie_list_response.dart';
-import 'package:domain/entity/movie_response.dart';
+import 'package:domain/entity/movie_list_response/movie_list_response.dart';
+import 'package:domain/entity/movie_list_response/movie_response.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
 class MapperMovieList

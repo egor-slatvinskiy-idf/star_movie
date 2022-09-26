@@ -1,4 +1,4 @@
-import 'package:domain/entity/movie_people_response.dart';
+import 'package:domain/entity/cast_response/movie_people_response.dart';
 import 'package:domain/model/get_data_response.dart';
 
 

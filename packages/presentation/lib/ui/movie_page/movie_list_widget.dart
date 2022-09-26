@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:presentation/Library/images_utils/images_utils.dart';
 import 'package:presentation/Library/widgets/shimmer_movie.dart';
-import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/tile_wrapper.dart';
+import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
@@ -106,14 +106,14 @@ class _MovieTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     const iconEmpty = Icon(
       Icons.star_border_purple500_sharp,
-      color: AppColors.colorStars,
+      color: ColorsApplication.colorStars,
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           movie.title,
-          style: const TextStyle(color: AppColors.colorTitle),
+          style: const TextStyle(color: ColorsApplication.colorTitle),
           textAlign: TextAlign.start,
           maxLines: 1,
         ),
@@ -125,7 +125,7 @@ class _MovieTitleWidget extends StatelessWidget {
           ratingWidget: RatingWidget(
             full: const Icon(
               Icons.star,
-              color: AppColors.colorStars,
+              color: ColorsApplication.colorStars,
             ),
             half: iconEmpty,
             empty: iconEmpty,
@@ -139,7 +139,7 @@ class _MovieTitleWidget extends StatelessWidget {
                 '${movie.genres} · '
                 '${movie.runtime} | ${movie.certification}',
                 style: const TextStyle(
-                  color: AppColors.colorSubTitle,
+                  color: ColorsApplication.colorSubTitle,
                   fontSize: 12,
                 ),
               ),

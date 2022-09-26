@@ -3,9 +3,9 @@ import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
+import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
@@ -19,7 +19,7 @@ import 'package:presentation/ui/movie_details/details_arguments/movie_details_ar
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
 class MovieDetailsWidget extends StatefulWidget {
-  const MovieDetailsWidget({Key? key}) : super(key: key);
+  const MovieDetailsWidget({super.key});
 
   static const _routeName = '/DetailsWidget';
 
@@ -42,7 +42,7 @@ class _MovieDetailsWidgetState
   Widget build(BuildContext context) {
     const iconEmpty = Icon(
       Icons.star_border_purple500_sharp,
-      color: AppColors.colorStars,
+      color: ColorsApplication.colorStars,
     );
     return StreamBuilder<TileWrapper<MovieDetailsScreenData?>>(
       stream: bloc.dataStream,
@@ -66,7 +66,7 @@ class _MovieDetailsWidgetState
                 onPressed: () => bloc.onTapBackArrow(),
                 icon: SvgPicture.asset(
                   ImagesUtils.arrow,
-                  color: AppColors.colorTitle,
+                  color: ColorsApplication.colorTitle,
                 ),
               ),
               actions: [
@@ -78,7 +78,7 @@ class _MovieDetailsWidgetState
                     onPressed: () {},
                     icon: SvgPicture.asset(
                       ImagesUtils.vector,
-                      color: AppColors.colorTitle,
+                      color: ColorsApplication.colorTitle,
                     ),
                   ),
                 ),
@@ -128,12 +128,12 @@ class _MovieDetailsWidgetState
 }
 
 class _TitleWidget extends StatelessWidget {
+  final MovieRowData movie;
+
   const _TitleWidget({
     Key? key,
     required this.movie,
   }) : super(key: key);
-
-  final MovieRowData movie;
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class _TitleWidget extends StatelessWidget {
         Text(
           movie.title,
           style: sfProSemi24(
-            color: AppColors.colorTitle,
+            color: ColorsApplication.colorTitle,
           ),
           maxLines: 2,
         ),
@@ -152,14 +152,14 @@ class _TitleWidget extends StatelessWidget {
         Text(
           '${movie.runtime} | ${movie.certification}',
           style: sfProSemi16(
-            color: AppColors.colorSubTitle,
+            color: ColorsApplication.colorSubTitle,
           ),
         ),
         const SizedBox(height: 9),
         Text(
           '${movie.genres}',
           style: sfProSemi16(
-            color: AppColors.colorSubTitle,
+            color: ColorsApplication.colorSubTitle,
           ),
         ),
       ],
@@ -186,7 +186,7 @@ class _ViewAllWidget extends StatelessWidget {
           Text(
             S.of(context).castCrew,
             style: sfProMed14(
-              color: AppColors.colorTitle,
+              color: ColorsApplication.colorTitle,
             ),
           ),
           TextButton(
@@ -205,12 +205,12 @@ class _ViewAllWidget extends StatelessWidget {
 }
 
 class _OverViewWidget extends StatelessWidget {
+  final MovieRowData movie;
+
   const _OverViewWidget({
     Key? key,
     required this.movie,
   }) : super(key: key);
-
-  final MovieRowData movie;
 
   @override
   Widget build(BuildContext context) {
@@ -228,13 +228,13 @@ class _OverViewWidget extends StatelessWidget {
               header: Text(
                 S.of(context).synopsis,
                 style: sfProMed18(
-                  color: AppColors.colorTitle,
+                  color: ColorsApplication.colorTitle,
                 ),
               ),
               collapsed: Text(
                 movie.overview,
                 style: sfProMed14(
-                  color: AppColors.colorTitle,
+                  color: ColorsApplication.colorTitle,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 4,
@@ -243,7 +243,7 @@ class _OverViewWidget extends StatelessWidget {
               expanded: Text(
                 movie.overview,
                 style: sfProMed14(
-                  color: AppColors.colorTitle,
+                  color: ColorsApplication.colorTitle,
                 ),
               ),
             ),
@@ -273,9 +273,9 @@ class _TabBarWidget extends StatelessWidget {
         height: Dimens.height36,
         decoration: BoxDecoration(
           border: Border.all(
-            color: AppColors.colorBorder,
+            color: ColorsApplication.colorBorder,
           ),
-          color: AppColors.colorTheme,
+          color: ColorsApplication.colorTheme,
           borderRadius: BorderRadius.circular(
             Dimens.border20,
           ),
@@ -302,7 +302,7 @@ class _TabBarWidget extends StatelessWidget {
                     Text(
                       S.of(context).details,
                       style: sfProMed14(
-                        color: AppColors.colorTitle,
+                        color: ColorsApplication.colorTitle,
                       ),
                     ),
                   ],
@@ -318,7 +318,7 @@ class _TabBarWidget extends StatelessWidget {
                     Text(
                       S.of(context).reviews,
                       style: sfProMed14(
-                        color: AppColors.colorTitle,
+                        color: ColorsApplication.colorTitle,
                       ),
                     ),
                   ],
@@ -334,7 +334,7 @@ class _TabBarWidget extends StatelessWidget {
                     Text(
                       S.of(context).showtime,
                       style: sfProMed14(
-                        color: AppColors.colorTitle,
+                        color: ColorsApplication.colorTitle,
                       ),
                     ),
                   ],
@@ -349,14 +349,15 @@ class _TabBarWidget extends StatelessWidget {
 }
 
 class _RatingBarWidget extends StatelessWidget {
+  final MovieRowData movie;
+  final Icon iconEmpty;
+
+
   const _RatingBarWidget({
     Key? key,
     required this.movie,
     required this.iconEmpty,
   }) : super(key: key);
-
-  final MovieRowData movie;
-  final Icon iconEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -366,7 +367,7 @@ class _RatingBarWidget extends StatelessWidget {
         Text(
           '${movie.rating.toStringAsFixed(1)}/5',
           style: sfProSemi30(
-            color: AppColors.colorTitle,
+            color: ColorsApplication.colorTitle,
           ),
         ),
         const SizedBox(
@@ -381,7 +382,7 @@ class _RatingBarWidget extends StatelessWidget {
           ratingWidget: RatingWidget(
             full: const Icon(
               Icons.star,
-              color: AppColors.colorStars,
+              color: ColorsApplication.colorStars,
             ),
             half: iconEmpty,
             empty: iconEmpty,
@@ -394,12 +395,12 @@ class _RatingBarWidget extends StatelessWidget {
 }
 
 class _PosterWidget extends StatelessWidget {
+  final MovieRowData movie;
+
   const _PosterWidget({
     Key? key,
     required this.movie,
   }) : super(key: key);
-
-  final MovieRowData movie;
 
   @override
   Widget build(BuildContext context) {
@@ -440,12 +441,12 @@ class _PosterWidget extends StatelessWidget {
 }
 
 class _CastWidget extends StatelessWidget {
+  final MovieDetailsScreenData screenData;
+
   const _CastWidget({
     Key? key,
     required this.screenData,
   }) : super(key: key);
-
-  final MovieDetailsScreenData screenData;
 
   @override
   Widget build(BuildContext context) {
@@ -503,7 +504,7 @@ class _CastWidget extends StatelessWidget {
                           maxLines: 3,
                           textAlign: TextAlign.start,
                           style: sfProMed14(
-                            color: AppColors.colorTitle,
+                            color: ColorsApplication.colorTitle,
                           ),
                         ),
                       ),
@@ -513,7 +514,7 @@ class _CastWidget extends StatelessWidget {
                       Text(
                         '• • •',
                         style: sfProMed14(
-                          color: AppColors.colorSubTitle,
+                          color: ColorsApplication.colorSubTitle,
                         ),
                       ),
                       const SizedBox(
@@ -527,7 +528,7 @@ class _CastWidget extends StatelessWidget {
                             maxLines: 2,
                             textAlign: TextAlign.start,
                             style: sfProMed14(
-                              color: AppColors.colorSubTitle,
+                              color: ColorsApplication.colorSubTitle,
                             ),
                           ),
                         ),

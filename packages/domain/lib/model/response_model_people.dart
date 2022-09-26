@@ -3,7 +3,7 @@ class ResponseModelPeople {
   final String person;
   final String image;
 
-  ResponseModelPeople({
+  const ResponseModelPeople({
     required this.characters,
     required this.person,
     required this.image,

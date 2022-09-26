@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/Library/widgets/shimmer_widget.dart';
-import 'package:presentation/app_colors/app_colors.dart';
+import 'package:presentation/colors_application/colors_application.dart';
 
 class ShimmerWidget extends StatelessWidget {
   const ShimmerWidget({
@@ -49,7 +49,7 @@ class _ShimmerItem extends StatelessWidget {
     return Container(
       height: height,
       decoration: const BoxDecoration(
-        color: AppColors.colorBorder,
+        color: ColorsApplication.colorBorder,
       ),
     );
   }

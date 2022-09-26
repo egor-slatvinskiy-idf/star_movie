@@ -2,7 +2,7 @@ import 'package:data/configuration/configuration_request.dart';
 import 'package:data/configuration/query_parameters.dart';
 import 'package:data/services/api_base_service.dart';
 import 'package:data/services/service_payload.dart';
-import 'package:domain/entity/movie_people_response.dart';
+import 'package:domain/entity/cast_response/movie_people_response.dart';
 import 'package:domain/model/get_data_response.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
 

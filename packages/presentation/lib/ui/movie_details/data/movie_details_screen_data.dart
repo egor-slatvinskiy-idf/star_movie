@@ -5,7 +5,7 @@ class MovieDetailsScreenData {
   final MovieRowData? movie;
   final List<ResponseModelPeople>? cast;
 
-  MovieDetailsScreenData({
+  const MovieDetailsScreenData({
     this.movie,
     this.cast,
   });

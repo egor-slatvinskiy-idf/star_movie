@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/Library/images_utils/images_utils.dart';
-import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
+import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/splash_screen/bloc/splash_bloc.dart';
 
@@ -36,8 +36,8 @@ class _SplashWidgetState extends BlocScreenState<SplashWidget, SplashBloc> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    AppColors.primaryColor,
-                    AppColors.primaryColorEnd,
+                    ColorsApplication.primaryColor,
+                    ColorsApplication.primaryColorEnd,
                   ],
                 ),
               ),

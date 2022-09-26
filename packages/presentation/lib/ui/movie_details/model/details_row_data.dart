@@ -1,9 +1,9 @@
 class DetailsRowData {
   final String? character;
   final List<String>? characters;
-  final dynamic person;
+  final String? person;
 
-  DetailsRowData({
+  const DetailsRowData({
     required this.character,
     required this.characters,
     required this.person,

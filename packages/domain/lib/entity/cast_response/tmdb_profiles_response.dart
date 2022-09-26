@@ -1,21 +1,5 @@
-
 import 'package:json_annotation/json_annotation.dart';
-part 'tmdb_people_response.g.dart';
-
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
-class TMDBPeopleResponse {
-  final int? id;
-  final List<Profiles?>? profiles;
-
-  TMDBPeopleResponse({
-    required this.id,
-    required this.profiles,
-  });
-
-  factory TMDBPeopleResponse.fromJson(dynamic json) => _$TMDBPeopleResponseFromJson(  json);
-
-  Map<String, dynamic> toJson() => _$TMDBPeopleResponseToJson(this);
-}
+part 'tmdb_profiles_response.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Profiles {
@@ -27,7 +11,7 @@ class Profiles {
   final int? voteCount;
   final int? width;
 
-  Profiles({
+  const Profiles({
     required this.aspectRatio,
     required this.filePath,
     required this.height,

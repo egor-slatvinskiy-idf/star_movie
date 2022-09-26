@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
+import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
@@ -35,7 +35,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
         return DefaultTabController(
           length: 2,
           child: Scaffold(
-            backgroundColor: AppColors.colorTheme,
+            backgroundColor: ColorsApplication.colorTheme,
             appBar: AppBar(
               elevation: 0,
               title: const Padding(
@@ -72,9 +72,9 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                   height: 50,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: AppColors.colorBorder,
+                      color: ColorsApplication.colorBorder,
                     ),
-                    color: AppColors.colorTheme,
+                    color: ColorsApplication.colorTheme,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Padding(

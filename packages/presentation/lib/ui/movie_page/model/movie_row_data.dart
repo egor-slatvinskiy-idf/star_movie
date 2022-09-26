@@ -8,7 +8,7 @@ class MovieRowData {
   final int ids;
   final String overview;
 
-  MovieRowData({
+  const MovieRowData({
     required this.image,
     required this.title,
     required this.rating,

@@ -9,10 +9,10 @@ import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:get_it/get_it.dart';
 
-const traktApi = 'Trakt';
-const traktService = 'TraktService';
-const tMDBApi = 'TMDB';
-const tMDBService = 'TMDBService';
+const _traktApi = 'Trakt';
+const _traktService = 'TraktService';
+const _tMDBApi = 'TMDB';
+const _tMDBService = 'TMDBService';
 
 void initInjectorData() {
   _initModuleInterceptor();
@@ -25,30 +25,30 @@ void _initModuleApi() {
     () => _buildMovieDioTraktApi(
       GetIt.instance.get<HeaderInterceptorTraktApi>(),
     ),
-    instanceName: traktApi,
+    instanceName: _traktApi,
   );
   GetIt.instance.registerFactory<ApiBaseService<ServicePayLoad>>(
     () => ApiBaseServiceImpl(
       GetIt.instance.get(
-        instanceName: traktApi,
+        instanceName: _traktApi,
       ),
     ),
-    instanceName: traktService,
+    instanceName: _traktService,
   );
   GetIt.instance.registerFactory<Dio>(
     () => _buildMovieDioTMDBApi(
       GetIt.instance.get<HeaderInterceptorTMDBApi>(),
     ),
-    instanceName: tMDBApi,
+    instanceName: _tMDBApi,
   );
 
   GetIt.instance.registerFactory<ApiBaseService<ServicePayLoad>>(
     () => ApiBaseServiceImpl(
       GetIt.instance.get(
-        instanceName: tMDBApi,
+        instanceName: _tMDBApi,
       ),
     ),
-    instanceName: tMDBService,
+    instanceName: _tMDBService,
   );
 }
 
@@ -56,14 +56,14 @@ void _initModuleRepository() {
   GetIt.instance.registerFactory<NetworkTraktRepository>(
     () => NetworkTraktRepositoryImpl(
       GetIt.instance.get(
-        instanceName: traktService,
+        instanceName: _traktService,
       ),
     ),
   );
   GetIt.instance.registerSingleton<NetworkTMDBRepository>(
     NetworkTMDBRepositoryImpl(
       GetIt.instance.get(
-        instanceName: tMDBService,
+        instanceName: _tMDBService,
       ),
     ),
   );
@@ -95,7 +95,7 @@ Dio _buildMovieDioTMDBApi(Interceptor interceptor) {
     receiveTimeout: ConfigurationRequest.receiveTimeout,
     connectTimeout: ConfigurationRequest.connectTimeout,
     sendTimeout: ConfigurationRequest.sendTimeout,
-    baseUrl: ConfigurationRequest.TMDBUrl,
+    baseUrl: ConfigurationRequest.tMDBUrl,
   );
   final dio = Dio(options);
   dio.interceptors.add(interceptor);

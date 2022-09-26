@@ -1,12 +1,12 @@
 import 'package:domain/base/mappers/mapper_people_model.dart';
-import 'package:domain/entity/movie_people_response.dart';
-import 'package:domain/entity/tmdb_people_response.dart';
+import 'package:domain/entity/cast_response/cast_response.dart';
+import 'package:domain/entity/cast_response/tmdb_people_response.dart';
 import 'package:domain/model/response_model_people.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:domain/use_case/sample_use_case/use_case_in_out.dart';
 
-const maxLengthPeople = 4;
+const _maxLengthPeople = 4;
 
 class RequestDetailsUseCase
     extends UseCaseInOut<int, Future<List<ResponseModelPeople>>> {
@@ -27,7 +27,7 @@ class RequestDetailsUseCase
     );
     final cast = responseCast.cast ?? List.empty();
     final peopleLength =
-        cast.length >= maxLengthPeople ? maxLengthPeople : cast.length;
+        cast.length >= _maxLengthPeople ? _maxLengthPeople : cast.length;
     final sortedCast = cast.take(peopleLength).toList();
     final List<TMDBPeopleResponse> responseTMDBPerson =
         await requestTMDBImage(sortedCast);
