@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 
 const _fontFamilySFProSemiBold = 'SF Pro Text Semibold';
+const _fontFamilySFProMedium = 'SF Pro Text Medium';
+
 
 TextStyle sfProSemi24({
   required Color color,
@@ -39,7 +41,7 @@ TextStyle sfProMed14({
   return TextStyle(
     color: color,
     fontSize: Dimens.size14,
-    fontFamily: _fontFamilySFProSemiBold,
+    fontFamily: _fontFamilySFProMedium,
   );
 }
 
@@ -49,6 +51,16 @@ TextStyle sfProMed18({
   return TextStyle(
     color: color,
     fontSize: Dimens.size18,
-    fontFamily: _fontFamilySFProSemiBold,
+    fontFamily: _fontFamilySFProMedium,
+  );
+}
+
+TextStyle sfProMed12({
+  required Color color,
+}) {
+  return TextStyle(
+    color: color,
+    fontSize: Dimens.size12,
+    fontFamily: _fontFamilySFProMedium,
   );
 }

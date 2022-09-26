@@ -6,7 +6,7 @@ import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/splash_screen/bloc/splash_bloc.dart';
 
 class SplashWidget extends StatefulWidget {
-  const SplashWidget({Key? key}) : super(key: key);
+  const SplashWidget({super.key});
 
   static const _routeName = '/SplashWidget';
 

@@ -3,9 +3,7 @@ import 'package:presentation/Library/widgets/shimmer_widget.dart';
 import 'package:presentation/colors_application/colors_application.dart';
 
 class ShimmerWidget extends StatelessWidget {
-  const ShimmerWidget({
-    Key? key,
-  }) : super(key: key);
+  const ShimmerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +37,7 @@ class ShimmerWidget extends StatelessWidget {
 class _ShimmerItem extends StatelessWidget {
   final double height;
 
-  const _ShimmerItem({
-    Key? key,
-    required this.height,
-  }) : super(key: key);
+  const _ShimmerItem({required this.height});
 
   @override
   Widget build(BuildContext context) {
