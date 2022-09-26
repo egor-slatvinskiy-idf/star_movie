@@ -103,7 +103,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                         }
                       },
                       indicator: BoxDecoration(
-                        color: Colors.red,
+                        color: ColorsApplication.primaryColor,
                         borderRadius: BorderRadius.circular(
                           Dimens.border16,
                         ),

@@ -4,7 +4,7 @@ class MovieListTile {
   final List<MovieRowData> movieTrending;
   final List<MovieRowData> movieComing;
 
-  MovieListTile({
+  const MovieListTile({
     required this.movieTrending,
     required this.movieComing,
   });
@@ -18,7 +18,7 @@ class MovieListTile {
         movieComing: movieComing ?? this.movieTrending,
       );
 
-  factory MovieListTile.init() => MovieListTile(
+  factory MovieListTile.init() => const MovieListTile(
         movieTrending: [],
         movieComing: [],
       );
