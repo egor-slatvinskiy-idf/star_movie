@@ -8,7 +8,11 @@ FadeInImage imagePoster({
     placeholder: ImagesUtils.imageStarMovie,
     image: imageNetwork,
     fit: BoxFit.cover,
-    imageErrorBuilder: (context, error, stackTrace) {
+    imageErrorBuilder: (
+      context,
+      error,
+      stackTrace,
+    ) {
       return Image.asset(
         ImagesUtils.imageStarMovie,
         fit: BoxFit.cover,

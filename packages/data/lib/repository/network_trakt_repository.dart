@@ -17,11 +17,7 @@ class NetworkTraktRepositoryImpl implements NetworkTraktRepository {
   Future<ResponseMoviePeople> requestMoviePeople({
     required int id,
   }) async {
-    return _apiService
-        .get(
-      path: endPointCastTrakt(id: id),
-    )
-        .then(
+    return _apiService.get(path: endPointCastTrakt(id: id)).then(
       (value) {
         return ResponseMoviePeople.fromJson(value.data);
       },
