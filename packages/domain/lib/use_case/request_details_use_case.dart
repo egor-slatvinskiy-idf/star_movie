@@ -1,6 +1,5 @@
-import 'package:domain/base/mappers/mapper_people_model.dart';
+import 'package:domain/const/configuration.dart';
 import 'package:domain/entity/cast_response/cast_response.dart';
-import 'package:domain/entity/cast_response/tmdb_people_response.dart';
 import 'package:domain/model/response_model_people.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
@@ -12,12 +11,10 @@ class RequestDetailsUseCase
     extends UseCaseInOut<int, Future<List<ResponseModelPeople>>> {
   final NetworkTraktRepository _networkRepositoryTrakt;
   final NetworkTMDBRepository _networkRepositoryTMDB;
-  final MapperPeopleModel _mapperPeopleModel;
 
   RequestDetailsUseCase(
     this._networkRepositoryTrakt,
     this._networkRepositoryTMDB,
-    this._mapperPeopleModel,
   );
 
   @override
@@ -28,23 +25,26 @@ class RequestDetailsUseCase
     final cast = responseCast.cast ?? List.empty();
     final peopleLength =
         cast.length >= _maxLengthPeople ? _maxLengthPeople : cast.length;
-    final sortedCast = cast.take(peopleLength).toList();
-    final List<TMDBPeopleResponse> responseTMDBPerson =
-        await requestTMDBImage(sortedCast);
-    return _mapperPeopleModel(
-      cast,
-      responseTMDBPerson,
-    );
+    final necessaryCast = cast.take(peopleLength).toList();
+    return await castPeopleModel(necessaryCast);
   }
 
-  Future<List<TMDBPeopleResponse>> requestTMDBImage(
+  Future<List<ResponseModelPeople>> castPeopleModel(
     List<Cast> cast,
   ) async {
     return await Future.wait(
       cast.map(
-        (e) async => await _networkRepositoryTMDB.requestPersonTMDB(
-          id: e.person?.ids?.tmdb ?? 0,
-        ),
+        (e) async {
+          final responseTMDB = await _networkRepositoryTMDB.requestPersonTMDB(
+            id: e.person?.ids?.tmdb ?? 0,
+          );
+          return ResponseModelPeople(
+            characters: e.characters?.first ?? '',
+            person: e.person?.name ?? '',
+            image: '${Configuration.imageTMDBUrl}'
+                '${responseTMDB.profiles?.first?.filePath ?? ''}',
+          );
+        },
       ),
     );
   }

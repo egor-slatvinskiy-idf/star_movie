@@ -93,7 +93,7 @@ class _CardMovieWidget extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: Dimens.height16),
+            const SizedBox(height: Dimens.size16),
             _MovieTitleWidget(movie: movie),
           ],
         ),

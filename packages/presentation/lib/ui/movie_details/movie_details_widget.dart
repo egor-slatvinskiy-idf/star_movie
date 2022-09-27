@@ -72,7 +72,7 @@ class _MovieDetailsWidgetState
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(
-                    right: Dimens.padding18,
+                    right: Dimens.size18,
                   ),
                   child: IconButton(
                     onPressed: () {},
@@ -92,7 +92,7 @@ class _MovieDetailsWidgetState
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                      top: Dimens.height150,
+                      top: Dimens.size150,
                     ),
                     child: Column(
                       children: [
@@ -100,7 +100,7 @@ class _MovieDetailsWidgetState
                           movie: movie,
                         ),
                         const SizedBox(
-                          height: Dimens.height30,
+                          height: Dimens.size30,
                         ),
                         _RatingBarWidget(
                           movie: movie,
@@ -145,7 +145,7 @@ class _TitleWidget extends StatelessWidget {
           maxLines: 2,
         ),
         const SizedBox(
-          height: Dimens.height16,
+          height: Dimens.size16,
         ),
         Text(
           '${movie.runtime} | ${movie.certification}',
@@ -153,7 +153,7 @@ class _TitleWidget extends StatelessWidget {
             color: ColorsApplication.colorSubTitle,
           ),
         ),
-        const SizedBox(height: Dimens.height8),
+        const SizedBox(height: Dimens.size8),
         Text(
           '${movie.genres}',
           style: TextStyles.sfProSemi16(
@@ -174,9 +174,9 @@ class _ViewAllWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        top: Dimens.padding20,
-        left: Dimens.padding18,
-        right: Dimens.padding18,
+        top: Dimens.size20,
+        left: Dimens.size18,
+        right: Dimens.size18,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,8 +210,8 @@ class _OverViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        left: Dimens.padding18,
-        right: Dimens.padding18,
+        left: Dimens.size18,
+        right: Dimens.size18,
       ),
       child: SizedBox(
         width: double.infinity,
@@ -253,30 +253,30 @@ class _TabBarWidget extends StatelessWidget {
       length: 3,
       child: Container(
         margin: const EdgeInsets.only(
-          bottom: Dimens.padding32,
-          top: Dimens.padding40,
-          right: Dimens.padding18,
-          left: Dimens.padding18,
+          bottom: Dimens.size32,
+          top: Dimens.size40,
+          right: Dimens.size18,
+          left: Dimens.size18,
         ),
-        height: Dimens.height36,
+        height: Dimens.size36,
         decoration: BoxDecoration(
           border: Border.all(
             color: ColorsApplication.colorBorder,
           ),
           color: ColorsApplication.colorTheme,
           borderRadius: BorderRadius.circular(
-            Dimens.border20,
+            Dimens.size20,
           ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(
-            Dimens.padding4,
+            Dimens.size4,
           ),
           child: TabBar(
             indicator: BoxDecoration(
               color: Colors.red,
               borderRadius: BorderRadius.circular(
-                Dimens.border16,
+                Dimens.size16,
               ),
             ),
             tabs: [
@@ -285,7 +285,7 @@ class _TabBarWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      width: Dimens.width6,
+                      width: Dimens.size6,
                     ),
                     Text(
                       S.of(context).details,
@@ -299,7 +299,7 @@ class _TabBarWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      width: Dimens.width6,
+                      width: Dimens.size6,
                     ),
                     Text(
                       S.of(context).reviews,
@@ -313,7 +313,7 @@ class _TabBarWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      width: Dimens.width6,
+                      width: Dimens.size6,
                     ),
                     Text(
                       S.of(context).showtime,
@@ -350,7 +350,7 @@ class _RatingBarWidget extends StatelessWidget {
           style: TextStyles.sfProSemi30(),
         ),
         const SizedBox(
-          width: Dimens.width8,
+          width: Dimens.size8,
         ),
         RatingBar(
           itemSize: Dimens.size28,
@@ -388,14 +388,14 @@ class _PosterWidget extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         SizedBox(
-          height: Dimens.height218,
-          width: Dimens.widthInfinity,
+          height: Dimens.size218,
+          width: Dimens.sizeInfinity,
           child: imagePoster(
             imageNetwork: movie.image,
           ),
         ),
         Positioned(
-          top: Dimens.height26,
+          top: Dimens.size26,
           child: IconButton(
             onPressed: () {},
             iconSize: Dimens.size40,
@@ -405,10 +405,10 @@ class _PosterWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: Dimens.height100,
+          top: Dimens.size100,
           child: SizedBox(
-            height: Dimens.height250,
-            width: Dimens.width166,
+            height: Dimens.size250,
+            width: Dimens.size166,
             child: imagePoster(
               imageNetwork: movie.image,
             ),
@@ -435,7 +435,7 @@ class _CastWidget extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: Dimens.padding18,
+        horizontal: Dimens.size18,
       ),
       child: SizedBox(
         width: double.infinity,
@@ -444,16 +444,16 @@ class _CastWidget extends StatelessWidget {
               .map(
                 (e) => Padding(
                   padding: const EdgeInsets.all(
-                    Dimens.padding8,
+                    Dimens.size8,
                   ),
                   child: Row(
                     children: [
                       SizedBox(
-                        width: Dimens.width50,
-                        height: Dimens.height50,
+                        width: Dimens.size50,
+                        height: Dimens.size50,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(
-                            Dimens.border24,
+                            Dimens.size24,
                           ),
                           child: FadeInImage.assetNetwork(
                             alignment: Alignment.centerLeft,
@@ -474,10 +474,10 @@ class _CastWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        width: Dimens.width22,
+                        width: Dimens.size22,
                       ),
                       SizedBox(
-                        width: Dimens.width96,
+                        width: Dimens.size96,
                         child: Text(
                           e.person,
                           maxLines: 3,
@@ -486,7 +486,7 @@ class _CastWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        width: Dimens.width20,
+                        width: Dimens.size20,
                       ),
                       Text(
                         '• • •',
@@ -495,11 +495,11 @@ class _CastWidget extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        width: Dimens.width20,
+                        width: Dimens.size20,
                       ),
                       Expanded(
                         child: SizedBox(
-                          width: Dimens.width70,
+                          width: Dimens.size70,
                           child: Text(
                             e.characters,
                             maxLines: 2,

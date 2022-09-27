@@ -21,29 +21,31 @@ void initInjectorData() {
 }
 
 void _initModuleApi() {
-  GetIt.instance.registerFactory<Dio>(
-    () => _buildMovieDioTraktApi(
+  GetIt.instance.registerSingleton<Dio>(
+    _buildMovieDioTraktApi(
       GetIt.instance.get<HeaderInterceptorTraktApi>(),
     ),
     instanceName: _traktApi,
   );
-  GetIt.instance.registerFactory<ApiBaseService<ServicePayLoad>>(
-    () => ApiBaseServiceImpl(
+
+  GetIt.instance.registerSingleton<ApiBaseService<ServicePayLoad>>(
+    ApiBaseServiceImpl(
       GetIt.instance.get(
         instanceName: _traktApi,
       ),
     ),
     instanceName: _traktService,
   );
-  GetIt.instance.registerFactory<Dio>(
-    () => _buildMovieDioTMDBApi(
-      GetIt.instance.get<HeaderInterceptorTMDBApi>(),
+
+  GetIt.instance.registerSingleton<Dio>(
+    _buildMovieDioTMDBApi(
+      GetIt.instance.get<QueryParametersInterceptorTMDBApi>(),
     ),
     instanceName: _tMDBApi,
   );
 
-  GetIt.instance.registerFactory<ApiBaseService<ServicePayLoad>>(
-    () => ApiBaseServiceImpl(
+  GetIt.instance.registerSingleton<ApiBaseService<ServicePayLoad>>(
+    ApiBaseServiceImpl(
       GetIt.instance.get(
         instanceName: _tMDBApi,
       ),
@@ -53,8 +55,8 @@ void _initModuleApi() {
 }
 
 void _initModuleRepository() {
-  GetIt.instance.registerFactory<NetworkTraktRepository>(
-    () => NetworkTraktRepositoryImpl(
+  GetIt.instance.registerSingleton<NetworkTraktRepository>(
+    NetworkTraktRepositoryImpl(
       GetIt.instance.get(
         instanceName: _traktService,
       ),
@@ -70,11 +72,11 @@ void _initModuleRepository() {
 }
 
 void _initModuleInterceptor() {
-  GetIt.instance.registerFactory<HeaderInterceptorTraktApi>(
-    () => HeaderInterceptorTraktApi(),
+  GetIt.instance.registerSingleton<HeaderInterceptorTraktApi>(
+    HeaderInterceptorTraktApi(),
   );
-  GetIt.instance.registerFactory<HeaderInterceptorTMDBApi>(
-    () => HeaderInterceptorTMDBApi(),
+  GetIt.instance.registerSingleton<QueryParametersInterceptorTMDBApi>(
+    QueryParametersInterceptorTMDBApi(),
   );
 }
 

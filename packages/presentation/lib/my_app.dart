@@ -57,7 +57,7 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                         border: Border(
                           top: BorderSide(
                             color: ColorsApplication.colorBorder,
-                            width: Dimens.width1,
+                            width: Dimens.size1,
                           ),
                         ),
                       ),
