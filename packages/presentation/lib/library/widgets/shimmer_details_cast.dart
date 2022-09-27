@@ -11,17 +11,17 @@ class ShimmerDetailsCast extends StatelessWidget {
     return Shimmer.fromMyShimmer(
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: Dimens.padding18,
+          horizontal: Dimens.size18,
         ),
         child: Column(
           children: const [
-            _ShimmerItem(height: Dimens.height40),
-            SizedBox(height: Dimens.height16),
-            _ShimmerItem(height: Dimens.height40),
-            SizedBox(height: Dimens.height16),
-            _ShimmerItem(height: Dimens.height40),
-            SizedBox(height: Dimens.height16),
-            _ShimmerItem(height: Dimens.height40),
+            _ShimmerItem(height: Dimens.size40),
+            SizedBox(height: Dimens.size16),
+            _ShimmerItem(height: Dimens.size40),
+            SizedBox(height: Dimens.size16),
+            _ShimmerItem(height: Dimens.size40),
+            SizedBox(height: Dimens.size16),
+            _ShimmerItem(height: Dimens.size40),
           ],
         ),
       ),

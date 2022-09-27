@@ -14,7 +14,7 @@ class HeaderInterceptorTraktApi extends Interceptor {
   }
 }
 
-class HeaderInterceptorTMDBApi extends Interceptor {
+class QueryParametersInterceptorTMDBApi extends Interceptor {
   @override
   void onRequest(
     RequestOptions options,

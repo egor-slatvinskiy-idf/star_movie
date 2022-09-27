@@ -13,10 +13,9 @@ class NetworkTMDBRepositoryImpl implements NetworkTMDBRepository {
   Future<TMDBPeopleResponse> requestPersonTMDB({
     required int id,
   }) async {
-    return _apiService.get(path: endPointPersonTMDB(id: id)).then(
-          (value) {
-        return TMDBPeopleResponse.fromJson(value.data);
-      },
-    );
+    final path = endPointPersonTMDB(id: id);
+    return _apiService.get(path: path).then(
+          (value) => TMDBPeopleResponse.fromJson(value.data),
+        );
   }
 }

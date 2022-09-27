@@ -47,7 +47,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
               elevation: Dimens.size0,
               title: Padding(
                 padding: const EdgeInsets.only(
-                  left: Dimens.padding12,
+                  left: Dimens.size12,
                 ),
                 child: Text(
                   S.of(context).starMovie,
@@ -59,7 +59,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(
-                    right: Dimens.padding12,
+                    right: Dimens.size12,
                   ),
                   child: IconButton(
                     onPressed: () {},
@@ -75,24 +75,24 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
               children: [
                 Container(
                   margin: const EdgeInsets.only(
-                    bottom: Dimens.padding24,
-                    top: Dimens.padding8,
-                    right: Dimens.padding18,
-                    left: Dimens.padding18,
+                    bottom: Dimens.size24,
+                    top: Dimens.size8,
+                    right: Dimens.size18,
+                    left: Dimens.size18,
                   ),
-                  height: Dimens.height50,
+                  height: Dimens.size50,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: ColorsApplication.colorBorder,
                     ),
                     color: ColorsApplication.colorTheme,
                     borderRadius: BorderRadius.circular(
-                      Dimens.border20,
+                      Dimens.size20,
                     ),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(
-                      Dimens.padding4,
+                      Dimens.size4,
                     ),
                     child: TabBar(
                       onTap: (index) {
@@ -105,7 +105,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                       indicator: BoxDecoration(
                         color: ColorsApplication.primaryColor,
                         borderRadius: BorderRadius.circular(
-                          Dimens.border16,
+                          Dimens.size16,
                         ),
                       ),
                       tabs: [
@@ -114,7 +114,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const Icon(Icons.play_circle),
-                              const SizedBox(width: Dimens.width6),
+                              const SizedBox(width: Dimens.size6),
                               Text(
                                 S.of(context).nowShowing,
                                 style: TextStyles.sfProMed14(),
@@ -126,7 +126,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const SizedBox(width: Dimens.width6),
+                              const SizedBox(width: Dimens.size6),
                               Text(
                                 S.of(context).comingSoon,
                                 style: TextStyles.sfProMed14(),
@@ -141,7 +141,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: Dimens.padding18,
+                      horizontal: Dimens.size18,
                     ),
                     child: TabBarView(
                       children: [

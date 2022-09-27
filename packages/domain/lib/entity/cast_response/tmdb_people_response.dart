@@ -13,7 +13,7 @@ class TMDBPeopleResponse {
     required this.profiles,
   });
 
-  factory TMDBPeopleResponse.fromJson(dynamic json) =>
+  factory TMDBPeopleResponse.fromJson(Map<String, dynamic> json) =>
       _$TMDBPeopleResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$TMDBPeopleResponseToJson(this);

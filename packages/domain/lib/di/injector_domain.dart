@@ -1,5 +1,4 @@
 import 'package:domain/base/mappers/mapper_image_url.dart';
-import 'package:domain/base/mappers/mapper_people_model.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:domain/use_case/request_details_use_case.dart';
@@ -25,7 +24,6 @@ void _initModuleUseCase() {
     () => RequestDetailsUseCase(
       GetIt.instance.get<NetworkTraktRepository>(),
       GetIt.instance.get<NetworkTMDBRepository>(),
-      GetIt.instance.get<MapperPeopleModel>(),
     ),
   );
 }
@@ -33,8 +31,5 @@ void _initModuleUseCase() {
 void _initModuleMappers() {
   GetIt.instance.registerFactory<MapperImageUrl>(
     () => MapperImageUrl(),
-  );
-  GetIt.instance.registerFactory<MapperPeopleModel>(
-    () => MapperPeopleModel(),
   );
 }
