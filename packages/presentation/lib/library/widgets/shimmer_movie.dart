@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/Library/widgets/shimmer_widget.dart';
 import 'package:presentation/colors_application/colors_application.dart';
+import 'package:presentation/library/dimens/dimens.dart';
+
+const _itemCount = 6;
+const _axisCount = 2;
 
 class ShimmerWidget extends StatelessWidget {
   const ShimmerWidget({super.key});
@@ -8,24 +12,24 @@ class ShimmerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: 6,
+      itemCount: _itemCount,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: (.1 / .21),
-        crossAxisCount: 2,
-        mainAxisSpacing: 30,
-        crossAxisSpacing: 8,
+        childAspectRatio: (Dimens.size01 / Dimens.size021),
+        crossAxisCount: _axisCount,
+        mainAxisSpacing: Dimens.size30,
+        crossAxisSpacing: Dimens.size8,
       ),
       itemBuilder: (_, index) {
         return Shimmer.fromMyShimmer(
           child: Column(
             children: const [
-              _ShimmerItem(height: 300),
-              SizedBox(height: 16.44),
-              _ShimmerItem(height: 12),
-              SizedBox(height: 5),
-              _ShimmerItem(height: 14),
-              SizedBox(height: 5),
-              _ShimmerItem(height: 12),
+              _ShimmerItem(height: Dimens.size300),
+              SizedBox(height: Dimens.size16),
+              _ShimmerItem(height: Dimens.size12),
+              SizedBox(height: Dimens.size6),
+              _ShimmerItem(height: Dimens.size14),
+              SizedBox(height: Dimens.size6),
+              _ShimmerItem(height: Dimens.size12),
             ],
           ),
         );

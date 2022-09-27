@@ -36,7 +36,7 @@ class _MovieWidgetState extends BlocScreenState<MovieWidget, MovieBloc> {
   Widget build(BuildContext context) {
     return StreamBuilder<TileWrapper<MovieListTile>>(
       stream: bloc.dataStream,
-      builder: (context, snapshot) {
+      builder: (_, snapshot) {
         final data = snapshot.data;
         final movieTile = data?.data;
         return DefaultTabController(
