@@ -18,9 +18,6 @@ import 'package:presentation/ui/movie_details/data/movie_details_screen_data.dar
 import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
-const _textMaxLines2 = 2;
-const _textMaxLines3 = 3;
-const _textMaxLines4 = 4;
 const _lengthController = 3;
 const _itemCountRatingBar = 5;
 
@@ -145,7 +142,7 @@ class _TitleWidget extends StatelessWidget {
         Text(
           movie.title,
           style: TextStyles.sfProSemi24(),
-          maxLines: _textMaxLines3,
+          maxLines: Dimens.maxLines3,
         ),
         const SizedBox(
           height: Dimens.size16,
@@ -225,7 +222,7 @@ class _OverViewWidget extends StatelessWidget {
                 movie.overview,
                 style: TextStyles.sfProMed14(),
                 overflow: TextOverflow.ellipsis,
-                maxLines: _textMaxLines4,
+                maxLines: Dimens.maxLines4,
                 softWrap: true,
               ),
               expanded: Text(
@@ -469,7 +466,7 @@ class _CastWidget extends StatelessWidget {
                         width: Dimens.size96,
                         child: Text(
                           e.person,
-                          maxLines: _textMaxLines2,
+                          maxLines: Dimens.maxLines2,
                           textAlign: TextAlign.start,
                           style: TextStyles.sfProMed14(),
                         ),
@@ -491,7 +488,7 @@ class _CastWidget extends StatelessWidget {
                           width: Dimens.size70,
                           child: Text(
                             e.characters,
-                            maxLines: _textMaxLines2,
+                            maxLines: Dimens.maxLines2,
                             textAlign: TextAlign.start,
                             style: TextStyles.sfProMed14(
                               color: ColorsApplication.colorSubTitle,

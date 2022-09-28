@@ -13,7 +13,6 @@ import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
 const _axisCount = 2;
 const _ratingItemCount = 5;
-const _textMaxLines1 = 1;
 
 class MovieListWidget extends StatefulWidget {
   final List<MovieRowData>? rowData;
@@ -124,7 +123,7 @@ class _MovieTitleWidget extends StatelessWidget {
           movie.title,
           style: TextStyles.sfProSemi16(),
           textAlign: TextAlign.start,
-          maxLines: _textMaxLines1,
+          maxLines: Dimens.maxLines1,
         ),
         RatingBar(
           itemSize: Dimens.size14,
