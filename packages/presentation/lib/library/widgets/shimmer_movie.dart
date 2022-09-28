@@ -5,6 +5,7 @@ import 'package:presentation/library/dimens/dimens.dart';
 
 const _itemCount = 6;
 const _axisCount = 2;
+import 'package:presentation/colors_application/colors_application.dart';
 
 class ShimmerWidget extends StatelessWidget {
   const ShimmerWidget({super.key});
