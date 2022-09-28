@@ -1,3 +1,5 @@
+import 'package:domain/model/response_model_people.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,7 +12,6 @@ import 'package:presentation/library/images_utils/images_utils.dart';
 import 'package:presentation/library/images_utils/images_widgets.dart';
 import 'package:presentation/library/style/text_style.dart';
 import 'package:presentation/library/widgets/shimmer_details_cast.dart';
-import 'package:presentation/library/images_utils/style_image.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/movie_details/bloc/movie_details_bloc.dart';
 import 'package:presentation/ui/movie_details/data/movie_details_screen_data.dart';
