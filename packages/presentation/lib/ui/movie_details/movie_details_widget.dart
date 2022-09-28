@@ -9,7 +9,7 @@ import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
-import 'package:presentation/library/images_utils/style_image.dart';
+import 'package:presentation/library/images_utils/images_widgets.dart';
 import 'package:presentation/library/style/text_style.dart';
 import 'package:presentation/library/widgets/shimmer_details_cast.dart';
 import 'package:presentation/navigation/base_page.dart';
