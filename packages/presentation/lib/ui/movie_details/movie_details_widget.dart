@@ -18,6 +18,7 @@ import 'package:presentation/ui/movie_details/data/movie_details_screen_data.dar
 import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
 
+const _textMaxLines2 = 2;
 const _textMaxLines3 = 3;
 const _textMaxLines4 = 4;
 const _lengthController = 3;
@@ -135,9 +136,7 @@ class _MovieDetailsWidgetState
 class _TitleWidget extends StatelessWidget {
   final MovieRowData movie;
 
-  const _TitleWidget({
-    required this.movie
-  });
+  const _TitleWidget({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -203,9 +202,7 @@ class _ViewAllWidget extends StatelessWidget {
 class _OverViewWidget extends StatelessWidget {
   final MovieRowData movie;
 
-  const _OverViewWidget({
-    required this.movie
-  });
+  const _OverViewWidget({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -374,9 +371,7 @@ class _RatingBarWidget extends StatelessWidget {
 class _PosterWidget extends StatelessWidget {
   final MovieRowData movie;
 
-  const _PosterWidget({
-    required this.movie
-  });
+  const _PosterWidget({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -419,9 +414,7 @@ class _PosterWidget extends StatelessWidget {
 class _CastWidget extends StatelessWidget {
   final MovieDetailsScreenData screenData;
 
-  const _CastWidget({
-    required this.screenData
-  });
+  const _CastWidget({required this.screenData});
 
   @override
   Widget build(BuildContext context) {
@@ -476,7 +469,7 @@ class _CastWidget extends StatelessWidget {
                         width: Dimens.size96,
                         child: Text(
                           e.person,
-                          maxLines: _textMaxLines3,
+                          maxLines: _textMaxLines2,
                           textAlign: TextAlign.start,
                           style: TextStyles.sfProMed14(),
                         ),
@@ -498,7 +491,7 @@ class _CastWidget extends StatelessWidget {
                           width: Dimens.size70,
                           child: Text(
                             e.characters,
-                            maxLines: _textMaxLines3,
+                            maxLines: _textMaxLines2,
                             textAlign: TextAlign.start,
                             style: TextStyles.sfProMed14(
                               color: ColorsApplication.colorSubTitle,
