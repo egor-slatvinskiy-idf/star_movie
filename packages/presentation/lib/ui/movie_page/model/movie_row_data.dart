@@ -5,9 +5,10 @@ class MovieRowData {
   final String runtime;
   final String? certification;
   final String image;
-  final int? ids;
+  final int ids;
+  final String overview;
 
-  MovieRowData({
+  const MovieRowData({
     required this.image,
     required this.title,
     required this.rating,
@@ -15,5 +16,6 @@ class MovieRowData {
     required this.runtime,
     required this.certification,
     required this.ids,
+    required this.overview,
   });
 }

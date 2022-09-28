@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:presentation/app_colors/app_colors.dart';
+import 'package:presentation/colors_application/colors_application.dart';
 
 enum ShimmerDirection {
   ltr,
@@ -27,7 +27,7 @@ class Shimmer extends StatefulWidget {
   Shimmer.fromMyShimmer({
     Key? key,
     required this.child,
-    Color baseColor = AppColors.colorBorder,
+    Color baseColor = ColorsApplication.colorBorder,
     Color highlightColor = Colors.blueAccent,
     this.period = const Duration(milliseconds: 1500),
     this.direction = ShimmerDirection.ltr,

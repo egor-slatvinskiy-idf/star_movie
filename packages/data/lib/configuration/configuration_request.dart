@@ -7,4 +7,5 @@ class ConfigurationRequest {
   static const traktUrl = 'https://api.trakt.tv/';
   static const endPointTrending = 'movies/trending';
   static const endPointComing = 'movies/anticipated';
+  static const tMDBUrl = 'https://api.themoviedb.org/3/';
 }

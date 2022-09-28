@@ -11,7 +11,7 @@ abstract class Bloc<T extends BaseArguments, D> {
 
   void initState();
 
-  void initArgs(T arguments);
+  void initArgs(T args);
 }
 
 abstract class BlocImpl<T extends BaseArguments, D> implements Bloc<T, D> {

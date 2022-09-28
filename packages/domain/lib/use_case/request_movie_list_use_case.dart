@@ -1,7 +1,9 @@
 import 'package:domain/const/configuration.dart';
-import 'package:domain/entity/movie_list_response.dart';
-import 'package:domain/repository/network_repository.dart';
+import 'package:domain/entity/movie_list_response/movie_list_response.dart';
+import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:domain/use_case/sample_use_case/use_case_in_out.dart';
+
+const _limitCountPage = 5;
 
 enum TypeListMovie {
   trending,
@@ -10,7 +12,7 @@ enum TypeListMovie {
 
 class RequestMovieListUseCase
     extends UseCaseInOut<TypeListMovie, Future<List<MovieListResponse>>> {
-  final NetworkRepository _networkRepository;
+  final NetworkTraktRepository _networkRepository;
 
   RequestMovieListUseCase(
     this._networkRepository,
@@ -29,7 +31,7 @@ class RequestMovieListUseCase
     final countPage = int.tryParse(
       response.headers[Configuration.pageCount][0],
     );
-    final countItem = countPage! >= 5
+    final countItem = countPage! >= _limitCountPage
         ? Configuration.queryConfigLimit
         : response.headers[Configuration.itemCount][0];
     await _requestListMovie(

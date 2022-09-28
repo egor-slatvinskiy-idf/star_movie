@@ -9,4 +9,5 @@ class Configuration {
   static const pageLimit = 'x-pagination-limit';
   static const itemCount = 'x-pagination-item-count';
   static const queryConfigLimit = '50';
+  static const imageTMDBUrl = 'https://image.tmdb.org/t/p/original';
 }

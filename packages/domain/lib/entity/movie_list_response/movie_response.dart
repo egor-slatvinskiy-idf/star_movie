@@ -1,3 +1,4 @@
+import 'package:domain/entity/movie_list_response/ids_movie_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'movie_response.g.dart';
@@ -24,7 +25,7 @@ class Movie {
   final List<String>? genres;
   final String? certification;
 
-  Movie({
+  const Movie({
     required this.title,
     required this.year,
     required this.ids,
@@ -51,21 +52,3 @@ class Movie {
   Map<String, dynamic> toJson() => _$MovieToJson(this);
 }
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class Ids {
-  final int? trakt;
-  final String? slug;
-  final String? imdb;
-  final int? tmdb;
-
-  Ids({
-    required this.trakt,
-    required this.slug,
-    required this.imdb,
-    required this.tmdb,
-  });
-
-  factory Ids.fromJson(Map<String, dynamic> json) => _$IdsFromJson(json);
-
-  Map<String, dynamic> toJson() => _$IdsToJson(this);
-}

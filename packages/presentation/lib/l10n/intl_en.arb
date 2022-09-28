@@ -1,0 +1,11 @@
+{
+  "starMovie" : "Star Movie",
+  "nowShowing" : "Now Showing",
+  "comingSoon" : "Coming Soon",
+  "details" : "Details",
+  "reviews" : "Reviews",
+  "showtime" : "Showtime",
+  "castCrew" : "Cast & Crew",
+  "viewAll" : "View All",
+  "synopsis": "Synopsis"
+}

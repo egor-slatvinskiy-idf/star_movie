@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/app/app_bloc.dart';
 import 'package:presentation/app/data/app_data.dart';
-import 'package:presentation/app_colors/app_colors.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
+import 'package:presentation/colors_application/colors_application.dart';
+import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
+import 'package:presentation/generated/l10n.dart';
+
+const _emptyString = '';
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   State<StatefulWidget> createState() => _MyAppState();
@@ -18,14 +23,18 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      color: AppColors.colorTheme,
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      color: ColorsApplication.colorTheme,
       theme: ThemeData(
-        canvasColor: AppColors.colorTheme,
+        canvasColor: ColorsApplication.colorTheme,
         appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.colorTheme,
-        ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          selectedItemColor: Colors.white,
+          backgroundColor: ColorsApplication.colorTheme,
         ),
       ),
       home: StreamBuilder<TileWrapper>(
@@ -47,46 +56,46 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                       decoration: const BoxDecoration(
                         border: Border(
                           top: BorderSide(
-                            color: AppColors.colorBorder,
-                            width: 1.0,
+                            color: ColorsApplication.colorBorder,
+                            width: Dimens.size1,
                           ),
                         ),
                       ),
                       child: BottomNavigationBar(
                         currentIndex: appData.selectedTab,
-                        selectedFontSize: 12,
+                        selectedFontSize: Dimens.size12,
                         type: BottomNavigationBarType.fixed,
                         items: <BottomNavigationBarItem>[
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(ImagesUtils.movieReel),
-                            label: '',
+                            label: _emptyString,
                             activeIcon: SvgPicture.asset(
                               ImagesUtils.movieReel,
-                              color: AppColors.colorSelectedItem,
+                              color: ColorsApplication.colorSelectedItem,
                             ),
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(ImagesUtils.eventTicket),
-                            label: '',
+                            label: _emptyString,
                             activeIcon: SvgPicture.asset(
                               ImagesUtils.eventTicket,
-                              color: AppColors.colorSelectedItem,
+                              color: ColorsApplication.colorSelectedItem,
                             ),
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(ImagesUtils.alarm),
-                            label: '',
+                            label: _emptyString,
                             activeIcon: SvgPicture.asset(
                               ImagesUtils.alarm,
-                              color: AppColors.colorSelectedItem,
+                              color: ColorsApplication.colorSelectedItem,
                             ),
                           ),
                           BottomNavigationBarItem(
                             icon: SvgPicture.asset(ImagesUtils.single),
-                            label: '',
+                            label: _emptyString,
                             activeIcon: SvgPicture.asset(
                               ImagesUtils.single,
-                              color: AppColors.colorSelectedItem,
+                              color: ColorsApplication.colorSelectedItem,
                             ),
                           ),
                         ],

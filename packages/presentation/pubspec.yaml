@@ -9,11 +9,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
   domain:
     path: ../domain
-
   flutter_svg: ^1.1.4
   flutter_rating_bar: ^4.0.1
+  expandable: 5.0.1
 
 dev_dependencies:
   flutter_test:
@@ -22,4 +25,18 @@ dev_dependencies:
 
 flutter:
    assets:
-     - images/
+     - assets/images/
+   fonts:
+     - family: SF Pro Text Regular
+       fonts:
+         - asset: assets/fonts/SF-Pro-Text-Regular.otf
+     - family: SF Pro Text Medium
+       fonts:
+         - asset: assets/fonts/SF-Pro-Text-Medium.otf
+     - family: SF Pro Text Semibold
+       fonts:
+         - asset: assets/fonts/SF-Pro-Text-Semibold.otf
+
+   generate: true
+flutter_intl:
+   enabled: true
