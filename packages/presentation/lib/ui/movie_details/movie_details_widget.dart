@@ -9,7 +9,7 @@ import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
-import 'package:presentation/library/images_utils/style_image.dart';
+import 'package:presentation/library/images_utils/images_widgets.dart';
 import 'package:presentation/library/style/text_style.dart';
 import 'package:presentation/library/widgets/shimmer_details_cast.dart';
 import 'package:presentation/navigation/base_page.dart';
@@ -17,6 +17,9 @@ import 'package:presentation/ui/movie_details/bloc/movie_details_bloc.dart';
 import 'package:presentation/ui/movie_details/data/movie_details_screen_data.dart';
 import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
+
+const _lengthController = 3;
+const _itemCountRatingBar = 5;
 
 class MovieDetailsWidget extends StatefulWidget {
   const MovieDetailsWidget({super.key});
@@ -61,7 +64,7 @@ class _MovieDetailsWidgetState
             appBar: AppBar(
               backgroundColor: Colors.transparent,
               automaticallyImplyLeading: false,
-              elevation: 0,
+              elevation: Dimens.size0,
               title: IconButton(
                 onPressed: () => bloc.onTapBackArrow(),
                 icon: SvgPicture.asset(
@@ -130,10 +133,7 @@ class _MovieDetailsWidgetState
 class _TitleWidget extends StatelessWidget {
   final MovieRowData movie;
 
-  const _TitleWidget({
-    Key? key,
-    required this.movie,
-  }) : super(key: key);
+  const _TitleWidget({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +142,7 @@ class _TitleWidget extends StatelessWidget {
         Text(
           movie.title,
           style: TextStyles.sfProSemi24(),
-          maxLines: 2,
+          maxLines: Dimens.maxLines3,
         ),
         const SizedBox(
           height: Dimens.size16,
@@ -166,9 +166,7 @@ class _TitleWidget extends StatelessWidget {
 }
 
 class _ViewAllWidget extends StatelessWidget {
-  const _ViewAllWidget({
-    Key? key,
-  }) : super(key: key);
+  const _ViewAllWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -201,10 +199,7 @@ class _ViewAllWidget extends StatelessWidget {
 class _OverViewWidget extends StatelessWidget {
   final MovieRowData movie;
 
-  const _OverViewWidget({
-    Key? key,
-    required this.movie,
-  }) : super(key: key);
+  const _OverViewWidget({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +222,7 @@ class _OverViewWidget extends StatelessWidget {
                 movie.overview,
                 style: TextStyles.sfProMed14(),
                 overflow: TextOverflow.ellipsis,
-                maxLines: 4,
+                maxLines: Dimens.maxLines4,
                 softWrap: true,
               ),
               expanded: Text(
@@ -243,14 +238,12 @@ class _OverViewWidget extends StatelessWidget {
 }
 
 class _TabBarWidget extends StatelessWidget {
-  const _TabBarWidget({
-    Key? key,
-  }) : super(key: key);
+  const _TabBarWidget();
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: _lengthController,
       child: Container(
         margin: const EdgeInsets.only(
           bottom: Dimens.size32,
@@ -274,7 +267,7 @@ class _TabBarWidget extends StatelessWidget {
           ),
           child: TabBar(
             indicator: BoxDecoration(
-              color: Colors.red,
+              color: ColorsApplication.primaryColor,
               borderRadius: BorderRadius.circular(
                 Dimens.size16,
               ),
@@ -335,10 +328,9 @@ class _RatingBarWidget extends StatelessWidget {
   final Icon iconEmpty;
 
   const _RatingBarWidget({
-    Key? key,
     required this.movie,
     required this.iconEmpty,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -355,7 +347,7 @@ class _RatingBarWidget extends StatelessWidget {
         RatingBar(
           itemSize: Dimens.size28,
           initialRating: movie.rating,
-          itemCount: 5,
+          itemCount: _itemCountRatingBar,
           allowHalfRating: true,
           ignoreGestures: true,
           ratingWidget: RatingWidget(
@@ -376,10 +368,7 @@ class _RatingBarWidget extends StatelessWidget {
 class _PosterWidget extends StatelessWidget {
   final MovieRowData movie;
 
-  const _PosterWidget({
-    Key? key,
-    required this.movie,
-  }) : super(key: key);
+  const _PosterWidget({required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -422,10 +411,7 @@ class _PosterWidget extends StatelessWidget {
 class _CastWidget extends StatelessWidget {
   final MovieDetailsScreenData screenData;
 
-  const _CastWidget({
-    Key? key,
-    required this.screenData,
-  }) : super(key: key);
+  const _CastWidget({required this.screenData});
 
   @override
   Widget build(BuildContext context) {
@@ -480,7 +466,7 @@ class _CastWidget extends StatelessWidget {
                         width: Dimens.size96,
                         child: Text(
                           e.person,
-                          maxLines: 3,
+                          maxLines: Dimens.maxLines2,
                           textAlign: TextAlign.start,
                           style: TextStyles.sfProMed14(),
                         ),
@@ -502,7 +488,7 @@ class _CastWidget extends StatelessWidget {
                           width: Dimens.size70,
                           child: Text(
                             e.characters,
-                            maxLines: 2,
+                            maxLines: Dimens.maxLines2,
                             textAlign: TextAlign.start,
                             style: TextStyles.sfProMed14(
                               color: ColorsApplication.colorSubTitle,

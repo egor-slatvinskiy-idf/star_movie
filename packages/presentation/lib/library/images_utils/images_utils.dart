@@ -1,5 +1,5 @@
 class ImagesUtils {
-  ImagesUtils._();
+  const ImagesUtils._();
 
   static const alarm = 'packages/presentation/assets/images/alarm.svg';
 
