@@ -7,9 +7,18 @@ class HeaderInterceptorTraktApi extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
-    options.headers.addAll(
-      Configuration.apiKeyTrakt,
-    );
+    options.headers.addAll(Configuration.apiKeyTrakt);
+    handler.next(options);
+  }
+}
+
+class SandboxHeaderInterceptorTraktApi extends Interceptor {
+  @override
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) {
+    options.headers.addAll(Configuration.apiKeySandboxTrakt);
     handler.next(options);
   }
 }
@@ -20,9 +29,7 @@ class QueryParametersInterceptorTMDBApi extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) {
-    options.queryParameters.addAll(
-      Configuration.apiKeyTMDB,
-    );
+    options.queryParameters.addAll(Configuration.apiKeyTMDB);
     handler.next(options);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:data/configuration/configuration_request.dart';
+import 'package:data/di/environment_configuration.dart';
 import 'package:data/interceptor/interceptor.dart';
 import 'package:data/repository/network_tmdb_repository.dart';
 import 'package:data/repository/network_trakt_repository.dart';
@@ -21,12 +22,23 @@ void initInjectorData() {
 }
 
 void _initModuleApi() {
-  GetIt.instance.registerSingleton<Dio>(
-    _buildMovieDioTraktApi(
-      GetIt.instance.get<HeaderInterceptorTraktApi>(),
-    ),
-    instanceName: _traktApi,
-  );
+  final environmentConfiguration = EnvironmentConfiguration();
+  if (environmentConfiguration.prod) {
+    GetIt.instance.registerSingleton<Dio>(
+      _buildMovieDioTraktApi(
+        GetIt.instance.get<HeaderInterceptorTraktApi>(),
+      ),
+      instanceName: _traktApi,
+    );
+  }
+  if (environmentConfiguration.sandbox) {
+    GetIt.instance.registerSingleton<Dio>(
+      _buildSandboxMovieDioTraktApi(
+        GetIt.instance.get<SandboxHeaderInterceptorTraktApi>(),
+      ),
+      instanceName: _traktApi,
+    );
+  }
 
   GetIt.instance.registerSingleton<ApiBaseService<ServicePayLoad>>(
     ApiBaseServiceImpl(
@@ -72,9 +84,17 @@ void _initModuleRepository() {
 }
 
 void _initModuleInterceptor() {
-  GetIt.instance.registerSingleton<HeaderInterceptorTraktApi>(
-    HeaderInterceptorTraktApi(),
-  );
+  final environmentConfiguration = EnvironmentConfiguration();
+  if (environmentConfiguration.prod) {
+    GetIt.instance.registerSingleton<HeaderInterceptorTraktApi>(
+      HeaderInterceptorTraktApi(),
+    );
+  }
+  if (environmentConfiguration.sandbox) {
+    GetIt.instance.registerSingleton<SandboxHeaderInterceptorTraktApi>(
+      SandboxHeaderInterceptorTraktApi(),
+    );
+  }
   GetIt.instance.registerSingleton<QueryParametersInterceptorTMDBApi>(
     QueryParametersInterceptorTMDBApi(),
   );
@@ -86,6 +106,18 @@ Dio _buildMovieDioTraktApi(Interceptor interceptor) {
     connectTimeout: ConfigurationRequest.connectTimeout,
     sendTimeout: ConfigurationRequest.sendTimeout,
     baseUrl: ConfigurationRequest.traktUrl,
+  );
+  final dio = Dio(options);
+  dio.interceptors.add(interceptor);
+  return dio;
+}
+
+Dio _buildSandboxMovieDioTraktApi(Interceptor interceptor) {
+  final options = BaseOptions(
+    receiveTimeout: ConfigurationRequest.receiveTimeout,
+    connectTimeout: ConfigurationRequest.connectTimeout,
+    sendTimeout: ConfigurationRequest.sendTimeout,
+    baseUrl: ConfigurationRequest.traktSandboxUrl,
   );
   final dio = Dio(options);
   dio.interceptors.add(interceptor);

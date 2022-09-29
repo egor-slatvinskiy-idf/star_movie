@@ -60,6 +60,21 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    flavorDimensions "env"
+
+    productFlavors {
+        sandbox {
+            dimension "env"
+            applicationIdSuffix ".sandbox"
+            resValue "string", "app_name", "Star Movie-sandbox"
+        }
+
+        prod {
+            dimension "env"
+            resValue "string", "app_name", "Star Movie"
+        }
+    }
 }
 
 flutter {
