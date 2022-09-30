@@ -30,8 +30,7 @@ void _initModuleApi() {
       ),
       instanceName: _traktApi,
     );
-  }
-  if (environmentConfiguration.sandbox) {
+  } else if (environmentConfiguration.sandbox) {
     GetIt.instance.registerSingleton<Dio>(
       _buildSandboxMovieDioTraktApi(
         GetIt.instance.get<SandboxHeaderInterceptorTraktApi>(),
@@ -89,12 +88,12 @@ void _initModuleInterceptor() {
     GetIt.instance.registerSingleton<HeaderInterceptorTraktApi>(
       HeaderInterceptorTraktApi(),
     );
-  }
-  if (environmentConfiguration.sandbox) {
+  } else if (environmentConfiguration.sandbox) {
     GetIt.instance.registerSingleton<SandboxHeaderInterceptorTraktApi>(
       SandboxHeaderInterceptorTraktApi(),
     );
   }
+
   GetIt.instance.registerSingleton<QueryParametersInterceptorTMDBApi>(
     QueryParametersInterceptorTMDBApi(),
   );
