@@ -38,7 +38,7 @@ class _MovieListWidgetState extends State<MovieListWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.rowData == null || widget.data!.isLoading == true) {
+    if (widget.rowData == null || widget.data?.isLoading == true) {
       return const ShimmerWidget();
     }
     if (widget.rowData!.isEmpty) {
