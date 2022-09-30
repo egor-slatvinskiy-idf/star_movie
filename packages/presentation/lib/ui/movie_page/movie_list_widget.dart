@@ -5,6 +5,7 @@ import 'package:presentation/Library/images_utils/images_utils.dart';
 import 'package:presentation/Library/widgets/shimmer_movie.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/colors_application/colors_application.dart';
+import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/style/text_style.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
@@ -37,8 +38,16 @@ class _MovieListWidgetState extends State<MovieListWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.rowData == null || widget.data!.isLoading == true) {
+    if (widget.rowData == null || widget.data?.isLoading == true) {
       return const ShimmerWidget();
+    }
+    if (widget.rowData!.isEmpty) {
+      return Center(
+        child: Text(
+          S.of(context).sandboxText,
+          style: TextStyles.sfProSemi30(),
+        ),
+      );
     }
     return GridView.builder(
       itemCount: widget.rowData?.length,
