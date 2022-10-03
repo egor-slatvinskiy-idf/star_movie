@@ -8,6 +8,7 @@ import 'package:presentation/navigation/app_navigator.dart';
 import 'package:presentation/ui/movie_details/bloc/movie_details_bloc.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/mapper/mapper_movie_list.dart';
+import 'package:presentation/ui/profile_page/bloc/profile_bloc.dart';
 import 'package:presentation/ui/splash_screen/bloc/splash_bloc.dart';
 
 void initInjectorPresentation() {
@@ -32,6 +33,9 @@ void _initModuleBloc() {
     () => MovieDetailsBloc(
       GetIt.instance.get<RequestDetailsUseCase>(),
     ),
+  );
+  GetIt.instance.registerFactory<ProfileBloc>(
+        () => ProfileBloc(),
   );
 }
 

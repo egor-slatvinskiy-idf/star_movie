@@ -26,4 +26,20 @@ class ImagesUtils {
 
   static const buttonPlay =
       'packages/presentation/assets/images/button_play.svg';
+
+  static const cat = 'packages/presentation/assets/images/cat.json';
+
+
+  static const profile =
+      'packages/presentation/assets/images/profile.svg';
+
+  static const lock =
+      'packages/presentation/assets/images/lock.svg';
+
+  static const facebook =
+      'packages/presentation/assets/images/facebook.svg';
+
+  static const google =
+      'packages/presentation/assets/images/google.svg';
+
 }

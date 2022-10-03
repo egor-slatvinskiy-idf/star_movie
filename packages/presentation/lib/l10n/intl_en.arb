@@ -8,5 +8,9 @@
   "castCrew" : "Cast & Crew",
   "viewAll" : "View All",
   "synopsis": "Synopsis",
-  "sandboxText": "Undergoing technical work"
+  "sandboxText": "Undergoing technical work",
+  "profile": "Profile",
+  "login": "Login",
+  "userName": "USER NAME",
+  "password": "PASSWORD"
 }

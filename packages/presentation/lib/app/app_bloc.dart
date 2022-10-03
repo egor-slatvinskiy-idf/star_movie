@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/navigation/base_page.dart';
+import 'package:presentation/ui/movie_page/movie_widget.dart';
+import 'package:presentation/ui/profile_page/profile_widget.dart';
 
 abstract class AppBloc extends Bloc {
   factory AppBloc() => _AppBloc();
@@ -108,9 +110,22 @@ class _AppBloc extends BlocImpl implements AppBloc {
   @override
   void onSelectedTab(int index) {
     if (selectedTab == index) return;
-    selectedTab = index;
+    // selectedTab = index;
+    switch (index) {
+      case 0:
+        _popAllAndPush(bottomNavBarStack[index]!.call());
+        break;
+      case 3:
+        _popAllAndPush(bottomNavBarStack[index]!.call());
+        break;
+    }
     super.handleData(
       tile: _appData.copyWith(selectedTab: index),
     );
   }
+
+  final bottomNavBarStack = {
+    0: () => MovieWidget.page(),
+    3: () => ProfileWidget.page(),
+  };
 }
