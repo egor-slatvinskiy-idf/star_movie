@@ -1,14 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data/configuration/configuration_request.dart';
 import 'package:data/di/environment_configuration.dart';
 import 'package:data/interceptor/interceptor.dart';
+import 'package:data/repository/auth_repository.dart';
 import 'package:data/repository/network_tmdb_repository.dart';
 import 'package:data/repository/network_trakt_repository.dart';
+import 'package:data/repository/preferences_local_repository.dart';
 import 'package:data/services/api_base_service.dart';
 import 'package:data/services/service_payload.dart';
 import 'package:dio/dio.dart';
+import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
+import 'package:domain/repository/preferences_local_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const _traktApi = 'Trakt';
 const _traktService = 'TraktService';
@@ -65,7 +72,7 @@ void _initModuleApi() {
   );
 }
 
-void _initModuleRepository() {
+void _initModuleRepository() async {
   GetIt.instance.registerSingleton<NetworkTraktRepository>(
     NetworkTraktRepositoryImpl(
       GetIt.instance.get(
@@ -78,6 +85,20 @@ void _initModuleRepository() {
       GetIt.instance.get(
         instanceName: _tMDBService,
       ),
+    ),
+  );
+  GetIt.instance.registerSingleton<AuthRepository>(
+    AuthRepositoryImpl(
+      FirebaseAuth.instance,
+      FirebaseFirestore.instance,
+    ),
+  );
+  GetIt.instance.registerSingleton(
+    await SharedPreferences.getInstance(),
+  );
+  GetIt.instance.registerLazySingleton<PreferencesLocalRepository>(
+    () => PreferencesLocalRepositoryImpl(
+      sharedPreferences: GetIt.instance.get(),
     ),
   );
 }

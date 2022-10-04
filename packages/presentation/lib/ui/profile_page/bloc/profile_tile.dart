@@ -1,4 +1,3 @@
 class ProfileTile {
-
   const ProfileTile();
 }

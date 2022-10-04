@@ -8,7 +8,7 @@ class ColorsApplication {
   static const colorTheme = Color.fromRGBO(15, 27, 43, 1);
   static const colorBorder = Color.fromRGBO(44, 63, 91, 1);
   static const colorTextField = Color.fromRGBO(43, 53, 67, 1);
-  static const colorFaceBook = Color.fromRGBO(59, 90, 154, 1);
+  static const colorFacebook = Color.fromRGBO(59, 90, 154, 1);
   static const colorGoogle = Color.fromRGBO(203, 62, 45, 1);
   static const colorProfileTitle = Color.fromRGBO(135, 141, 149, 1);
   static const colorSelectedItem = Color.fromRGBO(71, 207, 255, 1);
