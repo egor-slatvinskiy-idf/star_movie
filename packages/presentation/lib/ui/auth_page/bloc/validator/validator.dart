@@ -2,7 +2,7 @@ class Validator {
   final String login;
   final String password;
 
-  Validator(
+  const Validator(
     this.login,
     this.password,
   );
