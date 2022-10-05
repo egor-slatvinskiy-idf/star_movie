@@ -7,6 +7,7 @@ import 'package:presentation/base/bloc.dart';
 import 'package:presentation/navigation/base_arguments.dart';
 import 'package:presentation/services/firebase_analytics.dart';
 import 'package:presentation/ui/auth_page/bloc/auth_tile.dart';
+import 'package:presentation/ui/auth_page/bloc/validator/validator.dart';
 import 'package:presentation/ui/profile_page/profile_widget.dart';
 
 abstract class AuthBloc extends Bloc<BaseArguments, AuthTile> {
@@ -44,9 +45,6 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
   final LoginEmailAndPassUseCase authUseCase;
   final Analytics analytics;
 
-  bool _isValid(String login, String password) =>
-      login.isNotEmpty && password.isNotEmpty;
-
   @override
   TextEditingController get textLoginController => _loginController;
 
@@ -63,7 +61,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
   @override
   Future<void> authFacebook() async {
     analytics.analyticsFacebookClick();
-    _tryLogin(await loginFacebookUseCase());
+    await _tryLogin(await loginFacebookUseCase());
   }
 
   @override
@@ -72,39 +70,33 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
     _tryLogin(await loginGoogleUseCase());
   }
 
-  void _tryLogin(bool isAbleToLogin) {
-    if (isAbleToLogin) {
-      appNavigator.push(
-        ProfileWidget.page(),
-      );
-      return;
-    }
-    handleData(
-      tile: _tile.copyWith(errorMessage: 'Fail while logging'),
-    );
-  }
-
   @override
   Future<void> auth() async {
     final login = _loginController.text;
     final password = _passwordController.text;
-
     handleData(tile: _tile, isLoading: false);
-    if (!_isValid(login, password)) {
-      _tile = _tile.copyWith(errorMessage: 'Fill in your login or password');
-      handleData(tile: _tile);
+    if (Validator(login, password).isValid()) {
+      handleData(
+          tile: _tile.copyWith(errorMessage: 'Fill in your login or password'));
       return;
     }
-    _tile = _tile.copyWith(errorMessage: '');
-    handleData(tile: _tile, isLoading: true);
-    final user = UserEmailPass(login, password);
-    final request = await authUseCase(user);
-    if (request) {
-      appNavigator.push(
-        ProfileWidget.page(),
-      );
-    }
+    handleData(isLoading: true);
+    analytics.analyticsLoginClick();
+    final UserEmailPass user = UserEmailPass(login, password);
+    _tryLogin(await authUseCase(user));
     handleData(isLoading: false);
+  }
+
+  _tryLogin(bool isAbleToLogin) {
+    if (isAbleToLogin) {
+      appNavigator.push(ProfileWidget.page());
+      return;
+    }
+    _tile = _tile.copyWith(errorMessage: 'Fail while logging');
+    handleData(
+      tile: _tile,
+      isLoading: false,
+    );
   }
 
   @override

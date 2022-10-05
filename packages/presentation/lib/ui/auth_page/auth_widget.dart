@@ -178,7 +178,7 @@ class _SocialButtonWidgets extends StatelessWidget {
           width: Dimens.size44,
           height: Dimens.size44,
           child: ElevatedButton(
-            onPressed: () => bloc.authFacebook(),
+            onPressed: bloc.authFacebook,
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
                 ColorsApplication.colorFacebook,
@@ -202,7 +202,7 @@ class _SocialButtonWidgets extends StatelessWidget {
           width: Dimens.size44,
           height: Dimens.size44,
           child: ElevatedButton(
-            onPressed: () => bloc.authGoogle(),
+            onPressed: bloc.authGoogle,
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
                 ColorsApplication.colorGoogle,
@@ -243,7 +243,7 @@ class _LoginButtonWidget extends StatelessWidget {
       width: Dimens.sizeInfinity,
       height: Dimens.size48,
       child: ElevatedButton(
-        onPressed: () => bloc.auth(),
+        onPressed: bloc.auth,
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(
             ColorsApplication.primaryColor,

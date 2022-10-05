@@ -6,6 +6,9 @@ import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/auth_page/auth_widget.dart';
 import 'package:presentation/ui/movie_page/movie_widget.dart';
 
+const _moviePageIndex = 0;
+const _authPageIndex = 3;
+
 abstract class AppBloc extends Bloc {
   factory AppBloc() => _AppBloc();
 
@@ -19,8 +22,8 @@ class _AppBloc extends BlocImpl implements AppBloc {
   int? selectedTab;
 
   final bottomNavBarStack = {
-    0: () => MovieWidget.page(),
-    3: () => AuthWidget.page(),
+    _moviePageIndex: () => MovieWidget.page(),
+    _authPageIndex: () => AuthWidget.page(),
   };
 
   @override
