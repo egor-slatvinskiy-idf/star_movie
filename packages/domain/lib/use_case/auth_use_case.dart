@@ -3,7 +3,6 @@ import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/preferences_local_repository.dart';
 import 'package:domain/use_case/sample_use_case/use_case_in_out.dart';
 
-
 class LoginEmailAndPassUseCase
     extends UseCaseInOut<UserEmailPass, Future<bool>> {
   final AuthRepository authRepository;
@@ -16,11 +15,7 @@ class LoginEmailAndPassUseCase
 
   @override
   Future<bool> call(UserEmailPass user) async {
-    final List<UserEmailPass> users = await authRepository.fetchUsers();
-    final isAbleToLogin = users.any(
-      (element) =>
-          element.login == user.login && element.password == user.password,
-    );
+    final isAbleToLogin = await authRepository.checkUser(user);
     if (isAbleToLogin) await preferences.saveLoggedUser(user);
     return isAbleToLogin;
   }

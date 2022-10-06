@@ -9,9 +9,4 @@ abstract class ProfileBloc extends Bloc<BaseArguments, ProfileTile> {
 class ProfileBlocImpl extends BlocImpl<BaseArguments, ProfileTile>
     implements ProfileBloc {
   ProfileBlocImpl();
-
-  @override
-  void initState() {
-    super.initState();
-  }
 }

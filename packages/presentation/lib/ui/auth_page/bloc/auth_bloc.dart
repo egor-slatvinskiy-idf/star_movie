@@ -1,11 +1,11 @@
 import 'package:domain/model/firebase_user_email.dart';
+import 'package:domain/use_case/analytics_use_case.dart';
 import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/navigation/base_arguments.dart';
-import 'package:presentation/services/firebase_analytics.dart';
 import 'package:presentation/ui/auth_page/bloc/auth_tile.dart';
 import 'package:presentation/ui/auth_page/bloc/validator/validator.dart';
 import 'package:presentation/ui/profile_page/profile_widget.dart';
@@ -13,15 +13,15 @@ import 'package:presentation/ui/profile_page/profile_widget.dart';
 abstract class AuthBloc extends Bloc<BaseArguments, AuthTile> {
   factory AuthBloc(
     LoginEmailAndPassUseCase authUseCase,
-    Analytics analytics,
     LoginGoogleUseCase loginGoogleUseCase,
     LoginFacebookUseCase loginFacebookUseCase,
+    AnalyticsUseCase analyticsUseCase,
   ) =>
       AuthBlocImpl(
         authUseCase: authUseCase,
-        analytics: analytics,
         loginGoogleUseCase: loginGoogleUseCase,
         loginFacebookUseCase: loginFacebookUseCase,
+        analytics: analyticsUseCase,
       );
 
   TextEditingController get textLoginController;
@@ -43,7 +43,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
   final LoginGoogleUseCase loginGoogleUseCase;
   final LoginFacebookUseCase loginFacebookUseCase;
   final LoginEmailAndPassUseCase authUseCase;
-  final Analytics analytics;
+  final AnalyticsUseCase analytics;
 
   @override
   TextEditingController get textLoginController => _loginController;
@@ -60,13 +60,13 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
 
   @override
   Future<void> authFacebook() async {
-    analytics.analyticsFacebookClick();
+    analytics('on_facebook_click');
     await _tryLogin(await loginFacebookUseCase());
   }
 
   @override
   Future<void> authGoogle() async {
-    analytics.analyticsGoogleClick();
+    analytics('on_google_click');
     _tryLogin(await loginGoogleUseCase());
   }
 
@@ -81,7 +81,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
       return;
     }
     handleData(isLoading: true);
-    analytics.analyticsLoginClick();
+    analytics('on_login_click');
     final UserEmailPass user = UserEmailPass(login, password);
     _tryLogin(await authUseCase(user));
     handleData(isLoading: false);
@@ -97,10 +97,5 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
       tile: _tile,
       isLoading: false,
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 }

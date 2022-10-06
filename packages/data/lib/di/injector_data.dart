@@ -6,6 +6,7 @@ import 'package:data/repository/auth_repository.dart';
 import 'package:data/repository/network_tmdb_repository.dart';
 import 'package:data/repository/network_trakt_repository.dart';
 import 'package:data/repository/preferences_local_repository.dart';
+import 'package:data/services/analytics_service_impl.dart';
 import 'package:data/services/api_base_service.dart';
 import 'package:data/services/service_payload.dart';
 import 'package:dio/dio.dart';
@@ -13,6 +14,8 @@ import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:domain/repository/preferences_local_repository.dart';
+import 'package:domain/services/analytics_service.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,6 +28,7 @@ const _tMDBService = 'TMDBService';
 void initInjectorData() {
   _initModuleInterceptor();
   _initModuleApi();
+  _initFirebaseAnalytics();
   _initModuleRepository();
 }
 
@@ -100,6 +104,12 @@ void _initModuleRepository() async {
     () => PreferencesLocalRepositoryImpl(
       sharedPreferences: GetIt.instance.get(),
     ),
+  );
+}
+
+void _initFirebaseAnalytics() {
+  GetIt.instance.registerSingleton<AnalyticsService>(
+    AnalyticsServiceImpl(FirebaseAnalytics.instance),
   );
 }
 

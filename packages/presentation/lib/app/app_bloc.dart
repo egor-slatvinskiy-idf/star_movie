@@ -7,7 +7,20 @@ import 'package:presentation/ui/auth_page/auth_widget.dart';
 import 'package:presentation/ui/movie_page/movie_widget.dart';
 
 const _moviePageIndex = 0;
+const _ticketPageIndex = 0;
+const _notificationsPageIndex = 0;
 const _authPageIndex = 3;
+
+enum BottomNavigationItemType {
+  home(_moviePageIndex),
+  ticket(_ticketPageIndex),
+  notifications(_notificationsPageIndex),
+  profile(_authPageIndex);
+
+  final int itemIndex;
+
+  const BottomNavigationItemType(int index) : itemIndex = index;
+}
 
 abstract class AppBloc extends Bloc {
   factory AppBloc() => _AppBloc();
@@ -117,14 +130,11 @@ class _AppBloc extends BlocImpl implements AppBloc {
 
   @override
   void onSelectedTab(int index) {
-    if (selectedTab == index) return;
-    switch (index) {
-      case 0:
-        _popAllAndPush(bottomNavBarStack[index]!.call());
-        break;
-      case 3:
-        _popAllAndPush(bottomNavBarStack[index]!.call());
-        break;
+    final type = BottomNavigationItemType.values[index].itemIndex;
+    if (index == type) {
+      _popAllAndPush(bottomNavBarStack[index]!.call());
+    } else if (selectedTab == index) {
+      return;
     }
     super.handleData(
       tile: _appData.copyWith(selectedTab: index),

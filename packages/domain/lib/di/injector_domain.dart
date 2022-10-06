@@ -3,6 +3,8 @@ import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:domain/repository/preferences_local_repository.dart';
+import 'package:domain/services/analytics_service.dart';
+import 'package:domain/use_case/analytics_use_case.dart';
 import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
@@ -47,6 +49,11 @@ void _initModuleUseCase() {
     () => LoginGoogleUseCase(
       GetIt.instance.get<AuthRepository>(),
       GetIt.instance.get<PreferencesLocalRepository>(),
+    ),
+  );
+  GetIt.instance.registerFactory<AnalyticsUseCase>(
+    () => AnalyticsUseCase(
+      GetIt.instance.get<AnalyticsService>(),
     ),
   );
 }

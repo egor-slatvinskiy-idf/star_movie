@@ -1,3 +1,4 @@
+import 'package:domain/base/extension/string_or_empty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/base/bloc_screen.dart';
@@ -98,7 +99,7 @@ class _FormWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _ErrorMessageWidget(
-              errorMessage: errorMessage ?? '',
+              errorMessage: errorMessage.orEmpty,
             ),
             Text(
               S.of(context).userName,

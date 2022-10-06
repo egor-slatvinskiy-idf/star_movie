@@ -16,11 +16,7 @@ class LoginGoogleUseCase extends UseCaseOut<Future<bool>> {
   Future<bool> call() async {
     final UserEmailPass? user = await authRepository.loginWithGoogle();
     if (user == null) return false;
-    final List<UserEmailPass> users = await authRepository.fetchUsers();
-    final isAbleToLogin = users.any(
-      (element) =>
-          element.login == user.login && element.password == user.password,
-    );
+    final isAbleToLogin = await authRepository.checkUser(user);
     if (isAbleToLogin) await preferences.saveLoggedUser(user);
     return isAbleToLogin;
   }

@@ -27,9 +27,6 @@ class ImagesUtils {
   static const buttonPlay =
       'packages/presentation/assets/images/button_play.svg';
 
-  static const cat = 'packages/presentation/assets/images/cat.json';
-
-
   static const profile =
       'packages/presentation/assets/images/profile.svg';
 
