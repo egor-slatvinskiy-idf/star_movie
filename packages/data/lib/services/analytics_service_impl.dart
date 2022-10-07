@@ -7,7 +7,7 @@ class AnalyticsServiceImpl implements AnalyticsService {
   const AnalyticsServiceImpl(this.analytics);
 
   @override
-  analyticsClick(String logClick) async {
+  Future<void> analyticsClick(String logClick) async {
     await analytics.logEvent(name: logClick);
   }
 }

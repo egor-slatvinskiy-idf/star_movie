@@ -2,25 +2,10 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc.dart';
+import 'package:presentation/enum/bottom_nav_bar_item.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/auth_page/auth_widget.dart';
 import 'package:presentation/ui/movie_page/movie_widget.dart';
-
-const _moviePageIndex = 0;
-const _ticketPageIndex = 0;
-const _notificationsPageIndex = 0;
-const _authPageIndex = 3;
-
-enum BottomNavigationItemType {
-  home(_moviePageIndex),
-  ticket(_ticketPageIndex),
-  notifications(_notificationsPageIndex),
-  profile(_authPageIndex);
-
-  final int itemIndex;
-
-  const BottomNavigationItemType(int index) : itemIndex = index;
-}
 
 abstract class AppBloc extends Bloc {
   factory AppBloc() => _AppBloc();
@@ -33,11 +18,6 @@ abstract class AppBloc extends Bloc {
 class _AppBloc extends BlocImpl implements AppBloc {
   final _appData = AppData.init();
   int? selectedTab;
-
-  final bottomNavBarStack = {
-    _moviePageIndex: () => MovieWidget.page(),
-    _authPageIndex: () => AuthWidget.page(),
-  };
 
   @override
   void initState() {
@@ -130,11 +110,17 @@ class _AppBloc extends BlocImpl implements AppBloc {
 
   @override
   void onSelectedTab(int index) {
-    final type = BottomNavigationItemType.values[index].itemIndex;
-    if (index == type) {
-      _popAllAndPush(bottomNavBarStack[index]!.call());
-    } else if (selectedTab == index) {
-      return;
+    final type = BottomNavBarItemTypeExtension.toType(index);
+
+    switch (type) {
+      case BottomNavBarItemType.movieList:
+        _popAllAndPush(MovieWidget.page());
+        break;
+      case BottomNavBarItemType.profile:
+        _popAllAndPush(AuthWidget.page());
+        break;
+      default:
+        throw Exception(BottomNavBarItemTypeExtension.unsupportedType);
     }
     super.handleData(
       tile: _appData.copyWith(selectedTab: index),

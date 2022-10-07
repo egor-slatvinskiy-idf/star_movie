@@ -5,5 +5,5 @@ abstract class AuthRepository {
 
   Future<UserEmailPass?> loginWithGoogle();
 
-  Future<bool> checkUser(UserEmailPass user);
+  Future<bool> userExistenceCheck(UserEmailPass user);
 }
