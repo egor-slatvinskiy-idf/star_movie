@@ -1,7 +1,10 @@
 import 'package:domain/use_case/request_details_use_case.dart';
+import 'package:flutter/widgets.dart';
 import 'package:presentation/base/bloc.dart';
+import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/ui/movie_details/data/movie_details_screen_data.dart';
 import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
+import 'package:share_android_ios/share_android_ios.dart';
 
 abstract class MovieDetailsBloc
     extends Bloc<MovieDetailsArguments, MovieDetailsScreenData> {
@@ -13,6 +16,8 @@ abstract class MovieDetailsBloc
       );
 
   void onTapBackArrow();
+
+  void share(BuildContext context);
 }
 
 class _MovieDetailsBlocImpl
@@ -38,6 +43,14 @@ class _MovieDetailsBlocImpl
     final response = await _detailsUseCase(id);
     _screenData = _screenData.copyWith(cast: response);
     _updateData();
+  }
+
+  @override
+  void share(BuildContext context) {
+    final language = Localizations.localeOf(context).languageCode;
+    final movieId = _screenData.movie?.ids ?? '';
+    final message = S.of(context).share(movieId, language);
+    ShareAndroidIos.share(message);
   }
 
   _updateData() {
