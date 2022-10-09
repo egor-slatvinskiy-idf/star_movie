@@ -25,11 +25,14 @@
     return self;
 }
 
-- (nullable id)activityViewController:(nonnull UIActivityViewController *)activityViewController itemForActivityType:(nullable UIActivityType)activityType {
+- (nullable id)activityViewController:(nonnull UIActivityViewController *)activityViewController
+    itemForActivityType:
+    (nullable UIActivityType)activityType {
     return _text;
 }
 
-- (nonnull id)activityViewControllerPlaceholderItem:(nonnull UIActivityViewController *)activityViewController {
+- (nonnull id)activityViewControllerPlaceholderItem:
+    (nonnull UIActivityViewController *)activityViewController {
     return @"";
 }
 
@@ -51,11 +54,13 @@
     if ([@"share" isEqualToString:call.method]) {
         NSString *shareText = arguments[@"message"];
         
-        UIViewController*controller = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UIViewController*controller =
+        [UIApplication sharedApplication].keyWindow.rootViewController;
         
         ShareData *data = [[ShareData alloc] initWithText:shareText];
         
-        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[data]applicationActivities:nil];
+        UIActivityViewController *activityViewController =
+        [[UIActivityViewController alloc] initWithActivityItems:@[data]applicationActivities:nil];
         activityViewController.popoverPresentationController.sourceView = controller.view;
         
         [controller presentViewController:activityViewController animated:YES completion:nil];
