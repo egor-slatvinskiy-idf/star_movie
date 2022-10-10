@@ -16,7 +16,7 @@ class LoginFacebookUseCase extends UseCaseOut<Future<bool>> {
   Future<bool> call() async {
     final UserEmailPass? user = await authRepository.loginWithFacebook();
     if (user == null) return false;
-    final isAbleToLogin = await authRepository.userExistenceCheck(user);
+    final isAbleToLogin = await authRepository.checkUserExists(user);
     if (isAbleToLogin) await preferences.saveLoggedUser(user);
     return isAbleToLogin;
   }
