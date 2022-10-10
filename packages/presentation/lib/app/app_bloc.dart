@@ -2,7 +2,10 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc.dart';
+import 'package:presentation/enum/bottom_nav_bar_item.dart';
 import 'package:presentation/navigation/base_page.dart';
+import 'package:presentation/ui/auth_page/auth_widget.dart';
+import 'package:presentation/ui/movie_page/movie_widget.dart';
 
 abstract class AppBloc extends Bloc {
   factory AppBloc() => _AppBloc();
@@ -107,8 +110,20 @@ class _AppBloc extends BlocImpl implements AppBloc {
 
   @override
   void onSelectedTab(int index) {
-    if (selectedTab == index) return;
-    selectedTab = index;
+    final type = BottomNavBarItemType.toType(index);
+
+    switch (type) {
+      case BottomNavBarItemType.movieList:
+        _popAllAndPush(MovieWidget.page());
+        break;
+      case BottomNavBarItemType.profile:
+        _popAllAndPush(AuthWidget.page());
+        break;
+      case BottomNavBarItemType.notifications:
+        return;
+      case BottomNavBarItemType.ticket:
+        return;
+    }
     super.handleData(
       tile: _appData.copyWith(selectedTab: index),
     );

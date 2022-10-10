@@ -1,0 +1,3 @@
+class ProfileTile {
+  const ProfileTile();
+}
