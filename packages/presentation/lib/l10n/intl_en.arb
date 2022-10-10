@@ -12,5 +12,6 @@
   "profile": "Profile",
   "login": "Login",
   "userName": "USER NAME",
-  "password": "PASSWORD"
+  "password": "PASSWORD",
+  "share": "Look, what movie I found! \n\nhttps://www.themoviedb.org/movie/{movie_id}?language={language}"
 }
