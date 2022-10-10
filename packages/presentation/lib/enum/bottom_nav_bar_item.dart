@@ -2,17 +2,8 @@ enum BottomNavBarItemType {
   movieList,
   ticket,
   notifications,
-  profile,
-}
+  profile;
 
-extension BottomNavBarItemTypeExtension on BottomNavBarItemType {
-  static const unsupportedType = 'unsupported item type';
-
-  static BottomNavBarItemType toType(int index) {
-    try {
-      return BottomNavBarItemType.values[index];
-    } catch (e) {
-      throw Exception(unsupportedType);
-    }
-  }
+  static BottomNavBarItemType toType(int index) =>
+      BottomNavBarItemType.values[index];
 }

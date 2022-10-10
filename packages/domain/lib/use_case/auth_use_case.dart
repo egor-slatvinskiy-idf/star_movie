@@ -15,7 +15,7 @@ class LoginEmailAndPassUseCase
 
   @override
   Future<bool> call(UserEmailPass user) async {
-    final isAbleToLogin = await authRepository.userExistenceCheck(user);
+    final isAbleToLogin = await authRepository.checkUserExists(user);
     if (isAbleToLogin) await preferences.saveLoggedUser(user);
     return isAbleToLogin;
   }

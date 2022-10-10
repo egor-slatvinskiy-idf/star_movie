@@ -17,7 +17,7 @@ class AuthRepositoryImpl implements AuthRepository {
   );
 
   @override
-  Future<bool> userExistenceCheck(UserEmailPass user) async {
+  Future<bool> checkUserExists(UserEmailPass user) async {
     final usersCollection = firebaseFirestore.collection(_usersCollection);
     final userCheck = await usersCollection
         .where('login', isEqualTo: user.login)

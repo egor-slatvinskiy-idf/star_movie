@@ -110,7 +110,7 @@ class _AppBloc extends BlocImpl implements AppBloc {
 
   @override
   void onSelectedTab(int index) {
-    final type = BottomNavBarItemTypeExtension.toType(index);
+    final type = BottomNavBarItemType.toType(index);
 
     switch (type) {
       case BottomNavBarItemType.movieList:
@@ -119,8 +119,10 @@ class _AppBloc extends BlocImpl implements AppBloc {
       case BottomNavBarItemType.profile:
         _popAllAndPush(AuthWidget.page());
         break;
-      default:
-        throw Exception(BottomNavBarItemTypeExtension.unsupportedType);
+      case BottomNavBarItemType.notifications:
+        return;
+      case BottomNavBarItemType.ticket:
+        return;
     }
     super.handleData(
       tile: _appData.copyWith(selectedTab: index),
