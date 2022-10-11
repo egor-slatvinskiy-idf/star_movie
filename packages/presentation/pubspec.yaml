@@ -18,7 +18,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   expandable: 5.0.1
   share_android_ios:
-    path: ../../share_android_ios
+    path: ../share_android_ios
 
 dev_dependencies:
   flutter_test:
