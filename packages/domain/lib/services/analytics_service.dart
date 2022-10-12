@@ -1,3 +1,6 @@
 abstract class AnalyticsService {
-  analyticsClick(String logClick);
+  Future<void> analyticsEvent({
+    required String eventName,
+    Map<String, dynamic>? payload,
+  });
 }

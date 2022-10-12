@@ -32,11 +32,13 @@ void _initModuleBloc() {
     () => MovieBloc(
       GetIt.instance.get<RequestMovieListUseCase>(),
       GetIt.instance.get<MapperMovieList>(),
+      GetIt.instance.get<AnalyticsUseCase>(),
     ),
   );
   GetIt.instance.registerFactory<MovieDetailsBloc>(
     () => MovieDetailsBloc(
       GetIt.instance.get<RequestDetailsUseCase>(),
+      GetIt.instance.get<AnalyticsUseCase>(),
     ),
   );
   GetIt.instance.registerFactory<AuthBloc>(
@@ -54,7 +56,9 @@ void _initModuleBloc() {
 
 void _initModuleApp() {
   GetIt.instance.registerFactory<AppBloc>(
-    () => AppBloc(),
+    () => AppBloc(
+      GetIt.instance.get<AnalyticsUseCase>(),
+    ),
   );
   GetIt.instance.registerSingleton<AppNavigator>(
     AppNavigator(),

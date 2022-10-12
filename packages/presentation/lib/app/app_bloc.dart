@@ -1,14 +1,19 @@
 import 'package:collection/collection.dart';
+import 'package:domain/model/firebase_analytics_model.dart';
+import 'package:domain/use_case/analytics_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/enum/bottom_nav_bar_item.dart';
+import 'package:presentation/library/const/event_name.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/auth_page/auth_widget.dart';
 import 'package:presentation/ui/movie_page/movie_widget.dart';
 
 abstract class AppBloc extends Bloc {
-  factory AppBloc() => _AppBloc();
+  factory AppBloc(AnalyticsUseCase analyticsUseCase) => _AppBloc(
+        analyticsUseCase: analyticsUseCase,
+      );
 
   void handleRemoveRouteSettings(RouteSettings value);
 
@@ -17,7 +22,10 @@ abstract class AppBloc extends Bloc {
 
 class _AppBloc extends BlocImpl implements AppBloc {
   final _appData = AppData.init();
+  final AnalyticsUseCase analyticsUseCase;
   int? selectedTab;
+
+  _AppBloc({required this.analyticsUseCase});
 
   @override
   void initState() {
@@ -104,6 +112,11 @@ class _AppBloc extends BlocImpl implements AppBloc {
   BasePage? _currentPage() => _appData.pages.lastOrNull;
 
   void _updateData() {
+    final screenLog = FirebaseAnalyticsModel(
+      eventName: EventName.screenView,
+      eventScreenLog: {EventName.screen: _currentPage()?.name},
+    );
+    analyticsUseCase(screenLog);
     _appData.showBottomBar = _currentPage()!.showBottomBar;
     super.handleData(tile: _appData);
   }

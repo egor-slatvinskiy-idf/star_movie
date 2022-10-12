@@ -1,3 +1,4 @@
+import 'package:domain/model/firebase_analytics_model.dart';
 import 'package:domain/model/firebase_user_email.dart';
 import 'package:domain/use_case/analytics_use_case.dart';
 import 'package:domain/use_case/auth_use_case.dart';
@@ -5,6 +6,8 @@ import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc.dart';
+import 'package:presentation/library/const/error_message.dart';
+import 'package:presentation/library/const/event_name.dart';
 import 'package:presentation/navigation/base_arguments.dart';
 import 'package:presentation/ui/auth_page/bloc/auth_tile.dart';
 import 'package:presentation/ui/auth_page/bloc/validator/validator.dart';
@@ -60,13 +63,15 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
 
   @override
   Future<void> authFacebook() async {
-    analytics('on_facebook_click');
+    final eventLog = FirebaseAnalyticsModel(eventName: EventName.facebookClick);
+    await analytics(eventLog);
     await _tryLogin(await loginFacebookUseCase());
   }
 
   @override
   Future<void> authGoogle() async {
-    analytics('on_google_click');
+    final eventLog = FirebaseAnalyticsModel(eventName: EventName.googleClick);
+    await analytics(eventLog);
     _tryLogin(await loginGoogleUseCase());
   }
 
@@ -77,11 +82,12 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
     handleData(tile: _tile, isLoading: false);
     if (Validator(login, password).isValid()) {
       handleData(
-          tile: _tile.copyWith(errorMessage: 'Fill in your login or password'));
+          tile: _tile.copyWith(errorMessage: ErrorMessage.fillLogOrPass));
       return;
     }
     handleData(isLoading: true);
-    analytics('on_login_click');
+    final eventLog = FirebaseAnalyticsModel(eventName: EventName.loginClick);
+    await analytics(eventLog);
     final UserEmailPass user = UserEmailPass(login, password);
     _tryLogin(await authUseCase(user));
     handleData(isLoading: false);
@@ -92,7 +98,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
       appNavigator.push(ProfileWidget.page());
       return;
     }
-    _tile = _tile.copyWith(errorMessage: 'Fail while logging');
+    _tile = _tile.copyWith(errorMessage: ErrorMessage.failLogging);
     handleData(
       tile: _tile,
       isLoading: false,

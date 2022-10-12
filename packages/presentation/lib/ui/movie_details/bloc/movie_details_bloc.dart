@@ -1,7 +1,10 @@
+import 'package:domain/model/firebase_analytics_model.dart';
+import 'package:domain/use_case/analytics_use_case.dart';
 import 'package:domain/use_case/request_details_use_case.dart';
 import 'package:flutter/widgets.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/generated/l10n.dart';
+import 'package:presentation/library/const/event_name.dart';
 import 'package:presentation/ui/movie_details/data/movie_details_screen_data.dart';
 import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 import 'package:share_android_ios/share_android_ios.dart';
@@ -10,9 +13,11 @@ abstract class MovieDetailsBloc
     extends Bloc<MovieDetailsArguments, MovieDetailsScreenData> {
   factory MovieDetailsBloc(
     RequestDetailsUseCase requestDetailsUseCase,
+    AnalyticsUseCase analyticsUseCase,
   ) =>
       _MovieDetailsBlocImpl(
         requestDetailsUseCase,
+        analyticsUseCase,
       );
 
   void onTapBackArrow();
@@ -25,9 +30,11 @@ class _MovieDetailsBlocImpl
     implements MovieDetailsBloc {
   MovieDetailsScreenData _screenData = const MovieDetailsScreenData();
   final RequestDetailsUseCase _detailsUseCase;
+  final AnalyticsUseCase analyticsUseCase;
 
   _MovieDetailsBlocImpl(
     this._detailsUseCase,
+    this.analyticsUseCase,
   );
 
   @override
@@ -60,7 +67,11 @@ class _MovieDetailsBlocImpl
   }
 
   @override
-  void onTapBackArrow() {
+  void onTapBackArrow() async {
+    final eventLog = FirebaseAnalyticsModel(
+      eventName: EventName.backMovieClick,
+    );
+    await analyticsUseCase(eventLog);
     appNavigator.pop();
   }
 }
