@@ -78,7 +78,7 @@ class _MovieDetailsWidgetState
                     right: Dimens.size18,
                   ),
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () => bloc.share(context),
                     icon: SvgPicture.asset(
                       ImagesUtils.vector,
                       color: ColorsApplication.colorTitle,

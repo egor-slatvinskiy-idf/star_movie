@@ -1,16 +1,17 @@
 {
-  "starMovie" : "Star Movie",
-  "nowShowing" : "Now Showing",
-  "comingSoon" : "Coming Soon",
-  "details" : "Details",
-  "reviews" : "Reviews",
-  "showtime" : "Showtime",
-  "castCrew" : "Cast & Crew",
-  "viewAll" : "View All",
+  "starMovie": "Star Movie",
+  "nowShowing": "Now Showing",
+  "comingSoon": "Coming Soon",
+  "details": "Details",
+  "reviews": "Reviews",
+  "showtime": "Showtime",
+  "castCrew": "Cast & Crew",
+  "viewAll": "View All",
   "synopsis": "Synopsis",
   "sandboxText": "Undergoing technical work",
   "profile": "Profile",
   "login": "Login",
   "userName": "USER NAME",
-  "password": "PASSWORD"
+  "password": "PASSWORD",
+  "share": "Look, what movie I found! \n\nhttps://www.themoviedb.org/movie/{movie_id}?language={language}"
 }
