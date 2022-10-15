@@ -95,60 +95,43 @@ class _FormWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Dimens.size26),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _ErrorMessageWidget(
               errorMessage: errorMessage.orEmpty,
             ),
-            Text(
-              S.of(context).userName,
-              style: TextStyles.sfProMed12(
-                color: ColorsApplication.colorProfileTitle,
-              ),
-            ),
-            const SizedBox(height: Dimens.size8),
-            TextField(
-              controller: bloc.textLoginController,
-              cursorColor: Colors.white,
-              style: const TextStyle(color: ColorsApplication.colorTitle),
-              decoration: InputDecoration(
-                prefixIcon: SvgPicture.asset(
-                  ImagesUtils.profile,
-                  width: Dimens.size18,
-                  height: Dimens.size18,
-                  fit: BoxFit.none,
-                ),
-                filled: true,
-                fillColor: ColorsApplication.colorTextField,
-              ),
-            ),
-            const SizedBox(height: Dimens.size20),
-            Text(
-              S.of(context).password,
-              style: TextStyles.sfProMed12(
-                color: ColorsApplication.colorProfileTitle,
-              ),
-            ),
-            const SizedBox(height: Dimens.size8),
-            TextField(
-              controller: bloc.textPasswordController,
-              obscureText: true,
-              autocorrect: false,
-              enableSuggestions: false,
-              cursorColor: Colors.white,
-              style: const TextStyle(
-                color: ColorsApplication.colorTitle,
-              ),
-              decoration: InputDecoration(
-                prefixIcon: SvgPicture.asset(
-                  ImagesUtils.lock,
-                  width: Dimens.size18,
-                  height: Dimens.size18,
-                  fit: BoxFit.none,
-                ),
-                filled: true,
-                fillColor: ColorsApplication.colorTextField,
+            Form(
+              key: bloc.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    S.of(context).userName,
+                    style: TextStyles.sfProMed12(
+                      color: ColorsApplication.colorProfileTitle,
+                    ),
+                  ),
+                  const SizedBox(height: Dimens.size8),
+                  _TextFormField(
+                    validator: bloc.validatorLogin(context),
+                    textEditingController: bloc.textLoginController,
+                    obscureText: false,
+                    icon: ImagesUtils.profile,
+                  ),
+                  const SizedBox(height: Dimens.size20),
+                  Text(
+                    S.of(context).password,
+                    style: TextStyles.sfProMed12(
+                      color: ColorsApplication.colorProfileTitle,
+                    ),
+                  ),
+                  const SizedBox(height: Dimens.size8),
+                  _TextFormField(
+                    validator: bloc.validatorPassword(context),
+                    textEditingController: bloc.textPasswordController,
+                    obscureText: true,
+                    icon: ImagesUtils.lock,
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: Dimens.size20),
@@ -158,6 +141,41 @@ class _FormWidget extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _TextFormField extends StatelessWidget {
+  final String? validator;
+  final TextEditingController? textEditingController;
+  final bool obscureText;
+  final String icon;
+
+  const _TextFormField({
+    required this.validator,
+    required this.textEditingController,
+    required this.obscureText,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      validator: (_) => validator,
+      controller: textEditingController,
+      cursorColor: ColorsApplication.colorTitle,
+      obscureText: obscureText,
+      style: const TextStyle(color: ColorsApplication.colorTitle),
+      decoration: InputDecoration(
+        prefixIcon: SvgPicture.asset(
+          icon,
+          width: Dimens.size18,
+          height: Dimens.size18,
+          fit: BoxFit.none,
+        ),
+        filled: true,
+        fillColor: ColorsApplication.colorTextField,
       ),
     );
   }
