@@ -2,8 +2,8 @@ import 'package:domain/model/firebase_user_email.dart';
 import 'package:domain/model/validate_model.dart';
 import 'package:domain/use_case/sample_use_case/use_case_in_out.dart';
 
-const _patternRegexLogin = '^.{8,}';
-const _patternRegexPassword = '^[^A-Z][^a-z]{7,}\$';
+const _patternRegexLogin = '^.{8,}\$';
+const _patternRegexPassword = '^[^A-Z][^a-z]{6,}\$';
 
 class ValidatorUseCase extends UseCaseInOut<UserEmailPass, ValidateModel> {
   @override

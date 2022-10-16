@@ -83,10 +83,10 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
 
   @override
   String? validatorLogin(BuildContext context) {
-    final useCase = validatorUseCase(_enteredUser);
-    if (useCase.validIsEmptyLogin) {
+    final validationResult = validatorUseCase(_enteredUser);
+    if (validationResult.validIsEmptyLogin) {
       return S.of(context).loginIsRequired;
-    } else if (useCase.validRegexLogin) {
+    } else if (validationResult.validRegexLogin) {
       return S.of(context).loginRegex;
     } else {
       return null;
@@ -95,10 +95,10 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
 
   @override
   String? validatorPassword(BuildContext context) {
-    final useCase = validatorUseCase(_enteredUser);
-    if (useCase.validIsEmptyPassword) {
+    final validationResult = validatorUseCase(_enteredUser);
+    if (validationResult.validIsEmptyPassword) {
       return S.of(context).passwordIsRequired;
-    } else if (useCase.validRegexPassword) {
+    } else if (validationResult.validRegexPassword) {
       return S.of(context).passwordRegex;
     } else {
       return null;

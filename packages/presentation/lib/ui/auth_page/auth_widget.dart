@@ -112,7 +112,7 @@ class _FormWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: Dimens.size8),
                   _TextFormField(
-                    validator: bloc.validatorLogin(context),
+                    validator: (_) => bloc.validatorLogin(context),
                     textEditingController: bloc.textLoginController,
                     obscureText: false,
                     icon: ImagesUtils.profile,
@@ -126,7 +126,7 @@ class _FormWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: Dimens.size8),
                   _TextFormField(
-                    validator: bloc.validatorPassword(context),
+                    validator: (_) => bloc.validatorPassword(context),
                     textEditingController: bloc.textPasswordController,
                     obscureText: true,
                     icon: ImagesUtils.lock,
@@ -147,7 +147,7 @@ class _FormWidget extends StatelessWidget {
 }
 
 class _TextFormField extends StatelessWidget {
-  final String? validator;
+  final String? Function(String?)? validator;
   final TextEditingController? textEditingController;
   final bool obscureText;
   final String icon;
@@ -162,7 +162,7 @@ class _TextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (_) => validator,
+      validator: validator,
       controller: textEditingController,
       cursorColor: ColorsApplication.colorTitle,
       obscureText: obscureText,
