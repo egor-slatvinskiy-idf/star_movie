@@ -4,6 +4,7 @@ import 'package:domain/use_case/log_analytics_page_use_case.dart';
 import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
+import 'package:domain/use_case/login_validator_use_case.dart';
 import 'package:domain/use_case/request_details_use_case.dart';
 import 'package:domain/use_case/request_movie_list_use_case.dart';
 import 'package:domain/use_case/splash_duration_use_case.dart';
@@ -47,9 +48,8 @@ void _initModuleBloc() {
       GetIt.instance.get<LoginEmailAndPassUseCase>(),
       GetIt.instance.get<LoginGoogleUseCase>(),
       GetIt.instance.get<LoginFacebookUseCase>(),
-      GetIt.instance.get<AnalyticsUseCase>(),
-      GetIt.instance.get<ValidatorUseCase>(),
       GetIt.instance.get<LogAnalyticsButtonUseCase>(),
+      GetIt.instance.get<ValidatorUseCase>(),
     ),
   );
   GetIt.instance.registerFactory<ProfileBloc>(
