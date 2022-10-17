@@ -4,8 +4,8 @@ import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:domain/repository/preferences_local_repository.dart';
 import 'package:domain/services/analytics_service.dart';
-import 'package:domain/use_case/analytics_button_use_case.dart';
-import 'package:domain/use_case/analytics_page_use_case.dart';
+import 'package:domain/use_case/log_analytics_button_use_case.dart';
+import 'package:domain/use_case/log_analytics_page_use_case.dart';
 import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
@@ -52,13 +52,13 @@ void _initModuleUseCase() {
       GetIt.instance.get<PreferencesLocalRepository>(),
     ),
   );
-  GetIt.instance.registerFactory<AnalyticsButtonUseCase>(
-    () => AnalyticsButtonUseCase(
+  GetIt.instance.registerFactory<LogAnalyticsButtonUseCase>(
+    () => LogAnalyticsButtonUseCase(
       GetIt.instance.get<AnalyticsService>(),
     ),
   );
-  GetIt.instance.registerFactory<AnalyticsPageUseCase>(
-    () => AnalyticsPageUseCase(
+  GetIt.instance.registerFactory<LogAnalyticsPageUseCase>(
+    () => LogAnalyticsPageUseCase(
       GetIt.instance.get<AnalyticsService>(),
     ),
   );

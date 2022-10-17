@@ -1,4 +1,4 @@
-import 'package:domain/use_case/analytics_button_use_case.dart';
+import 'package:domain/use_case/log_analytics_button_use_case.dart';
 import 'package:domain/use_case/request_details_use_case.dart';
 import 'package:flutter/widgets.dart';
 import 'package:presentation/base/bloc.dart';
@@ -12,7 +12,7 @@ abstract class MovieDetailsBloc
     extends Bloc<MovieDetailsArguments, MovieDetailsScreenData> {
   factory MovieDetailsBloc(
     RequestDetailsUseCase requestDetailsUseCase,
-    AnalyticsButtonUseCase analyticsUseCase,
+    LogAnalyticsButtonUseCase analyticsUseCase,
   ) =>
       _MovieDetailsBlocImpl(
         requestDetailsUseCase,
@@ -29,11 +29,11 @@ class _MovieDetailsBlocImpl
     implements MovieDetailsBloc {
   MovieDetailsScreenData _screenData = const MovieDetailsScreenData();
   final RequestDetailsUseCase _detailsUseCase;
-  final AnalyticsButtonUseCase analyticsButtonUseCase;
+  final LogAnalyticsButtonUseCase logButtonUseCase;
 
   _MovieDetailsBlocImpl(
     this._detailsUseCase,
-    this.analyticsButtonUseCase,
+    this.logButtonUseCase,
   );
 
   @override
@@ -67,7 +67,7 @@ class _MovieDetailsBlocImpl
 
   @override
   void onTapBackArrow() async {
-    await analyticsButtonUseCase(EventName.backMovieClick);
+    await logButtonUseCase(EventName.backMovieClick);
     appNavigator.pop();
   }
 }

@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:domain/use_case/analytics_page_use_case.dart';
+import 'package:domain/use_case/log_analytics_page_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc.dart';
@@ -10,10 +10,10 @@ import 'package:presentation/ui/movie_page/movie_widget.dart';
 
 abstract class AppBloc extends Bloc {
   factory AppBloc(
-    AnalyticsPageUseCase analyticsUseCase,
+    LogAnalyticsPageUseCase analyticsUseCase,
   ) =>
       _AppBloc(
-        analyticsPageUseCase: analyticsUseCase,
+        logPageUseCase: analyticsUseCase,
       );
 
   void handleRemoveRouteSettings(RouteSettings value);
@@ -23,10 +23,10 @@ abstract class AppBloc extends Bloc {
 
 class _AppBloc extends BlocImpl implements AppBloc {
   final _appData = AppData.init();
-  final AnalyticsPageUseCase analyticsPageUseCase;
+  final LogAnalyticsPageUseCase logPageUseCase;
   int? selectedTab;
 
-  _AppBloc({required this.analyticsPageUseCase});
+  _AppBloc({required this.logPageUseCase});
 
   @override
   void initState() {
@@ -113,7 +113,7 @@ class _AppBloc extends BlocImpl implements AppBloc {
   BasePage? _currentPage() => _appData.pages.lastOrNull;
 
   void _updateData() {
-    analyticsPageUseCase(_currentPage()?.name ?? '');
+    logPageUseCase(_currentPage()?.name ?? '');
     _appData.showBottomBar = _currentPage()!.showBottomBar;
     super.handleData(tile: _appData);
   }
