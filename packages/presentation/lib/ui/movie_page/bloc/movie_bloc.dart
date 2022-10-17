@@ -1,5 +1,7 @@
+import 'package:domain/use_case/log_analytics_button_use_case.dart';
 import 'package:domain/use_case/request_movie_list_use_case.dart';
 import 'package:presentation/base/bloc.dart';
+import 'package:presentation/library/const/event_name.dart';
 import 'package:presentation/navigation/base_arguments.dart';
 import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 import 'package:presentation/ui/movie_details/movie_details_widget.dart';
@@ -11,10 +13,12 @@ abstract class MovieBloc extends Bloc<BaseArguments, MovieListTile> {
   factory MovieBloc(
     RequestMovieListUseCase requestMovieListUseCase,
     MapperMovieList mapperMovieList,
+    LogAnalyticsButtonUseCase analyticsUseCase,
   ) =>
       MovieBlocImpl(
         requestMovieListUseCase,
         mapperMovieList,
+        analyticsUseCase,
       );
 
   void loadMovieComing();
@@ -31,10 +35,12 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
   var _tile = MovieListTile.init();
   final RequestMovieListUseCase _requestMovieListUseCase;
   final MapperMovieList _mapperMovieList;
+  final LogAnalyticsButtonUseCase logButtonUseCase;
 
   MovieBlocImpl(
     this._requestMovieListUseCase,
     this._mapperMovieList,
+    this.logButtonUseCase,
   );
 
   @override
@@ -52,6 +58,7 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
     final movieMapTrending = _mapperMovieList(
       movieResponseTrending,
     );
+    await logButtonUseCase(EventName.movieTrendingClick);
     _tile = _tile.copyWith(movieTrending: movieMapTrending);
     handleData(
       tile: _tile,
@@ -68,6 +75,7 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
     final movieMapComing = _mapperMovieList(
       movieResponseComing,
     );
+    await logButtonUseCase(EventName.movieComingClick);
     _tile = _tile.copyWith(movieComing: movieMapComing);
     handleData(
       tile: _tile,
@@ -78,7 +86,8 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
   @override
   void onMovieTap({
     required MovieRowData movie,
-  }) {
+  }) async {
+    await logButtonUseCase(EventName.movieClick);
     appNavigator.push(
       MovieDetailsWidget.page(
         MovieDetailsArguments(movie: movie),

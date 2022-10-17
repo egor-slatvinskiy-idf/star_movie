@@ -1,10 +1,12 @@
 import 'package:domain/model/firebase_user_email.dart';
-import 'package:domain/use_case/analytics_use_case.dart';
+import 'package:domain/use_case/log_analytics_button_use_case.dart';
 import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc.dart';
+import 'package:presentation/library/const/error_message.dart';
+import 'package:presentation/library/const/event_name.dart';
 import 'package:presentation/navigation/base_arguments.dart';
 import 'package:presentation/ui/auth_page/bloc/auth_tile.dart';
 import 'package:presentation/ui/auth_page/bloc/validator/validator.dart';
@@ -15,13 +17,13 @@ abstract class AuthBloc extends Bloc<BaseArguments, AuthTile> {
     LoginEmailAndPassUseCase authUseCase,
     LoginGoogleUseCase loginGoogleUseCase,
     LoginFacebookUseCase loginFacebookUseCase,
-    AnalyticsUseCase analyticsUseCase,
+    LogAnalyticsButtonUseCase analyticsUseCase,
   ) =>
       AuthBlocImpl(
         authUseCase: authUseCase,
         loginGoogleUseCase: loginGoogleUseCase,
         loginFacebookUseCase: loginFacebookUseCase,
-        analytics: analyticsUseCase,
+        logButtonUseCase: analyticsUseCase,
       );
 
   TextEditingController get textLoginController;
@@ -43,7 +45,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
   final LoginGoogleUseCase loginGoogleUseCase;
   final LoginFacebookUseCase loginFacebookUseCase;
   final LoginEmailAndPassUseCase authUseCase;
-  final AnalyticsUseCase analytics;
+  final LogAnalyticsButtonUseCase logButtonUseCase;
 
   @override
   TextEditingController get textLoginController => _loginController;
@@ -53,20 +55,20 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
 
   AuthBlocImpl({
     required this.authUseCase,
-    required this.analytics,
+    required this.logButtonUseCase,
     required this.loginGoogleUseCase,
     required this.loginFacebookUseCase,
   });
 
   @override
   Future<void> authFacebook() async {
-    analytics('on_facebook_click');
+    await logButtonUseCase(EventName.facebookClick);
     await _tryLogin(await loginFacebookUseCase());
   }
 
   @override
   Future<void> authGoogle() async {
-    analytics('on_google_click');
+    await logButtonUseCase(EventName.googleClick);
     _tryLogin(await loginGoogleUseCase());
   }
 
@@ -77,11 +79,11 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
     handleData(tile: _tile, isLoading: false);
     if (Validator(login, password).isValid()) {
       handleData(
-          tile: _tile.copyWith(errorMessage: 'Fill in your login or password'));
+          tile: _tile.copyWith(errorMessage: ErrorMessage.fillLogOrPass));
       return;
     }
     handleData(isLoading: true);
-    analytics('on_login_click');
+    await logButtonUseCase(EventName.loginClick);
     final UserEmailPass user = UserEmailPass(login, password);
     _tryLogin(await authUseCase(user));
     handleData(isLoading: false);
@@ -92,7 +94,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
       appNavigator.push(ProfileWidget.page());
       return;
     }
-    _tile = _tile.copyWith(errorMessage: 'Fail while logging');
+    _tile = _tile.copyWith(errorMessage: ErrorMessage.failLogging);
     handleData(
       tile: _tile,
       isLoading: false,
