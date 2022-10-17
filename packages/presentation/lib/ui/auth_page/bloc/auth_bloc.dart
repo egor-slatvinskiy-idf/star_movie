@@ -1,6 +1,5 @@
-import 'package:domain/model/firebase_analytics_model.dart';
 import 'package:domain/model/firebase_user_email.dart';
-import 'package:domain/use_case/analytics_use_case.dart';
+import 'package:domain/use_case/analytics_button_use_case.dart';
 import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
@@ -18,13 +17,13 @@ abstract class AuthBloc extends Bloc<BaseArguments, AuthTile> {
     LoginEmailAndPassUseCase authUseCase,
     LoginGoogleUseCase loginGoogleUseCase,
     LoginFacebookUseCase loginFacebookUseCase,
-    AnalyticsUseCase analyticsUseCase,
+    AnalyticsButtonUseCase analyticsUseCase,
   ) =>
       AuthBlocImpl(
         authUseCase: authUseCase,
         loginGoogleUseCase: loginGoogleUseCase,
         loginFacebookUseCase: loginFacebookUseCase,
-        analytics: analyticsUseCase,
+        analyticsButtonUseCase: analyticsUseCase,
       );
 
   TextEditingController get textLoginController;
@@ -46,7 +45,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
   final LoginGoogleUseCase loginGoogleUseCase;
   final LoginFacebookUseCase loginFacebookUseCase;
   final LoginEmailAndPassUseCase authUseCase;
-  final AnalyticsUseCase analytics;
+  final AnalyticsButtonUseCase analyticsButtonUseCase;
 
   @override
   TextEditingController get textLoginController => _loginController;
@@ -56,22 +55,20 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
 
   AuthBlocImpl({
     required this.authUseCase,
-    required this.analytics,
+    required this.analyticsButtonUseCase,
     required this.loginGoogleUseCase,
     required this.loginFacebookUseCase,
   });
 
   @override
   Future<void> authFacebook() async {
-    final eventLog = FirebaseAnalyticsModel(eventName: EventName.facebookClick);
-    await analytics(eventLog);
+    await analyticsButtonUseCase(EventName.facebookClick);
     await _tryLogin(await loginFacebookUseCase());
   }
 
   @override
   Future<void> authGoogle() async {
-    final eventLog = FirebaseAnalyticsModel(eventName: EventName.googleClick);
-    await analytics(eventLog);
+    await analyticsButtonUseCase(EventName.googleClick);
     _tryLogin(await loginGoogleUseCase());
   }
 
@@ -86,8 +83,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
       return;
     }
     handleData(isLoading: true);
-    final eventLog = FirebaseAnalyticsModel(eventName: EventName.loginClick);
-    await analytics(eventLog);
+    await analyticsButtonUseCase(EventName.loginClick);
     final UserEmailPass user = UserEmailPass(login, password);
     _tryLogin(await authUseCase(user));
     handleData(isLoading: false);

@@ -1,5 +1,6 @@
 import 'package:domain/base/mappers/mapper_image_url.dart';
-import 'package:domain/use_case/analytics_use_case.dart';
+import 'package:domain/use_case/analytics_button_use_case.dart';
+import 'package:domain/use_case/analytics_page_use_case.dart';
 import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
@@ -32,13 +33,13 @@ void _initModuleBloc() {
     () => MovieBloc(
       GetIt.instance.get<RequestMovieListUseCase>(),
       GetIt.instance.get<MapperMovieList>(),
-      GetIt.instance.get<AnalyticsUseCase>(),
+      GetIt.instance.get<AnalyticsButtonUseCase>(),
     ),
   );
   GetIt.instance.registerFactory<MovieDetailsBloc>(
     () => MovieDetailsBloc(
       GetIt.instance.get<RequestDetailsUseCase>(),
-      GetIt.instance.get<AnalyticsUseCase>(),
+      GetIt.instance.get<AnalyticsButtonUseCase>(),
     ),
   );
   GetIt.instance.registerFactory<AuthBloc>(
@@ -46,7 +47,7 @@ void _initModuleBloc() {
       GetIt.instance.get<LoginEmailAndPassUseCase>(),
       GetIt.instance.get<LoginGoogleUseCase>(),
       GetIt.instance.get<LoginFacebookUseCase>(),
-      GetIt.instance.get<AnalyticsUseCase>(),
+      GetIt.instance.get<AnalyticsButtonUseCase>(),
     ),
   );
   GetIt.instance.registerFactory<ProfileBloc>(
@@ -57,7 +58,7 @@ void _initModuleBloc() {
 void _initModuleApp() {
   GetIt.instance.registerFactory<AppBloc>(
     () => AppBloc(
-      GetIt.instance.get<AnalyticsUseCase>(),
+      GetIt.instance.get<AnalyticsPageUseCase>(),
     ),
   );
   GetIt.instance.registerSingleton<AppNavigator>(

@@ -1,5 +1,4 @@
-import 'package:domain/model/firebase_analytics_model.dart';
-import 'package:domain/use_case/analytics_use_case.dart';
+import 'package:domain/use_case/analytics_button_use_case.dart';
 import 'package:domain/use_case/request_movie_list_use_case.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/library/const/event_name.dart';
@@ -14,7 +13,7 @@ abstract class MovieBloc extends Bloc<BaseArguments, MovieListTile> {
   factory MovieBloc(
     RequestMovieListUseCase requestMovieListUseCase,
     MapperMovieList mapperMovieList,
-    AnalyticsUseCase analyticsUseCase,
+    AnalyticsButtonUseCase analyticsUseCase,
   ) =>
       MovieBlocImpl(
         requestMovieListUseCase,
@@ -36,12 +35,12 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
   var _tile = MovieListTile.init();
   final RequestMovieListUseCase _requestMovieListUseCase;
   final MapperMovieList _mapperMovieList;
-  final AnalyticsUseCase analyticsUseCase;
+  final AnalyticsButtonUseCase analyticsButtonUseCase;
 
   MovieBlocImpl(
     this._requestMovieListUseCase,
     this._mapperMovieList,
-    this.analyticsUseCase,
+    this.analyticsButtonUseCase,
   );
 
   @override
@@ -59,10 +58,7 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
     final movieMapTrending = _mapperMovieList(
       movieResponseTrending,
     );
-    final eventLog = FirebaseAnalyticsModel(
-      eventName: EventName.movieTrendingClick,
-    );
-    await analyticsUseCase(eventLog);
+    await analyticsButtonUseCase(EventName.movieTrendingClick);
     _tile = _tile.copyWith(movieTrending: movieMapTrending);
     handleData(
       tile: _tile,
@@ -79,10 +75,7 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
     final movieMapComing = _mapperMovieList(
       movieResponseComing,
     );
-    final eventLog = FirebaseAnalyticsModel(
-      eventName: EventName.movieComingClick,
-    );
-    await analyticsUseCase(eventLog);
+    await analyticsButtonUseCase(EventName.movieComingClick);
     _tile = _tile.copyWith(movieComing: movieMapComing);
     handleData(
       tile: _tile,
@@ -94,8 +87,7 @@ class MovieBlocImpl extends BlocImpl<BaseArguments, MovieListTile>
   void onMovieTap({
     required MovieRowData movie,
   }) async {
-    final eventLog = FirebaseAnalyticsModel(eventName: EventName.movieClick);
-    await analyticsUseCase(eventLog);
+    await analyticsButtonUseCase(EventName.movieClick);
     appNavigator.push(
       MovieDetailsWidget.page(
         MovieDetailsArguments(movie: movie),
