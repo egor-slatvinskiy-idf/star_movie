@@ -1,12 +1,13 @@
-import 'package:domain/model/firebase_analytics_model.dart';
 import 'package:domain/model/firebase_user_email.dart';
-import 'package:domain/use_case/analytics_use_case.dart';
+import 'package:domain/use_case/log_analytics_button_use_case.dart';
 import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
 import 'package:domain/use_case/login_validator_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc.dart';
+import 'package:presentation/library/const/error_message.dart';
+import 'package:presentation/library/const/event_name.dart';
 import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/const/error_message.dart';
 import 'package:presentation/library/const/event_name.dart';
@@ -19,6 +20,7 @@ abstract class AuthBloc extends Bloc<BaseArguments, AuthTile> {
     LoginEmailAndPassUseCase authUseCase,
     LoginGoogleUseCase loginGoogleUseCase,
     LoginFacebookUseCase loginFacebookUseCase,
+    LogAnalyticsButtonUseCase analyticsUseCase,
     AnalyticsUseCase analyticsUseCase,
     ValidatorUseCase validatorUseCase,
   ) =>
@@ -26,6 +28,7 @@ abstract class AuthBloc extends Bloc<BaseArguments, AuthTile> {
         authUseCase: authUseCase,
         loginGoogleUseCase: loginGoogleUseCase,
         loginFacebookUseCase: loginFacebookUseCase,
+        logButtonUseCase: analyticsUseCase,
         analytics: analyticsUseCase,
         validatorUseCase: validatorUseCase,
       );
@@ -56,6 +59,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
   final LoginGoogleUseCase loginGoogleUseCase;
   final LoginFacebookUseCase loginFacebookUseCase;
   final LoginEmailAndPassUseCase authUseCase;
+  final LogAnalyticsButtonUseCase logButtonUseCase;
   final ValidatorUseCase validatorUseCase;
   final AnalyticsUseCase analytics;
 
@@ -76,7 +80,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
   AuthBlocImpl({
     required this.validatorUseCase,
     required this.authUseCase,
-    required this.analytics,
+    required this.logButtonUseCase,
     required this.loginGoogleUseCase,
     required this.loginFacebookUseCase,
   });
@@ -118,16 +122,31 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
 
   @override
   Future<void> authFacebook() async {
-    final eventLog = FirebaseAnalyticsModel(eventName: EventName.facebookClick);
-    await analytics(eventLog);
+    await logButtonUseCase(EventName.facebookClick);
     await _tryLogin(await loginFacebookUseCase());
   }
 
   @override
   Future<void> authGoogle() async {
-    final eventLog = FirebaseAnalyticsModel(eventName: EventName.googleClick);
-    await analytics(eventLog);
+    await logButtonUseCase(EventName.googleClick);
     _tryLogin(await loginGoogleUseCase());
+  }
+
+  @override
+  Future<void> auth() async {
+    final login = _loginController.text;
+    final password = _passwordController.text;
+    handleData(tile: _tile, isLoading: false);
+    if (Validator(login, password).isValid()) {
+      handleData(
+          tile: _tile.copyWith(errorMessage: ErrorMessage.fillLogOrPass));
+      return;
+    }
+    handleData(isLoading: true);
+    await logButtonUseCase(EventName.loginClick);
+    final UserEmailPass user = UserEmailPass(login, password);
+    _tryLogin(await authUseCase(user));
+    handleData(isLoading: false);
   }
 
   _tryLogin(bool isAbleToLogin) {
