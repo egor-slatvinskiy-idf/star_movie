@@ -1,7 +1,7 @@
 import 'package:domain/base/mappers/mapper_image_url.dart';
+import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/log_analytics_button_use_case.dart';
 import 'package:domain/use_case/log_analytics_page_use_case.dart';
-import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
 import 'package:domain/use_case/login_validator_use_case.dart';
@@ -12,6 +12,7 @@ import 'package:get_it/get_it.dart';
 import 'package:presentation/app/app_bloc.dart';
 import 'package:presentation/navigation/app_navigator.dart';
 import 'package:presentation/ui/auth_page/bloc/auth_bloc.dart';
+import 'package:presentation/ui/auth_page/mappers/login_mapper.dart';
 import 'package:presentation/ui/movie_details/bloc/movie_details_bloc.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/mapper/mapper_movie_list.dart';
@@ -50,6 +51,7 @@ void _initModuleBloc() {
       GetIt.instance.get<LoginFacebookUseCase>(),
       GetIt.instance.get<LogAnalyticsButtonUseCase>(),
       GetIt.instance.get<LogValidatorUseCase>(),
+      GetIt.instance.get<MapperLogin>(),
     ),
   );
   GetIt.instance.registerFactory<ProfileBloc>(
@@ -73,5 +75,8 @@ void _initModuleMappers() {
     () => MapperMovieList(
       mapperImageUrl: GetIt.instance.get<MapperImageUrl>(),
     ),
+  );
+  GetIt.instance.registerFactory<MapperLogin>(
+    () => MapperLogin(),
   );
 }

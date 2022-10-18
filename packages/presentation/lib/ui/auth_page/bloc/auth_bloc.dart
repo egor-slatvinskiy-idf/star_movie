@@ -1,5 +1,4 @@
 import 'package:domain/model/firebase_user_email.dart';
-import 'package:domain/model/validate_result_model.dart';
 import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/log_analytics_button_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
@@ -7,11 +6,11 @@ import 'package:domain/use_case/login_google_use_case.dart';
 import 'package:domain/use_case/login_validator_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:presentation/base/bloc.dart';
-import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/const/error_message.dart';
 import 'package:presentation/library/const/event_name.dart';
 import 'package:presentation/navigation/base_arguments.dart';
 import 'package:presentation/ui/auth_page/bloc/auth_tile.dart';
+import 'package:presentation/ui/auth_page/mappers/login_mapper.dart';
 import 'package:presentation/ui/profile_page/profile_widget.dart';
 
 abstract class AuthBloc extends Bloc<BaseArguments, AuthTile> {
@@ -21,6 +20,7 @@ abstract class AuthBloc extends Bloc<BaseArguments, AuthTile> {
     LoginFacebookUseCase loginFacebookUseCase,
     LogAnalyticsButtonUseCase analyticsUseCase,
     LogValidatorUseCase validatorUseCase,
+    MapperLogin loginMapper,
   ) =>
       AuthBlocImpl(
         authUseCase: authUseCase,
@@ -28,6 +28,7 @@ abstract class AuthBloc extends Bloc<BaseArguments, AuthTile> {
         loginFacebookUseCase: loginFacebookUseCase,
         logButtonUseCase: analyticsUseCase,
         validatorUseCase: validatorUseCase,
+        loginMapper: loginMapper,
       );
 
   TextEditingController get textLoginController;
@@ -58,6 +59,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
   final LoginEmailAndPassUseCase authUseCase;
   final LogAnalyticsButtonUseCase logButtonUseCase;
   final LogValidatorUseCase validatorUseCase;
+  final MapperLogin loginMapper;
 
   @override
   GlobalKey<FormState> get formKey => _formKey;
@@ -74,6 +76,7 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
       );
 
   AuthBlocImpl({
+    required this.loginMapper,
     required this.validatorUseCase,
     required this.authUseCase,
     required this.logButtonUseCase,
@@ -118,6 +121,24 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
     handleData(isLoading: false);
   }
 
+  void validationLogin() {
+    final validationResult = validatorUseCase(_enteredUser);
+    final errorMessage = loginMapper(validationResult).validationLogin;
+    _tile = _tile.copyWith(
+      errorMessagePassword: _tile.errorMessagePassword,
+      errorMessageLogin: errorMessage,
+    );
+  }
+
+  void validationPassword() {
+    final validationResult = validatorUseCase(_enteredUser);
+    final errorMessage = loginMapper(validationResult).validationPassword;
+    _tile = _tile.copyWith(
+      errorMessagePassword: errorMessage,
+      errorMessageLogin: _tile.errorMessageLogin,
+    );
+  }
+
   @override
   Future<void> authFacebook() async {
     await logButtonUseCase(EventName.facebookClick);
@@ -144,53 +165,5 @@ class AuthBlocImpl extends BlocImpl<BaseArguments, AuthTile>
       tile: _tile,
       isLoading: false,
     );
-  }
-
-  void validationLogin() {
-    final validationResult = validatorUseCase(_enteredUser);
-    switch (validationResult.validationLogin) {
-      case ValidateResultModel.loginIsRequired:
-        _tile = _tile.copyWith(
-          errorMessageLogin: S.current.loginIsRequired,
-          errorMessagePassword: _tile.errorMessagePassword,
-        );
-        break;
-      case ValidateResultModel.invalidLogin:
-        _tile = _tile.copyWith(
-          errorMessageLogin: S.current.loginRegex,
-          errorMessagePassword: _tile.errorMessagePassword,
-        );
-        break;
-      case null:
-        _tile = _tile.copyWith(
-          errorMessageLogin: null,
-          errorMessagePassword: _tile.errorMessagePassword,
-        );
-        break;
-    }
-  }
-
-  void validationPassword() {
-    final validationResult = validatorUseCase(_enteredUser);
-    switch (validationResult.validationPassword) {
-      case ValidateResultModel.passwordIsRequired:
-        _tile = _tile.copyWith(
-          errorMessagePassword: S.current.passwordIsRequired,
-          errorMessageLogin: _tile.errorMessageLogin,
-        );
-        break;
-      case ValidateResultModel.invalidPassword:
-        _tile = _tile.copyWith(
-          errorMessagePassword: S.current.passwordRegex,
-          errorMessageLogin: _tile.errorMessageLogin,
-        );
-        break;
-      case null:
-        _tile = _tile.copyWith(
-          errorMessagePassword: null,
-          errorMessageLogin: _tile.errorMessageLogin,
-        );
-        break;
-    }
   }
 }
