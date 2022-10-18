@@ -49,7 +49,7 @@ void _initModuleBloc() {
       GetIt.instance.get<LoginGoogleUseCase>(),
       GetIt.instance.get<LoginFacebookUseCase>(),
       GetIt.instance.get<LogAnalyticsButtonUseCase>(),
-      GetIt.instance.get<ValidatorUseCase>(),
+      GetIt.instance.get<LogValidatorUseCase>(),
     ),
   );
   GetIt.instance.registerFactory<ProfileBloc>(

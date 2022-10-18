@@ -1,4 +1,3 @@
-import 'package:domain/base/extension/string_or_empty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/base/bloc_screen.dart';
@@ -36,7 +35,6 @@ class _AuthWidgetState extends BlocScreenState<AuthWidget, AuthBloc> {
       stream: bloc.dataStream,
       builder: (_, snapshot) {
         final data = snapshot.data;
-        final tile = data?.data;
         return Scaffold(
           backgroundColor: ColorsApplication.colorTheme,
           appBar: AppBar(
@@ -65,7 +63,6 @@ class _AuthWidgetState extends BlocScreenState<AuthWidget, AuthBloc> {
             children: [
               _FormWidget(
                 bloc: bloc,
-                errorMessage: tile?.errorMessage,
                 data: data,
               ),
               const SizedBox(height: Dimens.size50),
@@ -80,12 +77,10 @@ class _AuthWidgetState extends BlocScreenState<AuthWidget, AuthBloc> {
 
 class _FormWidget extends StatelessWidget {
   final AuthBloc bloc;
-  final String? errorMessage;
   final TileWrapper? data;
 
   const _FormWidget({
     required this.bloc,
-    required this.errorMessage,
     required this.data,
   });
 
@@ -96,9 +91,6 @@ class _FormWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: Dimens.size26),
         child: Column(
           children: [
-            _ErrorMessageWidget(
-              errorMessage: errorMessage.orEmpty,
-            ),
             Form(
               key: bloc.formKey,
               child: Column(
@@ -112,7 +104,7 @@ class _FormWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: Dimens.size8),
                   _TextFormField(
-                    validator: (_) => bloc.validatorLogin(),
+                    validator: bloc.validatorLogin,
                     textEditingController: bloc.textLoginController,
                     obscureText: false,
                     icon: ImagesUtils.profile,
@@ -126,7 +118,7 @@ class _FormWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: Dimens.size8),
                   _TextFormField(
-                    validator: (_) => bloc.validatorPassword(),
+                    validator: bloc.validatorPassword,
                     textEditingController: bloc.textPasswordController,
                     obscureText: true,
                     icon: ImagesUtils.lock,
@@ -280,26 +272,6 @@ class _LoginButtonWidget extends StatelessWidget {
                 S.of(context).login,
                 style: TextStyles.sfProSemi16(),
               ),
-      ),
-    );
-  }
-}
-
-class _ErrorMessageWidget extends StatelessWidget {
-  final String? errorMessage;
-
-  const _ErrorMessageWidget({required this.errorMessage});
-
-  @override
-  Widget build(BuildContext context) {
-    if (errorMessage!.isEmpty || errorMessage == null) {
-      return const SizedBox.shrink();
-    }
-    return Padding(
-      padding: const EdgeInsets.only(bottom: Dimens.size20),
-      child: Text(
-        errorMessage!,
-        style: TextStyles.sfProMed18(color: ColorsApplication.primaryColor),
       ),
     );
   }

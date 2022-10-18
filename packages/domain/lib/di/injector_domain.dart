@@ -63,8 +63,8 @@ void _initModuleUseCase() {
       GetIt.instance.get<AnalyticsService>(),
     ),
   );
-  GetIt.instance.registerFactory<ValidatorUseCase>(
-    () => ValidatorUseCase(),
+  GetIt.instance.registerFactory<LogValidatorUseCase>(
+    () => LogValidatorUseCase(),
   );
 }
 

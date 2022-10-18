@@ -1,13 +1,9 @@
-class ValidateModel {
-  final bool validIsEmptyLogin;
-  final bool validRegexLogin;
-  final bool validIsEmptyPassword;
-  final bool validRegexPassword;
+class LoginValidationModel {
+  final String? validationLogin;
+  final String? validationPassword;
 
-  const ValidateModel({
-    required this.validIsEmptyLogin,
-    required this.validRegexLogin,
-    required this.validIsEmptyPassword,
-    required this.validRegexPassword,
+  const LoginValidationModel({
+    required this.validationLogin,
+    required this.validationPassword,
   });
 }

@@ -1,17 +1,24 @@
 class AuthTile {
-  final String errorMessage;
+  final String? errorMessageLogin;
+  final String? errorMessagePassword;
 
-  const AuthTile({required this.errorMessage});
+  const AuthTile({
+    required this.errorMessageLogin,
+    required this.errorMessagePassword,
+  });
 
   AuthTile copyWith({
-    String? errorMessage,
+    String? errorMessageLogin,
+    String? errorMessagePassword,
   }) {
     return AuthTile(
-      errorMessage: errorMessage ?? this.errorMessage,
+      errorMessageLogin: errorMessageLogin,
+      errorMessagePassword: errorMessagePassword,
     );
   }
 
   factory AuthTile.init() => const AuthTile(
-        errorMessage: '',
+        errorMessageLogin: null,
+        errorMessagePassword: null,
       );
 }
