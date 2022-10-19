@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc.dart';
 import 'package:presentation/enum/bottom_nav_bar_item.dart';
+import 'package:presentation/library/const/event_name.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/auth_page/auth_widget.dart';
 import 'package:presentation/ui/movie_page/movie_widget.dart';

@@ -1,4 +1,3 @@
-import 'package:domain/base/extension/string_or_empty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/base/bloc_screen.dart';
@@ -36,7 +35,6 @@ class _AuthWidgetState extends BlocScreenState<AuthWidget, AuthBloc> {
       stream: bloc.dataStream,
       builder: (_, snapshot) {
         final data = snapshot.data;
-        final tile = data?.data;
         return Scaffold(
           backgroundColor: ColorsApplication.colorTheme,
           appBar: AppBar(
@@ -65,7 +63,6 @@ class _AuthWidgetState extends BlocScreenState<AuthWidget, AuthBloc> {
             children: [
               _FormWidget(
                 bloc: bloc,
-                errorMessage: tile?.errorMessage,
                 data: data,
               ),
               const SizedBox(height: Dimens.size50),
@@ -80,12 +77,10 @@ class _AuthWidgetState extends BlocScreenState<AuthWidget, AuthBloc> {
 
 class _FormWidget extends StatelessWidget {
   final AuthBloc bloc;
-  final String? errorMessage;
   final TileWrapper? data;
 
   const _FormWidget({
     required this.bloc,
-    required this.errorMessage,
     required this.data,
   });
 
@@ -95,60 +90,40 @@ class _FormWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Dimens.size26),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _ErrorMessageWidget(
-              errorMessage: errorMessage.orEmpty,
-            ),
-            Text(
-              S.of(context).userName,
-              style: TextStyles.sfProMed12(
-                color: ColorsApplication.colorProfileTitle,
-              ),
-            ),
-            const SizedBox(height: Dimens.size8),
-            TextField(
-              controller: bloc.textLoginController,
-              cursorColor: Colors.white,
-              style: const TextStyle(color: ColorsApplication.colorTitle),
-              decoration: InputDecoration(
-                prefixIcon: SvgPicture.asset(
-                  ImagesUtils.profile,
-                  width: Dimens.size18,
-                  height: Dimens.size18,
-                  fit: BoxFit.none,
-                ),
-                filled: true,
-                fillColor: ColorsApplication.colorTextField,
-              ),
-            ),
-            const SizedBox(height: Dimens.size20),
-            Text(
-              S.of(context).password,
-              style: TextStyles.sfProMed12(
-                color: ColorsApplication.colorProfileTitle,
-              ),
-            ),
-            const SizedBox(height: Dimens.size8),
-            TextField(
-              controller: bloc.textPasswordController,
-              obscureText: true,
-              autocorrect: false,
-              enableSuggestions: false,
-              cursorColor: Colors.white,
-              style: const TextStyle(
-                color: ColorsApplication.colorTitle,
-              ),
-              decoration: InputDecoration(
-                prefixIcon: SvgPicture.asset(
-                  ImagesUtils.lock,
-                  width: Dimens.size18,
-                  height: Dimens.size18,
-                  fit: BoxFit.none,
-                ),
-                filled: true,
-                fillColor: ColorsApplication.colorTextField,
+            Form(
+              key: bloc.formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    S.of(context).userName,
+                    style: TextStyles.sfProMed12(
+                      color: ColorsApplication.colorProfileTitle,
+                    ),
+                  ),
+                  const SizedBox(height: Dimens.size8),
+                  _TextFormField(
+                    validator: bloc.validatorLogin,
+                    textEditingController: bloc.textLoginController,
+                    obscureText: false,
+                    icon: ImagesUtils.profile,
+                  ),
+                  const SizedBox(height: Dimens.size20),
+                  Text(
+                    S.of(context).password,
+                    style: TextStyles.sfProMed12(
+                      color: ColorsApplication.colorProfileTitle,
+                    ),
+                  ),
+                  const SizedBox(height: Dimens.size8),
+                  _TextFormField(
+                    validator: bloc.validatorPassword,
+                    textEditingController: bloc.textPasswordController,
+                    obscureText: true,
+                    icon: ImagesUtils.lock,
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: Dimens.size20),
@@ -158,6 +133,41 @@ class _FormWidget extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _TextFormField extends StatelessWidget {
+  final String? Function(String?)? validator;
+  final TextEditingController? textEditingController;
+  final bool obscureText;
+  final String icon;
+
+  const _TextFormField({
+    required this.validator,
+    required this.textEditingController,
+    required this.obscureText,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      validator: validator,
+      controller: textEditingController,
+      cursorColor: ColorsApplication.colorTitle,
+      obscureText: obscureText,
+      style: const TextStyle(color: ColorsApplication.colorTitle),
+      decoration: InputDecoration(
+        prefixIcon: SvgPicture.asset(
+          icon,
+          width: Dimens.size18,
+          height: Dimens.size18,
+          fit: BoxFit.none,
+        ),
+        filled: true,
+        fillColor: ColorsApplication.colorTextField,
       ),
     );
   }
@@ -262,26 +272,6 @@ class _LoginButtonWidget extends StatelessWidget {
                 S.of(context).login,
                 style: TextStyles.sfProSemi16(),
               ),
-      ),
-    );
-  }
-}
-
-class _ErrorMessageWidget extends StatelessWidget {
-  final String? errorMessage;
-
-  const _ErrorMessageWidget({required this.errorMessage});
-
-  @override
-  Widget build(BuildContext context) {
-    if (errorMessage!.isEmpty || errorMessage == null) {
-      return const SizedBox.shrink();
-    }
-    return Padding(
-      padding: const EdgeInsets.only(bottom: Dimens.size20),
-      child: Text(
-        errorMessage!,
-        style: TextStyles.sfProMed18(color: ColorsApplication.primaryColor),
       ),
     );
   }

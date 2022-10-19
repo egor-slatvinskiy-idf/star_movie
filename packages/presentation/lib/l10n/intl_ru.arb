@@ -1,3 +1,7 @@
 {
-  "share": "Смотри, какой я фильм нашел! \n\nhttps://www.themoviedb.org/movie/{movie_id}?language={language}"
+  "share": "Смотри, какой я фильм нашел! \n\nhttps://www.themoviedb.org/movie/{movie_id}?language={language}",
+  "loginIsRequired": "Имя пользователя обязательно для ввода",
+  "loginRegex": "Поле логина должно быть не менее 8 символов",
+  "passwordIsRequired": "Пароль обязателен для ввода",
+  "passwordRegex": "Неверный пароль"
 }

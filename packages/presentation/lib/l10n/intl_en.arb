@@ -13,5 +13,9 @@
   "login": "Login",
   "userName": "USER NAME",
   "password": "PASSWORD",
-  "share": "Look, what movie I found! \n\nhttps://www.themoviedb.org/movie/{movie_id}?language={language}"
+  "share": "Look, what movie I found! \n\nhttps://www.themoviedb.org/movie/{movie_id}?language={language}",
+  "loginIsRequired": "Login is required",
+  "loginRegex": "Login field should be at least 8 symbols",
+  "passwordIsRequired": "Password is required",
+  "passwordRegex": "Invalid password"
 }
