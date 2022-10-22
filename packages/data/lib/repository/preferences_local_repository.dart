@@ -5,6 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 const _loginKey = 'loggedUserEmail';
 const _passwordKey = 'loggedUserPassword';
 
+const _trendingDateKey = 'trendingDateKey';
+const _comingDateKey = 'comingDateKey';
+
 class PreferencesLocalRepositoryImpl implements PreferencesLocalRepository {
   final SharedPreferences sharedPreferences;
 
@@ -22,5 +25,41 @@ class PreferencesLocalRepositoryImpl implements PreferencesLocalRepository {
         user.password,
       ),
     ]);
+  }
+
+  @override
+  Future saveDateLoadTrendingMovieList(DateTime date) async {
+    await sharedPreferences.setString(
+      _trendingDateKey,
+      date.toString(),
+    );
+  }
+
+  @override
+  DateTime? getDateLoadTrendingMovieList() {
+    final date = sharedPreferences.getString(_trendingDateKey);
+    if (date == null) {
+      return null;
+    } else {
+      return DateTime.parse(date);
+    }
+  }
+
+  @override
+  Future saveDateLoadComingMovieList(DateTime date) async {
+    await sharedPreferences.setString(
+      _comingDateKey,
+      date.toString(),
+    );
+  }
+
+  @override
+  DateTime? getDateLoadComingMovieList() {
+    final date = sharedPreferences.getString(_comingDateKey);
+    if (date == null) {
+      return null;
+    } else {
+      return DateTime.parse(date);
+    }
   }
 }

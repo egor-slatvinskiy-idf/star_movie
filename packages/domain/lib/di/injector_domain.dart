@@ -1,12 +1,15 @@
+import 'package:domain/base/mappers/date_load_mapper.dart';
+import 'package:domain/base/mappers/get_date_load_mapper.dart';
 import 'package:domain/base/mappers/mapper_image_url.dart';
 import 'package:domain/repository/auth_repository.dart';
+import 'package:domain/repository/database_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:domain/repository/preferences_local_repository.dart';
 import 'package:domain/services/analytics_service.dart';
+import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/log_analytics_button_use_case.dart';
 import 'package:domain/use_case/log_analytics_page_use_case.dart';
-import 'package:domain/use_case/auth_use_case.dart';
 import 'package:domain/use_case/login_facebook_use_case.dart';
 import 'package:domain/use_case/login_google_use_case.dart';
 import 'package:domain/use_case/login_validator_use_case.dart';
@@ -27,12 +30,17 @@ void _initModuleUseCase() {
   GetIt.instance.registerFactory<RequestMovieListUseCase>(
     () => RequestMovieListUseCase(
       GetIt.instance.get<NetworkTraktRepository>(),
+      GetIt.instance.get<DatabaseRepository>(),
+      GetIt.instance.get<PreferencesLocalRepository>(),
+      GetIt.instance.get<IsTodayDateMapper>(),
+      GetIt.instance.get<GetLoadDateMapper>(),
     ),
   );
   GetIt.instance.registerFactory<RequestDetailsUseCase>(
     () => RequestDetailsUseCase(
       GetIt.instance.get<NetworkTraktRepository>(),
       GetIt.instance.get<NetworkTMDBRepository>(),
+      GetIt.instance.get<DatabaseRepository>(),
     ),
   );
   GetIt.instance.registerFactory<LoginEmailAndPassUseCase>(
@@ -71,5 +79,11 @@ void _initModuleUseCase() {
 void _initModuleMappers() {
   GetIt.instance.registerFactory<MapperImageUrl>(
     () => MapperImageUrl(),
+  );
+  GetIt.instance.registerFactory<IsTodayDateMapper>(
+    () => IsTodayDateMapper(),
+  );
+  GetIt.instance.registerFactory<GetLoadDateMapper>(
+    () => GetLoadDateMapper(),
   );
 }
