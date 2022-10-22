@@ -8,7 +8,7 @@ class ConfigurationDatabase {
 
   static const textType = 'TEXT';
   static const intType = 'INTEGER';
-  static const realType = 'TEXT';
+  static const realType = 'REAL';
 
   static const title = 'title';
   static const tmdb = 'tmdb';
