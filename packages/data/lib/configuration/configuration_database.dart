@@ -25,4 +25,31 @@ class ConfigurationDatabase {
   static const person = 'person';
   static const image = 'image';
 
+  static String executeMovieList(String typeMovieList) {
+    return '''
+CREATE TABLE IF NOT EXISTS $typeMovieList (
+  ${ConfigurationDatabase.title} ${ConfigurationDatabase.textType},
+  ${ConfigurationDatabase.tmdb} ${ConfigurationDatabase.intType},
+  ${ConfigurationDatabase.imdb} ${ConfigurationDatabase.textType},
+  ${ConfigurationDatabase.trakt} ${ConfigurationDatabase.intType},
+  ${ConfigurationDatabase.slug} ${ConfigurationDatabase.textType},
+  ${ConfigurationDatabase.overview} ${ConfigurationDatabase.textType},
+  ${ConfigurationDatabase.runtime} ${ConfigurationDatabase.intType},
+  ${ConfigurationDatabase.rating} ${ConfigurationDatabase.realType},
+  ${ConfigurationDatabase.genres} ${ConfigurationDatabase.textType},
+  ${ConfigurationDatabase.certification} ${ConfigurationDatabase.textType}
+  )
+''';
+  }
+
+  static String executeMovieCast() {
+    return '''
+CREATE TABLE IF NOT EXISTS $castList (
+  ${ConfigurationDatabase.movieId} ${ConfigurationDatabase.intType},
+  ${ConfigurationDatabase.characters} ${ConfigurationDatabase.textType},
+  ${ConfigurationDatabase.person} ${ConfigurationDatabase.textType},
+  ${ConfigurationDatabase.image} ${ConfigurationDatabase.textType}
+  )
+''';
+  }
 }

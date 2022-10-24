@@ -29,4 +29,8 @@ abstract class DatabaseRepository {
   Future<List<ResponseModelPeople>> readCast(
     int movieId,
   );
+
+  Future deleteCast(
+    List<int?> moviesId,
+  );
 }

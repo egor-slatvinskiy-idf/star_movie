@@ -56,8 +56,8 @@ class RequestMovieListUseCase
     List<MovieListResponse> movieList,
     TypeListMovie params,
   ) async {
-    final listId = movieList.map((e) => e.movie?.ids?.trakt).toList();
-    if (await _databaseRepository.isEqualToMovieListWithDb(listId, params)) {
+    final newListId = movieList.map((e) => e.movie?.ids?.trakt).toList();
+    if (await _databaseRepository.isEqualToMovieListWithDb(newListId, params)) {
       await _databaseRepository.deleteMovieList(params);
       await _databaseRepository.insertMovieList(movieList, params);
     }
