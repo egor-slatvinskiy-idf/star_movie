@@ -1,6 +1,8 @@
-import 'package:domain/base/mappers/date_load_mapper.dart';
+import 'package:domain/base/mappers/delete_movie_mapper.dart';
 import 'package:domain/base/mappers/get_date_load_mapper.dart';
 import 'package:domain/base/mappers/mapper_image_url.dart';
+import 'package:domain/base/mappers/movie_list_mapper.dart';
+import 'package:domain/base/mappers/update_movie_mapper.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/database_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
@@ -31,9 +33,10 @@ void _initModuleUseCase() {
     () => RequestMovieListUseCase(
       GetIt.instance.get<NetworkTraktRepository>(),
       GetIt.instance.get<DatabaseRepository>(),
-      GetIt.instance.get<PreferencesLocalRepository>(),
-      GetIt.instance.get<IsTodayDateMapper>(),
       GetIt.instance.get<GetLoadDateMapper>(),
+      GetIt.instance.get<UpdateMovieMapper>(),
+      GetIt.instance.get<DeleteMovieMapper>(),
+      GetIt.instance.get<MovieListMapper>(),
     ),
   );
   GetIt.instance.registerFactory<RequestDetailsUseCase>(
@@ -80,10 +83,13 @@ void _initModuleMappers() {
   GetIt.instance.registerFactory<MapperImageUrl>(
     () => MapperImageUrl(),
   );
-  GetIt.instance.registerFactory<IsTodayDateMapper>(
-    () => IsTodayDateMapper(),
-  );
   GetIt.instance.registerFactory<GetLoadDateMapper>(
     () => GetLoadDateMapper(),
+  );
+  GetIt.instance.registerFactory<UpdateMovieMapper>(
+    () => UpdateMovieMapper(),
+  );
+  GetIt.instance.registerFactory<DeleteMovieMapper>(
+    () => DeleteMovieMapper(),
   );
 }

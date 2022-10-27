@@ -30,17 +30,13 @@ class DatabaseService {
     int version,
   ) async {
     await instanceDb.execute(
-      ConfigurationDatabase.executeMovieList(
-        ConfigurationDatabase.trendingList,
-      ),
+      ConfigurationDatabase.executeCreateMovieList(),
     );
     await instanceDb.execute(
-      ConfigurationDatabase.executeMovieList(
-        ConfigurationDatabase.comingList,
-      ),
+      ConfigurationDatabase.executeCreateMovieCast(),
     );
     await instanceDb.execute(
-      ConfigurationDatabase.executeMovieCast(),
+      ConfigurationDatabase.executeCreateDateLoad(),
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:domain/entity/movie_list_response/movie_list_response.dart';
 import 'package:domain/entity/movie_list_response/movie_response.dart';
 
 class MovieListDB {
+  final int? movieType;
   final String? title;
   final int? tmdb;
   final String? imdb;
@@ -17,6 +18,7 @@ class MovieListDB {
   final String? certification;
 
   const MovieListDB({
+    this.movieType,
     this.title,
     this.tmdb,
     this.imdb,
@@ -29,7 +31,12 @@ class MovieListDB {
     this.certification,
   });
 
-  factory MovieListDB.fromResponse(MovieListResponse movie) => MovieListDB(
+  factory MovieListDB.fromResponse(
+    MovieListResponse movie, {
+    int? movieType,
+  }) =>
+      MovieListDB(
+        movieType: movieType,
         title: movie.movie?.title,
         tmdb: movie.movie?.ids?.tmdb,
         imdb: movie.movie?.ids?.imdb,
@@ -56,6 +63,7 @@ class MovieListDB {
       );
 
   Map<String, dynamic> toJson() => {
+        'type': movieType,
         'title': title,
         'tmdb': tmdb,
         'imdb': imdb,

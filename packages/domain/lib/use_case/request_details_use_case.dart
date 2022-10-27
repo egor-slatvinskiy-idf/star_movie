@@ -33,13 +33,13 @@ class RequestDetailsUseCase
       final peopleLength =
           cast.length >= _maxLengthPeople ? _maxLengthPeople : cast.length;
       final necessaryCast = cast.take(peopleLength).toList();
-      final castModel = await castPeopleModel(necessaryCast);
+      final castModel = await _castPeopleModel(necessaryCast);
       await _databaseRepository.insertCast(castModel, params);
       return castModel;
     }
   }
 
-  Future<List<ResponseModelPeople>> castPeopleModel(
+  Future<List<ResponseModelPeople>> _castPeopleModel(
     List<Cast> cast,
   ) async {
     return await Future.wait(
