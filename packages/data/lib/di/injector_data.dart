@@ -1,16 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data/configuration/configuration_request.dart';
+import 'package:data/database/database_repository_impl.dart';
 import 'package:data/di/environment_configuration.dart';
 import 'package:data/interceptor/interceptor.dart';
+import 'package:data/mappers/cast_mapper.dart';
 import 'package:data/repository/auth_repository.dart';
 import 'package:data/repository/network_tmdb_repository.dart';
 import 'package:data/repository/network_trakt_repository.dart';
 import 'package:data/repository/preferences_local_repository.dart';
 import 'package:data/services/analytics_service_impl.dart';
 import 'package:data/services/api_base_service.dart';
+import 'package:data/services/database_service.dart';
 import 'package:data/services/service_payload.dart';
 import 'package:dio/dio.dart';
+import 'package:domain/base/mappers/movie_list_mapper.dart';
 import 'package:domain/repository/auth_repository.dart';
+import 'package:domain/repository/database_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
 import 'package:domain/repository/network_trakt_repository.dart';
 import 'package:domain/repository/preferences_local_repository.dart';
@@ -30,6 +35,7 @@ void initInjectorData() {
   _initModuleApi();
   _initFirebaseAnalytics();
   _initModuleRepository();
+  _initModuleMappers();
 }
 
 void _initModuleApi() {
@@ -74,6 +80,9 @@ void _initModuleApi() {
     ),
     instanceName: _tMDBService,
   );
+  GetIt.instance.registerSingleton<DatabaseService>(
+    DatabaseService(),
+  );
 }
 
 void _initModuleRepository() async {
@@ -104,6 +113,21 @@ void _initModuleRepository() async {
     () => PreferencesLocalRepositoryImpl(
       sharedPreferences: GetIt.instance.get(),
     ),
+  );
+  GetIt.instance.registerSingleton<DatabaseRepository>(
+    DatabaseRepositoryImpl(
+      GetIt.instance.get<DatabaseService>(),
+      GetIt.instance.get<CastMapper>(),
+    ),
+  );
+}
+
+void _initModuleMappers() {
+  GetIt.instance.registerFactory<MovieListMapper>(
+    () => MovieListMapper(),
+  );
+  GetIt.instance.registerFactory<CastMapper>(
+    () => CastMapper(),
   );
 }
 

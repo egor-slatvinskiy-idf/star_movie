@@ -1,5 +1,5 @@
 class GetDataResponse {
-  final Map<String, dynamic> headers;
+  final Map<String, List<String>> headers;
   final List<Map<String, dynamic>> body;
 
   const GetDataResponse({

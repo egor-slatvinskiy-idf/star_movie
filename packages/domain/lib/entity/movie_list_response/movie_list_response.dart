@@ -9,11 +9,11 @@ class MovieListResponse {
   final int? watchers;
   final Movie? movie;
 
-  const MovieListResponse(
+  const MovieListResponse({
     this.listCount,
     this.watchers,
     this.movie,
-  );
+  });
 
   factory MovieListResponse.fromJson(Map<String, dynamic> json) =>
       _$MovieListResponseFromJson(json);
