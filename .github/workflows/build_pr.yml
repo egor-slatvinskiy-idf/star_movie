@@ -20,5 +20,13 @@ jobs:
         with:
           flutter-version: '3.3.4'
           channel: 'stable'
+      - name: CreateApiKeyForAndroid
+        run: |
+          cd android;
+          touch "local.properties";
+          echo "${{secrets.FACEBOOK_APP_ID}}" >> local.properties;
+          echo "${{secrets.FB_LOGIN_PROTOCOL_SCHEME}}" >> local.properties;
+          echo "${{secrets.FACEBOOK_CLIENT_TOKEN}}" >> local.properties;
+          cat local.properties;
       - name: Build APK
         run: flutter build apk --flavor sandbox --dart-define=sandbox=true -t lib/main_sandbox.dart --debug
