@@ -1,11 +1,9 @@
 
 name: build_pr
-
 on:
   pull_request:
     branches:
       - master
-
 jobs:
   pull_request_build:
     name: Build after PR
@@ -28,5 +26,17 @@ jobs:
           echo "${{secrets.FB_LOGIN_PROTOCOL_SCHEME}}" >> local.properties;
           echo "${{secrets.FACEBOOK_CLIENT_TOKEN}}" >> local.properties;
           cat local.properties;
+      - name: PubGetDomain
+        run: |
+          cd packages/domain/
+          flutter pub get && flutter packages pub run build_runner build
+      - name: PubGetPresentation
+        run: |
+          cd packages/presentation/
+          flutter pub get
+      - name: PubGetData
+        run: |
+          cd packages/data/
+          flutter pub get
       - name: Build APK
         run: flutter build apk --flavor sandbox --dart-define=sandbox=true -t lib/main_sandbox.dart --debug
