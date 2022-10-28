@@ -39,12 +39,14 @@ jobs:
       - name: PubGetPresentation
         run: |
           cd packages/presentation/
-          flutter pub global activate intl_utils 2.7.0
           flutter pub get
-          flutter pub global run intl_utils:generate
+          flutter pub global activate intl_utils 2.7.0
       - name: PubGetData
         run: |
           cd packages/data/
           flutter pub get
+      - name: IntlGenerate
+        run: |
+          flutter pub global run intl_utils:generate
       - name: Build APK
         run: flutter build apk --flavor sandbox --dart-define=sandbox=true -t lib/main_sandbox.dart --debug
