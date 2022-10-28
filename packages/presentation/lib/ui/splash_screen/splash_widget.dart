@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/Library/images_utils/images_utils.dart';
+import 'package:presentation/library/images_utils/images_utils.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/navigation/base_page.dart';

@@ -1,8 +1,8 @@
 // ignore_for_file: must_call_super
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:presentation/Library/images_utils/images_utils.dart';
-import 'package:presentation/Library/widgets/shimmer_movie.dart';
+import 'package:presentation/library/images_utils/images_utils.dart';
+import 'package:presentation/library/widgets/shimmer_movie.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/generated/l10n.dart';
