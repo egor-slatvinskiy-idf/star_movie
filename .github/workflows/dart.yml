@@ -26,6 +26,7 @@ jobs:
           echo "${{secrets.FACEBOOK_CLIENT_TOKEN}}" >> local.properties;
       - name: CreateApiKey
         run: |
+          touch "prod.json";
           touch "sandbox.json";
           echo "${{secrets.TEST_API_KEY}}" >> sandbox.json;
       - name: PubGetDomain
