@@ -28,7 +28,7 @@ jobs:
       - name: CreateApiKey
         run: |
           touch "sandbox.json";
-          echo "${{secrets.TEST_API_KEY}}" >> sandbox.json;
+          echo "${secrets.TEST_API_KEY}" >> sandbox.json;
       - name: PubGetDomain
         run: |
           cd packages/domain/
