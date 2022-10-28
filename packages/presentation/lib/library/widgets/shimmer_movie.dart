@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/Library/widgets/shimmer_widget.dart';
+import 'package:presentation/library/widgets/shimmer_widget.dart';
 import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 
