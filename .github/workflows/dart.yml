@@ -1,0 +1,50 @@
+name: build_pr
+on:
+  pull_request:
+    branches:
+      - master
+jobs:
+  pull_request_build:
+    name: Build after PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '3.0.5'
+          channel: 'stable'
+      - name: CreateApiKeyForAndroid
+        run: |
+          cd android;
+          touch "local.properties";
+          echo "${{secrets.FACEBOOK_APP_ID}}" >> local.properties;
+          echo "${{secrets.FB_LOGIN_PROTOCOL_SCHEME}}" >> local.properties;
+          echo "${{secrets.FACEBOOK_CLIENT_TOKEN}}" >> local.properties;
+      - name: CreateApiKey
+        run: |
+          touch "prod.json";
+          touch "sandbox.json";
+          echo "${{secrets.TEST_API_KEY}}" >> sandbox.json;
+      - name: PubGetDomain
+        run: |
+          cd packages/domain/
+          flutter pub get && flutter packages pub run build_runner build
+      - name: PubGetData
+        run: |
+          cd packages/data/
+          flutter pub get
+      - name: PubGetPresentation
+        run: |
+          cd packages/presentation/
+          flutter pub global activate intl_utils 2.7.0
+          flutter pub get
+          flutter pub global run intl_utils:generate
+      - name: PubGet
+        run: |
+          flutter pub get
+      - name: Build APK
+        run: flutter build apk --flavor sandbox -t lib/main_sandbox.dart --debug --dart-define=sandbox=true
