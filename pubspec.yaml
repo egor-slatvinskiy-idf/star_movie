@@ -26,5 +26,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - prod.json
+    - sandbox.json
+
 flutter_intl:
   enabled: true

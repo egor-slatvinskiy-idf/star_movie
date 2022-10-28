@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data/configuration/configuration_request.dart';
 import 'package:data/database/database_repository_impl.dart';
 import 'package:data/di/environment_configuration.dart';
+import 'package:data/di/json_store.dart';
+import 'package:data/di/read_json_store.dart';
 import 'package:data/interceptor/interceptor.dart';
 import 'package:data/mappers/cast_mapper.dart';
 import 'package:data/repository/auth_repository.dart';
@@ -14,6 +16,7 @@ import 'package:data/services/database_service.dart';
 import 'package:data/services/service_payload.dart';
 import 'package:dio/dio.dart';
 import 'package:domain/base/mappers/movie_list_mapper.dart';
+import 'package:domain/repository/api_key_repository.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/database_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
@@ -30,7 +33,8 @@ const _traktService = 'TraktService';
 const _tMDBApi = 'TMDB';
 const _tMDBService = 'TMDBService';
 
-void initInjectorData() {
+Future<void> initInjectorData() async {
+  await _initModuleJsonStore();
   _initModuleInterceptor();
   _initModuleApi();
   _initFirebaseAnalytics();
@@ -137,20 +141,44 @@ void _initFirebaseAnalytics() {
   );
 }
 
+Future<void> _initModuleJsonStore() async {
+  final environmentConfiguration = EnvironmentConfiguration();
+  final readJsonStore = await ReadJsonStore(
+          path: environmentConfiguration.prod
+              ? ConfigurationRequest.prodJsonPath
+              : environmentConfiguration.sandbox
+                  ? ConfigurationRequest.sandboxJsonPath
+                  : '')
+      .read();
+  GetIt.instance.registerLazySingleton<JsonStore>(
+    () => JsonStore(readJsonStore),
+  );
+  GetIt.instance.registerFactory<String>(
+    () => JsonStore(readJsonStore).apiKeyOMDB,
+    instanceName: ApiKeyRepository.apiKeyOMDB,
+  );
+}
+
 void _initModuleInterceptor() {
   final environmentConfiguration = EnvironmentConfiguration();
   if (environmentConfiguration.prod) {
     GetIt.instance.registerSingleton<HeaderInterceptorTraktApi>(
-      HeaderInterceptorTraktApi(),
+      HeaderInterceptorTraktApi(
+        GetIt.instance.get<JsonStore>(),
+      ),
     );
   } else if (environmentConfiguration.sandbox) {
     GetIt.instance.registerSingleton<SandboxHeaderInterceptorTraktApi>(
-      SandboxHeaderInterceptorTraktApi(),
+      SandboxHeaderInterceptorTraktApi(
+        GetIt.instance.get<JsonStore>(),
+      ),
     );
   }
 
   GetIt.instance.registerSingleton<QueryParametersInterceptorTMDBApi>(
-    QueryParametersInterceptorTMDBApi(),
+    QueryParametersInterceptorTMDBApi(
+      GetIt.instance.get<JsonStore>(),
+    ),
   );
 }
 

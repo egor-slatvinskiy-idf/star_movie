@@ -3,6 +3,7 @@ import 'package:domain/base/mappers/get_date_load_mapper.dart';
 import 'package:domain/base/mappers/mapper_image_url.dart';
 import 'package:domain/base/mappers/movie_list_mapper.dart';
 import 'package:domain/base/mappers/update_movie_mapper.dart';
+import 'package:domain/repository/api_key_repository.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/database_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
@@ -81,7 +82,11 @@ void _initModuleUseCase() {
 
 void _initModuleMappers() {
   GetIt.instance.registerFactory<MapperImageUrl>(
-    () => MapperImageUrl(),
+    () => MapperImageUrl(
+      GetIt.instance.get(
+        instanceName: ApiKeyRepository.apiKeyOMDB,
+      ),
+    ),
   );
   GetIt.instance.registerFactory<GetLoadDateMapper>(
     () => GetLoadDateMapper(),

@@ -12,6 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
+  intl_utils: 2.7.0
   domain:
     path: ../domain
   flutter_svg: ^1.1.4

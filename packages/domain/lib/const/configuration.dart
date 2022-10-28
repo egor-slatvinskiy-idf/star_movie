@@ -1,10 +1,8 @@
-import 'package:domain/const/api_key.dart';
-
 class Configuration {
-  Configuration._();
+  const Configuration._();
 
-  static const imageUrl =
-      'http://img.omdbapi.com/?apikey=${ApiKey.apiKeyOMDB}=';
+  static String imageUrl(String apiKeyOMDB) =>
+      'http://img.omdbapi.com/?apikey=$apiKeyOMDB=';
   static const pageCount = 'x-pagination-page-count';
   static const pageLimit = 'x-pagination-limit';
   static const itemCount = 'x-pagination-item-count';
