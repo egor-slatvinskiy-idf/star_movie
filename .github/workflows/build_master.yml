@@ -24,7 +24,7 @@ jobs:
           echo "${{secrets.FACEBOOK_APP_ID}}" >> local.properties;
           echo "${{secrets.FB_LOGIN_PROTOCOL_SCHEME}}" >> local.properties;
           echo "${{secrets.FACEBOOK_CLIENT_TOKEN}}" >> local.properties;
-      - name: CreateApiKey
+      - name: Create api key
         run: |
           touch "prod.json";
           touch "sandbox.json";
