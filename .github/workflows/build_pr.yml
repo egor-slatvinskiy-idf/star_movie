@@ -25,6 +25,9 @@ jobs:
           echo "${{secrets.FACEBOOK_APP_ID}}" >> local.properties;
           echo "${{secrets.FB_LOGIN_PROTOCOL_SCHEME}}" >> local.properties;
           echo "${{secrets.FACEBOOK_CLIENT_TOKEN}}" >> local.properties;
+      - name: PubGet
+        run: |
+          flutter pub get
       - name: CreateApiKey
         run: |
           touch "sandbox.json";
