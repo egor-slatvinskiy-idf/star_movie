@@ -25,7 +25,10 @@ jobs:
           echo "${{secrets.FACEBOOK_APP_ID}}" >> local.properties;
           echo "${{secrets.FB_LOGIN_PROTOCOL_SCHEME}}" >> local.properties;
           echo "${{secrets.FACEBOOK_CLIENT_TOKEN}}" >> local.properties;
-          cat local.properties;
+      - name: CreateApiKey
+        run: |
+          touch "sandbox.json";
+          echo "${{secrets.SANDBOX_API_KEY}}" >> sandbox.json;
       - name: PubGetDomain
         run: |
           cd packages/domain/
@@ -33,7 +36,9 @@ jobs:
       - name: PubGetPresentation
         run: |
           cd packages/presentation/
+          flutter pub global activate intl_utils 2.7.0
           flutter pub get
+          flutter pub global run intl_utils:generate
       - name: PubGetData
         run: |
           cd packages/data/
