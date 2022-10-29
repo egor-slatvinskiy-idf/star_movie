@@ -5,6 +5,7 @@ import 'package:data/services/database_service.dart';
 import 'package:domain/model/response_model_people.dart';
 import 'package:domain/repository/database_repository.dart';
 import 'package:domain/use_case/request_movie_list_use_case.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseRepositoryImpl implements DatabaseRepository {
   final DatabaseService instance;
@@ -51,7 +52,11 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
     final instanceDb = await instance.database;
     final batch = instanceDb.batch();
     for (var movie in movieList) {
-      batch.insert(ConfigurationDatabase.movieList, movie);
+      batch.insert(
+        ConfigurationDatabase.movieList,
+        movie,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
     }
     await batch.commit();
   }
@@ -62,7 +67,8 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
     return await instanceDb.query(
       ConfigurationDatabase.movieList,
       where: '${ConfigurationDatabase.movieType} = '
-          '${type == TypeListMovie.trending
+          '${type
+          == TypeListMovie.trending
           ? ConfigurationDatabase.movieTrending
           : ConfigurationDatabase.movieComing}',
     );
@@ -112,7 +118,8 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
     await instanceDb.update(
       ConfigurationDatabase.dateLoad,
       where: '${ConfigurationDatabase.movieType} = '
-          '${typeMovie == TypeListMovie.trending
+          '${typeMovie
+          == TypeListMovie.trending
           ? ConfigurationDatabase.movieTrending
           : ConfigurationDatabase.movieComing}',
       {ConfigurationDatabase.date: date},
@@ -127,11 +134,13 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
     final result = await instanceDb.query(
       ConfigurationDatabase.dateLoad,
       where: '${ConfigurationDatabase.movieType} = '
-          '${typeMovie == TypeListMovie.trending
+          '${typeMovie
+          == TypeListMovie.trending
           ? ConfigurationDatabase.movieTrending
           : ConfigurationDatabase.movieComing}',
     );
-    return DateTime.parse(
-      result.first[ConfigurationDatabase.date].toString());
+    return result.isNotEmpty
+        ? DateTime.parse(result.first[ConfigurationDatabase.date].toString())
+        : null;
   }
 }

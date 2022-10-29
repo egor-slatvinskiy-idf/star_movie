@@ -34,8 +34,8 @@ const _tMDBApi = 'TMDB';
 const _tMDBService = 'TMDBService';
 
 Future<void> initInjectorData() async {
-  await _initModuleJsonStore();
   _initFirebaseAnalytics();
+  await _initModuleJsonStore();
   _initModuleInterceptor();
   _initModuleApi();
   _initModuleRepository();
