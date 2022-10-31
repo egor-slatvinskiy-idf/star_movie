@@ -9,8 +9,8 @@ class ConfigurationRequest {
   static const endPointTrending = 'movies/trending';
   static const endPointComing = 'movies/anticipated';
   static const tMDBUrl = 'https://api.themoviedb.org/3/';
-  static const sandboxJsonPath = 'sandbox.json';
-  static const prodJsonPath = 'prod.json';
+  static const sandboxJsonPath = 'environmentСonfiguration/sandbox.json';
+  static const prodJsonPath = 'environmentСonfiguration/prod.json';
   static const apiKeyTrakt = 'trakt-api-key';
   static const apiKeyTMDB = 'api_key';
 }

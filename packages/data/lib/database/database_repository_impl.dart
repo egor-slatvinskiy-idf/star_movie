@@ -5,6 +5,7 @@ import 'package:data/services/database_service.dart';
 import 'package:domain/model/response_model_people.dart';
 import 'package:domain/repository/database_repository.dart';
 import 'package:domain/use_case/request_movie_list_use_case.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseRepositoryImpl implements DatabaseRepository {
   final DatabaseService instance;
@@ -51,20 +52,26 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
     final instanceDb = await instance.database;
     final batch = instanceDb.batch();
     for (var movie in movieList) {
-      batch.insert(ConfigurationDatabase.movieList, movie);
+      batch.insert(
+        ConfigurationDatabase.movieList,
+        movie,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
     }
     await batch.commit();
   }
 
   @override
-  Future<List<Map<String, dynamic>>> readMovieList(TypeListMovie type) async {
+  Future<List<Map<String, dynamic>>> readMovieList(
+      TypeListMovie typeMovie) async {
     final instanceDb = await instance.database;
+    final movieType = typeMovie == TypeListMovie.trending
+        ? ConfigurationDatabase.movieTrending
+        : ConfigurationDatabase.movieComing;
     return await instanceDb.query(
       ConfigurationDatabase.movieList,
       where: '${ConfigurationDatabase.movieType} = '
-          '${type == TypeListMovie.trending
-          ? ConfigurationDatabase.movieTrending
-          : ConfigurationDatabase.movieComing}',
+          '$movieType',
     );
   }
 
@@ -88,16 +95,16 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
   @override
   Future insertDateLoadMovie(
     String date,
-    TypeListMovie movieType,
+    TypeListMovie typeMovie,
   ) async {
     final instanceDb = await instance.database;
+    final movieType = typeMovie == TypeListMovie.trending
+        ? ConfigurationDatabase.movieTrending
+        : ConfigurationDatabase.movieComing;
     await instanceDb.insert(
       ConfigurationDatabase.dateLoad,
       {
-        ConfigurationDatabase.movieType: movieType
-            == TypeListMovie.trending
-            ? ConfigurationDatabase.movieTrending
-            : ConfigurationDatabase.movieComing,
+        ConfigurationDatabase.movieType: movieType,
         ConfigurationDatabase.date: date,
       },
     );
@@ -109,12 +116,13 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
     TypeListMovie typeMovie,
   ) async {
     final instanceDb = await instance.database;
+    final movieType = typeMovie == TypeListMovie.trending
+        ? ConfigurationDatabase.movieTrending
+        : ConfigurationDatabase.movieComing;
     await instanceDb.update(
       ConfigurationDatabase.dateLoad,
       where: '${ConfigurationDatabase.movieType} = '
-          '${typeMovie == TypeListMovie.trending
-          ? ConfigurationDatabase.movieTrending
-          : ConfigurationDatabase.movieComing}',
+          '$movieType',
       {ConfigurationDatabase.date: date},
     );
   }
@@ -124,14 +132,16 @@ class DatabaseRepositoryImpl implements DatabaseRepository {
     TypeListMovie typeMovie,
   ) async {
     final instanceDb = await instance.database;
+    final movieType = typeMovie == TypeListMovie.trending
+        ? ConfigurationDatabase.movieTrending
+        : ConfigurationDatabase.movieComing;
     final result = await instanceDb.query(
       ConfigurationDatabase.dateLoad,
       where: '${ConfigurationDatabase.movieType} = '
-          '${typeMovie == TypeListMovie.trending
-          ? ConfigurationDatabase.movieTrending
-          : ConfigurationDatabase.movieComing}',
+          '$movieType',
     );
-    return DateTime.parse(
-      result.first[ConfigurationDatabase.date].toString());
+    return result.isNotEmpty
+        ? DateTime.parse(result.first[ConfigurationDatabase.date].toString())
+        : null;
   }
 }

@@ -39,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "410486701953-t2ma4o0kkv0u9osnic4tpt5nc5e0etfh.apps.googleusercontent.com",
+              "client_id": "410486701953-rmlab29se4frioha17bakp2n9di8gbjm.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.starMovieIdf"
+                "bundle_id": "com.vladimir.hodaryonok.starMovie"
               }
             }
           ]
