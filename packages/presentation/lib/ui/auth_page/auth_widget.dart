@@ -89,49 +89,52 @@ class _FormWidget extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Dimens.size26),
-        child: Column(
-          children: [
-            Form(
-              key: bloc.formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    S.of(context).userName,
-                    style: TextStyles.sfProMed12(
-                      color: ColorsApplication.colorProfileTitle,
+        child: SizedBox(
+          width: 350,
+          child: Column(
+            children: [
+              Form(
+                key: bloc.formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      S.of(context).userName,
+                      style: TextStyles.sfProMed12(
+                        color: ColorsApplication.colorProfileTitle,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: Dimens.size8),
-                  _TextFormField(
-                    validator: bloc.validatorLogin,
-                    textEditingController: bloc.textLoginController,
-                    obscureText: false,
-                    icon: ImagesUtils.profile,
-                  ),
-                  const SizedBox(height: Dimens.size20),
-                  Text(
-                    S.of(context).password,
-                    style: TextStyles.sfProMed12(
-                      color: ColorsApplication.colorProfileTitle,
+                    const SizedBox(height: Dimens.size8),
+                    _TextFormField(
+                      validator: bloc.validatorLogin,
+                      textEditingController: bloc.textLoginController,
+                      obscureText: false,
+                      icon: ImagesUtils.profile,
                     ),
-                  ),
-                  const SizedBox(height: Dimens.size8),
-                  _TextFormField(
-                    validator: bloc.validatorPassword,
-                    textEditingController: bloc.textPasswordController,
-                    obscureText: true,
-                    icon: ImagesUtils.lock,
-                  ),
-                ],
+                    const SizedBox(height: Dimens.size20),
+                    Text(
+                      S.of(context).password,
+                      style: TextStyles.sfProMed12(
+                        color: ColorsApplication.colorProfileTitle,
+                      ),
+                    ),
+                    const SizedBox(height: Dimens.size8),
+                    _TextFormField(
+                      validator: bloc.validatorPassword,
+                      textEditingController: bloc.textPasswordController,
+                      obscureText: true,
+                      icon: ImagesUtils.lock,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: Dimens.size20),
-            _LoginButtonWidget(
-              bloc: bloc,
-              data: data,
-            ),
-          ],
+              const SizedBox(height: Dimens.size20),
+              _LoginButtonWidget(
+                bloc: bloc,
+                data: data,
+              ),
+            ],
+          ),
         ),
       ),
     );

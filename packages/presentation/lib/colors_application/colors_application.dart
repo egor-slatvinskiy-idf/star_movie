@@ -6,6 +6,7 @@ class ColorsApplication {
   static const primaryColor = Color.fromRGBO(229, 25, 55, 1);
   static const primaryColorEnd = Color.fromRGBO(219, 82, 82, 1);
   static const colorTheme = Color.fromRGBO(15, 27, 43, 1);
+  static const colorDrawer = Color.fromRGBO(27, 33, 44, 1);
   static const colorBorder = Color.fromRGBO(44, 63, 91, 1);
   static const colorTextField = Color.fromRGBO(43, 53, 67, 1);
   static const colorFacebook = Color.fromRGBO(59, 90, 154, 1);

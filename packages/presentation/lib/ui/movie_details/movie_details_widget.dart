@@ -2,6 +2,7 @@ import 'package:domain/model/response_model_people.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
@@ -110,13 +111,37 @@ class _MovieDetailsWidgetState
                           iconEmpty: iconEmpty,
                         ),
                         const _TabBarWidget(),
-                        _OverViewWidget(
-                          movie: movie,
-                        ),
-                        const _ViewAllWidget(),
-                        _CastWidget(
-                          screenData: screenData!,
-                        ),
+                        MediaQuery.of(context).size.width > Dimens.size800
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  _OverViewWidget(
+                                    movie: movie,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const _ViewAllWidget(),
+                                      _CastWidget(
+                                        screenData: screenData!,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  _OverViewWidget(
+                                    movie: movie,
+                                  ),
+                                  const _ViewAllWidget(),
+                                  _CastWidget(
+                                    screenData: screenData!,
+                                  ),
+                                ],
+                              ),
                       ],
                     ),
                   ),
@@ -141,6 +166,7 @@ class _TitleWidget extends StatelessWidget {
       children: [
         Text(
           movie.title,
+          textAlign: TextAlign.center,
           style: TextStyles.sfProSemi24(),
           maxLines: Dimens.maxLines3,
         ),
@@ -176,21 +202,24 @@ class _ViewAllWidget extends StatelessWidget {
         left: Dimens.size18,
         right: Dimens.size18,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            S.of(context).castCrew,
-            style: TextStyles.sfProMed14(),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              S.of(context).viewAll,
+      child: SizedBox(
+        width: Dimens.widthForCast(context),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              S.of(context).castCrew,
               style: TextStyles.sfProMed14(),
             ),
-          ),
-        ],
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                S.of(context).viewAll,
+                style: TextStyles.sfProMed14(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -209,7 +238,7 @@ class _OverViewWidget extends StatelessWidget {
         right: Dimens.size18,
       ),
       child: SizedBox(
-        width: double.infinity,
+        width: Dimens.widthForOverView(context),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -377,7 +406,7 @@ class _PosterWidget extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         SizedBox(
-          height: Dimens.size218,
+          height: Dimens.size218.h,
           width: Dimens.sizeInfinity,
           child: imagePoster(
             imageNetwork: movie.image,
@@ -396,8 +425,8 @@ class _PosterWidget extends StatelessWidget {
         Positioned(
           top: Dimens.size100,
           child: SizedBox(
-            height: Dimens.size250,
-            width: Dimens.size166,
+            height: Dimens.size250.h,
+            width: Dimens.size166.w,
             child: imagePoster(
               imageNetwork: movie.image,
             ),
@@ -424,7 +453,7 @@ class _CastWidget extends StatelessWidget {
         horizontal: Dimens.size18,
       ),
       child: SizedBox(
-        width: double.infinity,
+        width: Dimens.widthForCast(context),
         child: Column(
           children: cast
               .map(
