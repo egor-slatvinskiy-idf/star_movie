@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:presentation/app/app_bloc.dart';
 import 'package:presentation/app/data/app_data.dart';
 import 'package:presentation/base/bloc_screen.dart';
@@ -9,9 +8,8 @@ import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/dimens/dimens.dart';
-import 'package:presentation/library/images_utils/images_utils.dart';
-
-const _emptyString = '';
+import 'package:presentation/library/widgets/bottom_navigation_bar.dart';
+import 'package:presentation/library/widgets/navigation_rail.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -53,46 +51,9 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                   body: Row(
                     children: [
                       Dimens.isWide(context) && appData.showBottomBar
-                          ? NavigationRail(
-                              minWidth: Dimens.size30.w,
-                              backgroundColor: ColorsApplication.colorDrawer,
-                              selectedIndex: appData.selectedTab,
-                              onDestinationSelected: bloc.onSelectedTab,
-                              destinations: [
-                                NavigationRailDestination(
-                                  icon: SvgPicture.asset(ImagesUtils.movieReel),
-                                  label: const Text(_emptyString),
-                                  selectedIcon: SvgPicture.asset(
-                                    ImagesUtils.movieReel,
-                                    color: ColorsApplication.colorSelectedItem,
-                                  ),
-                                ),
-                                NavigationRailDestination(
-                                  icon:
-                                      SvgPicture.asset(ImagesUtils.eventTicket),
-                                  label: const Text(_emptyString),
-                                  selectedIcon: SvgPicture.asset(
-                                    ImagesUtils.eventTicket,
-                                    color: ColorsApplication.colorSelectedItem,
-                                  ),
-                                ),
-                                NavigationRailDestination(
-                                  icon: SvgPicture.asset(ImagesUtils.alarm),
-                                  label: const Text(_emptyString),
-                                  selectedIcon: SvgPicture.asset(
-                                    ImagesUtils.alarm,
-                                    color: ColorsApplication.colorSelectedItem,
-                                  ),
-                                ),
-                                NavigationRailDestination(
-                                  icon: SvgPicture.asset(ImagesUtils.single),
-                                  label: const Text(_emptyString),
-                                  selectedIcon: SvgPicture.asset(
-                                    ImagesUtils.single,
-                                    color: ColorsApplication.colorSelectedItem,
-                                  ),
-                                ),
-                              ],
+                          ? NavigationRailWidget(
+                              appData: appData,
+                              bloc: bloc,
                             )
                           : const SizedBox.shrink(),
                       Expanded(
@@ -106,59 +67,13 @@ class _MyAppState extends BlocScreenState<StatefulWidget, AppBloc> {
                       ),
                     ],
                   ),
-                  bottomNavigationBar: appData.showBottomBar &&
-                          Dimens.isNarrow(context)
-                      ? Container(
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              top: BorderSide(
-                                color: ColorsApplication.colorBorder,
-                                width: Dimens.size1,
-                              ),
-                            ),
-                          ),
-                          child: BottomNavigationBar(
-                            currentIndex: appData.selectedTab,
-                            selectedFontSize: Dimens.size12,
-                            type: BottomNavigationBarType.fixed,
-                            items: <BottomNavigationBarItem>[
-                              BottomNavigationBarItem(
-                                icon: SvgPicture.asset(ImagesUtils.movieReel),
-                                label: _emptyString,
-                                activeIcon: SvgPicture.asset(
-                                  ImagesUtils.movieReel,
-                                  color: ColorsApplication.colorSelectedItem,
-                                ),
-                              ),
-                              BottomNavigationBarItem(
-                                icon: SvgPicture.asset(ImagesUtils.eventTicket),
-                                label: _emptyString,
-                                activeIcon: SvgPicture.asset(
-                                  ImagesUtils.eventTicket,
-                                  color: ColorsApplication.colorSelectedItem,
-                                ),
-                              ),
-                              BottomNavigationBarItem(
-                                icon: SvgPicture.asset(ImagesUtils.alarm),
-                                label: _emptyString,
-                                activeIcon: SvgPicture.asset(
-                                  ImagesUtils.alarm,
-                                  color: ColorsApplication.colorSelectedItem,
-                                ),
-                              ),
-                              BottomNavigationBarItem(
-                                icon: SvgPicture.asset(ImagesUtils.single),
-                                label: _emptyString,
-                                activeIcon: SvgPicture.asset(
-                                  ImagesUtils.single,
-                                  color: ColorsApplication.colorSelectedItem,
-                                ),
-                              ),
-                            ],
-                            onTap: bloc.onSelectedTab,
-                          ),
-                        )
-                      : const SizedBox.shrink(),
+                  bottomNavigationBar:
+                      appData.showBottomBar && Dimens.isNarrow(context)
+                          ? BottomNavigationBarWidget(
+                              appData: appData,
+                              bloc: bloc,
+                            )
+                          : const SizedBox.shrink(),
                 );
               }
               return Container();

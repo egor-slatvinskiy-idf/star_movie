@@ -90,7 +90,7 @@ class _FormWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Dimens.size26),
         child: SizedBox(
-          width: 350,
+          width: Dimens.size350,
           child: Column(
             children: [
               Form(
