@@ -2,22 +2,23 @@ import Cocoa
 import FlutterMacOS
 
 public class ShareAndroidIosPlugin: NSObject, FlutterPlugin {
-  public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "share_android_ios", binaryMessenger: registrar.messenger)
-    let instance = ShareAndroidIosPlugin()
-    registrar.addMethodCallDelegate(instance, channel: channel)
-  }
+    public static func register(with registrar: FlutterPluginRegistrar) {
+        let channel = FlutterMethodChannel(name: "share_android_ios", binaryMessenger: registrar.messenger)
+        let instance = ShareAndroidIosPlugin()
+        registrar.addMethodCallDelegate(instance, channel: channel)
+    }
 
-  public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-     if call.method == "share" {
-           let arguments = call.arguments as! [String: Any]
-           let message = arguments["message"] as! String
-           share(message)
-           result(nil)
-         } else {
-           result(FlutterMethodNotImplemented)
-         }
-  }
+    public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+        if call.method == "share" {
+            if let arguments = call.arguments as? [String: Any],
+                let message = arguments["message"] as? String {
+                share(message)
+            }
+            result(nil)
+        } else {
+            result(FlutterMethodNotImplemented)
+        }
+    }
 
     private func share(_ message: String) {
         let sharingPicker = NSSharingServicePicker(items: [message])

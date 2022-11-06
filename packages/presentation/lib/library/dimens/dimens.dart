@@ -41,6 +41,7 @@ class Dimens {
   static const double size130 = 130;
   static const double size150 = 150;
   static const double size166 = 166;
+  static const double size180 = 180;
   static const double size218 = 218;
   static const double size250 = 250;
   static const double size300 = 300;
@@ -53,19 +54,23 @@ class Dimens {
   static const double size1200 = 1200;
   static const double sizeInfinity = double.infinity;
 
+  ///responsiveSize
+  static final double size8W = 8.w;
+  static final double size30W = 30.w;
+  static final double size166W = 166.w;
+  static final double size6H = 6.h;
+  static final double size12H = 12.h;
+  static final double size16H = 16.h;
+  static final double size30H = 30.h;
+  static final double size218H = 218.h;
+  static final double size250H = 250.h;
+  static final double size300H = 300.h;
+
   ///maxLines
   static const int maxLines1 = 1;
   static const int maxLines2 = 2;
   static const int maxLines3 = 3;
   static const int maxLines4 = 4;
-
-  ///axisCountMovie
-  static const int movieCount2 = 2;
-  static const int movieCount3 = 3;
-  static const int movieCount4 = 4;
-  static const int movieCount5 = 5;
-  static const int movieCount6 = 6;
-  static const int movieCount7 = 7;
 
   ///MediaQuery methods
   static bool isWide(BuildContext context) =>
@@ -73,21 +78,6 @@ class Dimens {
 
   static bool isNarrow(BuildContext context) =>
       MediaQuery.of(context).size.width < Dimens.size500;
-
-  static axisCountMovie(BuildContext context) {
-    final currentWidth = MediaQuery.of(context).size.width;
-    return currentWidth < size400
-        ? movieCount2
-        : currentWidth < size600
-            ? movieCount3
-            : currentWidth < size800
-                ? movieCount4
-                : currentWidth < size1000
-                    ? movieCount5
-                    : currentWidth < size1200
-                        ? movieCount6
-                        : movieCount7;
-  }
 
   static widthForCast(BuildContext context) {
     final currentWidth = MediaQuery.of(context).size.width;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/widgets/shimmer_widget.dart';
@@ -13,25 +12,25 @@ class ShimmerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       itemCount: _itemCount,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         childAspectRatio: (Dimens.size01 / Dimens.size021),
-        crossAxisCount: Dimens.axisCountMovie(context),
-        mainAxisSpacing: Dimens.size30.h,
-        crossAxisSpacing: Dimens.size8.w,
+        mainAxisSpacing: Dimens.size30H,
+        crossAxisSpacing: Dimens.size8W,
+        maxCrossAxisExtent: Dimens.size180,
       ),
       itemBuilder: (_, index) {
         return Shimmer.fromMyShimmer(
           child: Column(
             children: [
               Expanded(
-                child: _ShimmerItem(height: Dimens.size300.h),
+                child: _ShimmerItem(height: Dimens.size300H),
               ),
-              SizedBox(height: Dimens.size16.h),
-              _ShimmerItem(height: Dimens.size12.h),
-              SizedBox(height: Dimens.size6.h),
-              _ShimmerItem(height: Dimens.size12.h),
-              SizedBox(height: Dimens.size6.h),
-              _ShimmerItem(height: Dimens.size12.h),
+              SizedBox(height: Dimens.size16H),
+              _ShimmerItem(height: Dimens.size12H),
+              SizedBox(height: Dimens.size6H),
+              _ShimmerItem(height: Dimens.size12H),
+              SizedBox(height: Dimens.size6H),
+              _ShimmerItem(height: Dimens.size12H),
             ],
           ),
         );

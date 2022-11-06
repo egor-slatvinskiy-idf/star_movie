@@ -3,5 +3,6 @@
   "loginIsRequired": "Имя пользователя обязательно для ввода",
   "loginRegex": "Поле логина должно быть не менее 8 символов",
   "passwordIsRequired": "Пароль обязателен для ввода",
-  "passwordRegex": "Неверный пароль"
+  "passwordRegex": "Неверный пароль",
+  "emptyString": ""
 }

@@ -2,7 +2,6 @@ import 'package:domain/model/response_model_people.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
@@ -406,7 +405,7 @@ class _PosterWidget extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         SizedBox(
-          height: Dimens.size218.h,
+          height: Dimens.size218H,
           width: Dimens.sizeInfinity,
           child: imagePoster(
             imageNetwork: movie.image,
@@ -425,8 +424,8 @@ class _PosterWidget extends StatelessWidget {
         Positioned(
           top: Dimens.size100,
           child: SizedBox(
-            height: Dimens.size250.h,
-            width: Dimens.size166.w,
+            height: Dimens.size250H,
+            width: Dimens.size166W,
             child: imagePoster(
               imageNetwork: movie.image,
             ),

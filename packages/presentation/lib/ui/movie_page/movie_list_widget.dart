@@ -50,11 +50,11 @@ class _MovieListWidgetState extends State<MovieListWidget>
     }
     return GridView.builder(
       itemCount: widget.rowData?.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         childAspectRatio: (Dimens.size01 / Dimens.size021),
-        crossAxisCount: Dimens.axisCountMovie(context),
-        mainAxisSpacing: Dimens.size30,
-        crossAxisSpacing: Dimens.size8,
+        mainAxisSpacing: Dimens.size30H,
+        crossAxisSpacing: Dimens.size8W,
+        maxCrossAxisExtent: Dimens.size180,
       ),
       itemBuilder: (_, index) {
         final movie = widget.rowData![index];
