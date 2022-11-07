@@ -4,6 +4,7 @@ import 'package:domain/base/mappers/mapper_image_url.dart';
 import 'package:domain/base/mappers/movie_list_mapper.dart';
 import 'package:domain/base/mappers/update_movie_mapper.dart';
 import 'package:domain/repository/api_key_repository.dart';
+import 'package:domain/repository/app_version_repository.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/database_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
@@ -19,6 +20,7 @@ import 'package:domain/use_case/login_validator_use_case.dart';
 import 'package:domain/use_case/request_details_use_case.dart';
 import 'package:domain/use_case/request_movie_list_use_case.dart';
 import 'package:domain/use_case/splash_duration_use_case.dart';
+import 'package:domain/use_case/check_version_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 void initInjectorDomain() {
@@ -77,6 +79,11 @@ void _initModuleUseCase() {
   );
   GetIt.instance.registerFactory<LogValidatorUseCase>(
     () => LogValidatorUseCase(),
+  );
+  GetIt.instance.registerFactory<CheckVersionUseCase>(
+    () => CheckVersionUseCase(
+      GetIt.instance.get<AppVersionRepository>(),
+    ),
   );
 }
 

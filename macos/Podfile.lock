@@ -811,6 +811,8 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
+  - package_info_plus (0.0.1):
+    - FlutterMacOS
   - PromisesObjC (2.1.1)
   - share_android_ios (0.0.1):
     - FlutterMacOS
@@ -819,6 +821,8 @@ PODS:
   - sqflite (0.0.2):
     - FlutterMacOS
     - FMDB (>= 2.7.5)
+  - url_launcher_macos (0.0.1):
+    - FlutterMacOS
   - window_size (0.0.2):
     - FlutterMacOS
 
@@ -829,9 +833,11 @@ DEPENDENCIES:
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
   - firebase_crashlytics (from `Flutter/ephemeral/.symlinks/plugins/firebase_crashlytics/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - package_info_plus (from `Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos`)
   - share_android_ios (from `Flutter/ephemeral/.symlinks/plugins/share_android_ios/macos`)
   - shared_preferences_macos (from `Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos`)
   - sqflite (from `Flutter/ephemeral/.symlinks/plugins/sqflite/macos`)
+  - url_launcher_macos (from `Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos`)
   - window_size (from `Flutter/ephemeral/.symlinks/plugins/window_size/macos`)
 
 SPEC REPOS:
@@ -872,12 +878,16 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_crashlytics/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
+  package_info_plus:
+    :path: Flutter/ephemeral/.symlinks/plugins/package_info_plus/macos
   share_android_ios:
     :path: Flutter/ephemeral/.symlinks/plugins/share_android_ios/macos
   shared_preferences_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/shared_preferences_macos/macos
   sqflite:
     :path: Flutter/ephemeral/.symlinks/plugins/sqflite/macos
+  url_launcher_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/url_launcher_macos/macos
   window_size:
     :path: Flutter/ephemeral/.symlinks/plugins/window_size/macos
 
@@ -909,10 +919,12 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  package_info_plus: 02d7a575e80f194102bef286361c6c326e4c29ce
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  share_android_ios: bd1397f08e6808d464521374eddfbdd8a9f0d6ef
+  share_android_ios: 38f7ad7c3a0e43b69f0d919bd8891d3e220d5893
   shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
+  url_launcher_macos: 597e05b8e514239626bcf4a850fcf9ef5c856ec3
   window_size: 339dafa0b27a95a62a843042038fa6c3c48de195
 
 PODFILE CHECKSUM: ce895612fb7b37914e4d9dff0a394fa6718e6383

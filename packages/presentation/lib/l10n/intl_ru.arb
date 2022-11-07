@@ -4,5 +4,12 @@
   "loginRegex": "Поле логина должно быть не менее 8 символов",
   "passwordIsRequired": "Пароль обязателен для ввода",
   "passwordRegex": "Неверный пароль",
-  "emptyString": ""
+  "emptyString": "",
+  "outdatedVersionResult": "результат устаревший",
+  "suitableVersionResult": "результат подходящий",
+  "actualVersionResult": "результат актуальный",
+  "later": "позже",
+  "update": "обновить",
+  "showDialogOutdated": "Ваше приложение устарело",
+  "showDialogSuitable": "Появилась новая версия приложения, можете обновить"
 }

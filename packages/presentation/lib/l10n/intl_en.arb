@@ -18,5 +18,12 @@
   "loginRegex": "Login field should be at least 8 symbols",
   "passwordIsRequired": "Password is required",
   "passwordRegex": "Invalid password",
-  "emptyString": ""
+  "emptyString": "",
+  "outdatedVersionResult": "outdated version result",
+  "suitableVersionResult": "suitable version result",
+  "actualVersionResult": "actual version result",
+  "later": "later",
+  "update": "update",
+  "showDialogOutdated": "App should be updated",
+  "showDialogSuitable": "App can be updated"
 }
