@@ -17,6 +17,5 @@
   "loginIsRequired": "Login is required",
   "loginRegex": "Login field should be at least 8 symbols",
   "passwordIsRequired": "Password is required",
-  "passwordRegex": "Invalid password",
-  "emptyString": ""
+  "passwordRegex": "Invalid password"
 }

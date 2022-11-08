@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/app/app_bloc.dart';
 import 'package:presentation/colors_application/colors_application.dart';
-import 'package:presentation/generated/l10n.dart';
+import 'package:presentation/library/const/constants.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
 
@@ -26,7 +26,7 @@ class NavigationRailWidget extends StatelessWidget {
       destinations: [
         NavigationRailDestination(
           icon: SvgPicture.asset(ImagesUtils.movieReel),
-          label: Text(S.of(context).emptyString),
+          label: const Text(Constants.emptyString),
           selectedIcon: SvgPicture.asset(
             ImagesUtils.movieReel,
             color: ColorsApplication.colorSelectedItem,
@@ -34,7 +34,7 @@ class NavigationRailWidget extends StatelessWidget {
         ),
         NavigationRailDestination(
           icon: SvgPicture.asset(ImagesUtils.eventTicket),
-          label: Text(S.of(context).emptyString),
+          label: const Text(Constants.emptyString),
           selectedIcon: SvgPicture.asset(
             ImagesUtils.eventTicket,
             color: ColorsApplication.colorSelectedItem,
@@ -42,7 +42,7 @@ class NavigationRailWidget extends StatelessWidget {
         ),
         NavigationRailDestination(
           icon: SvgPicture.asset(ImagesUtils.alarm),
-          label: Text(S.of(context).emptyString),
+          label: const Text(Constants.emptyString),
           selectedIcon: SvgPicture.asset(
             ImagesUtils.alarm,
             color: ColorsApplication.colorSelectedItem,
@@ -50,7 +50,7 @@ class NavigationRailWidget extends StatelessWidget {
         ),
         NavigationRailDestination(
           icon: SvgPicture.asset(ImagesUtils.single),
-          label: Text(S.of(context).emptyString),
+          label: const Text(Constants.emptyString),
           selectedIcon: SvgPicture.asset(
             ImagesUtils.single,
             color: ColorsApplication.colorSelectedItem,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/colors_application/colors_application.dart';
+import 'package:presentation/library/const/cast_utils.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/widgets/shimmer_widget.dart';
 
@@ -38,7 +39,7 @@ class _ShimmerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      width: Dimens.widthForCast(context),
+      width: CastUtils.widthForCast(context),
       decoration: const BoxDecoration(
         color: ColorsApplication.colorBorder,
       ),
