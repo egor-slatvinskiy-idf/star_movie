@@ -3,15 +3,9 @@ class SplashTile {
 
   const SplashTile({this.checkResult});
 
-  SplashTile copyWith({
-    String? checkResult,
-  }) {
-    return SplashTile(
-      checkResult: checkResult ?? this.checkResult,
-    );
+  SplashTile copyWith({String? checkResult}) {
+    return SplashTile(checkResult: checkResult ?? this.checkResult);
   }
 
-  factory SplashTile.init() => const SplashTile(
-        checkResult: null,
-      );
+  factory SplashTile.init() => const SplashTile(checkResult: null);
 }
