@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/colors_application/colors_application.dart';
+import 'package:presentation/library/const/constants.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/widgets/shimmer_widget.dart';
-
-const _itemCount = 14;
 
 class ShimmerWidget extends StatelessWidget {
   const ShimmerWidget({super.key});
@@ -11,7 +10,7 @@ class ShimmerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: _itemCount,
+      itemCount: Constants.itemCountShimmerMovie,
       gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         childAspectRatio: (Dimens.size01 / Dimens.size021),
         mainAxisSpacing: Dimens.size30H,
