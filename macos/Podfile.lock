@@ -910,7 +910,7 @@ SPEC CHECKSUMS:
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
-  share_android_ios: bd1397f08e6808d464521374eddfbdd8a9f0d6ef
+  share_android_ios: 38f7ad7c3a0e43b69f0d919bd8891d3e220d5893
   shared_preferences_macos: a64dc611287ed6cbe28fd1297898db1336975727
   sqflite: a5789cceda41d54d23f31d6de539d65bb14100ea
   window_size: 339dafa0b27a95a62a843042038fa6c3c48de195

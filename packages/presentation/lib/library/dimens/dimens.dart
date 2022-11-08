@@ -87,13 +87,4 @@ class Dimens {
             ? size130.w
             : size250;
   }
-
-  static widthForOverView(BuildContext context) {
-    final currentWidth = MediaQuery.of(context).size.width;
-    return currentWidth < size800
-        ? size350.w
-        : currentWidth > size800
-            ? size130.w
-            : size250;
-  }
 }

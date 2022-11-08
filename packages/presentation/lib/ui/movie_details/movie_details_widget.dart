@@ -2,6 +2,7 @@ import 'package:domain/model/response_model_people.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
@@ -231,13 +232,19 @@ class _OverViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentWidth = MediaQuery.of(context).size.width;
+    final widthForOverView = currentWidth < Dimens.size800
+        ? Dimens.size350.w
+        : currentWidth > Dimens.size800
+            ? Dimens.size130.w
+            : Dimens.size250;
     return Padding(
       padding: const EdgeInsets.only(
         left: Dimens.size18,
         right: Dimens.size18,
       ),
       child: SizedBox(
-        width: Dimens.widthForOverView(context),
+        width: widthForOverView,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
