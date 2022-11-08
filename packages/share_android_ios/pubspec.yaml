@@ -24,3 +24,5 @@ flutter:
         pluginClass: ShareAndroidIosPlugin
       ios:
         pluginClass: ShareAndroidIosPlugin
+      macos:
+        pluginClass: ShareAndroidIosPlugin

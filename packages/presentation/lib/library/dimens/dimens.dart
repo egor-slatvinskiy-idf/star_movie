@@ -1,7 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class Dimens {
   const Dimens._();
 
   ///size
+  static const Size minWindowSize = Size(370, 700);
   static const double size021 = 0.21;
   static const double size01 = 0.1;
   static const double size0 = 0;
@@ -34,16 +38,44 @@ class Dimens {
   static const double size70 = 70;
   static const double size96 = 96;
   static const double size100 = 100;
+  static const double size130 = 130;
   static const double size150 = 150;
   static const double size166 = 166;
+  static const double size180 = 180;
   static const double size218 = 218;
   static const double size250 = 250;
   static const double size300 = 300;
+  static const double size350 = 350;
+  static const double size400 = 400;
+  static const double size500 = 500;
+  static const double size600 = 600;
+  static const double size800 = 800;
+  static const double size1000 = 1000;
+  static const double size1200 = 1200;
   static const double sizeInfinity = double.infinity;
+
+  ///responsiveSize
+  static final double size8W = 8.w;
+  static final double size30W = 30.w;
+  static final double size166W = 166.w;
+  static final double size6H = 6.h;
+  static final double size12H = 12.h;
+  static final double size16H = 16.h;
+  static final double size30H = 30.h;
+  static final double size218H = 218.h;
+  static final double size250H = 250.h;
+  static final double size300H = 300.h;
 
   ///maxLines
   static const int maxLines1 = 1;
   static const int maxLines2 = 2;
   static const int maxLines3 = 3;
   static const int maxLines4 = 4;
+
+  ///MediaQuery methods
+  static bool isWide(BuildContext context) =>
+      MediaQuery.of(context).size.width > Dimens.size500;
+
+  static bool isNarrow(BuildContext context) =>
+      MediaQuery.of(context).size.width < Dimens.size500;
 }

@@ -18,6 +18,7 @@ dependencies:
   flutter_svg: ^1.1.4
   flutter_rating_bar: ^4.0.1
   expandable: 5.0.1
+  flutter_screenutil: ^5.6.0
   share_android_ios:
     path: ../share_android_ios
 

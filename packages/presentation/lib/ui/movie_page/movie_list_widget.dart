@@ -1,19 +1,17 @@
 // ignore_for_file: must_call_super
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:presentation/library/images_utils/images_utils.dart';
-import 'package:presentation/library/widgets/shimmer_movie.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/generated/l10n.dart';
+import 'package:presentation/library/const/constants.dart';
 import 'package:presentation/library/dimens/dimens.dart';
+import 'package:presentation/library/images_utils/images_utils.dart';
 import 'package:presentation/library/style/text_style.dart';
+import 'package:presentation/library/widgets/shimmer_movie.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_bloc.dart';
 import 'package:presentation/ui/movie_page/bloc/movie_list_tile.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
-
-const _axisCount = 2;
-const _ratingItemCount = 5;
 
 class MovieListWidget extends StatefulWidget {
   final List<MovieRowData>? rowData;
@@ -51,11 +49,11 @@ class _MovieListWidgetState extends State<MovieListWidget>
     }
     return GridView.builder(
       itemCount: widget.rowData?.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         childAspectRatio: (Dimens.size01 / Dimens.size021),
-        crossAxisCount: _axisCount,
-        mainAxisSpacing: Dimens.size30,
-        crossAxisSpacing: Dimens.size8,
+        mainAxisSpacing: Dimens.size30H,
+        crossAxisSpacing: Dimens.size8W,
+        maxCrossAxisExtent: Dimens.size180,
       ),
       itemBuilder: (_, index) {
         final movie = widget.rowData![index];
@@ -137,7 +135,7 @@ class _MovieTitleWidget extends StatelessWidget {
         RatingBar(
           itemSize: Dimens.size14,
           initialRating: movie.rating,
-          itemCount: _ratingItemCount,
+          itemCount: Constants.ratingItemCount,
           allowHalfRating: true,
           ratingWidget: RatingWidget(
             full: const Icon(

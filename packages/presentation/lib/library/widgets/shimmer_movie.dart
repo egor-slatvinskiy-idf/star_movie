@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:presentation/library/widgets/shimmer_widget.dart';
 import 'package:presentation/colors_application/colors_application.dart';
+import 'package:presentation/library/const/constants.dart';
 import 'package:presentation/library/dimens/dimens.dart';
-
-const _itemCount = 6;
-const _axisCount = 2;
+import 'package:presentation/library/widgets/shimmer_widget.dart';
 
 class ShimmerWidget extends StatelessWidget {
   const ShimmerWidget({super.key});
@@ -12,24 +10,26 @@ class ShimmerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: _itemCount,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      itemCount: Constants.itemCountShimmerMovie,
+      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
         childAspectRatio: (Dimens.size01 / Dimens.size021),
-        crossAxisCount: _axisCount,
-        mainAxisSpacing: Dimens.size30,
-        crossAxisSpacing: Dimens.size8,
+        mainAxisSpacing: Dimens.size30H,
+        crossAxisSpacing: Dimens.size8W,
+        maxCrossAxisExtent: Dimens.size180,
       ),
       itemBuilder: (_, index) {
         return Shimmer.fromMyShimmer(
           child: Column(
-            children: const [
-              _ShimmerItem(height: Dimens.size300),
-              SizedBox(height: Dimens.size16),
-              _ShimmerItem(height: Dimens.size12),
-              SizedBox(height: Dimens.size6),
-              _ShimmerItem(height: Dimens.size14),
-              SizedBox(height: Dimens.size6),
-              _ShimmerItem(height: Dimens.size12),
+            children: [
+              Expanded(
+                child: _ShimmerItem(height: Dimens.size300H),
+              ),
+              SizedBox(height: Dimens.size16H),
+              _ShimmerItem(height: Dimens.size12H),
+              SizedBox(height: Dimens.size6H),
+              _ShimmerItem(height: Dimens.size12H),
+              SizedBox(height: Dimens.size6H),
+              _ShimmerItem(height: Dimens.size12H),
             ],
           ),
         );

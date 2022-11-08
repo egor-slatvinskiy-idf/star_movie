@@ -2,11 +2,14 @@ import 'package:domain/model/response_model_people.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/generated/l10n.dart';
+import 'package:presentation/library/const/cast_utils.dart';
+import 'package:presentation/library/const/constants.dart';
 import 'package:presentation/library/dimens/dimens.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
 import 'package:presentation/library/images_utils/images_widgets.dart';
@@ -17,9 +20,6 @@ import 'package:presentation/ui/movie_details/bloc/movie_details_bloc.dart';
 import 'package:presentation/ui/movie_details/data/movie_details_screen_data.dart';
 import 'package:presentation/ui/movie_details/details_arguments/movie_details_arguments.dart';
 import 'package:presentation/ui/movie_page/model/movie_row_data.dart';
-
-const _lengthController = 3;
-const _itemCountRatingBar = 5;
 
 class MovieDetailsWidget extends StatefulWidget {
   const MovieDetailsWidget({super.key});
@@ -110,13 +110,37 @@ class _MovieDetailsWidgetState
                           iconEmpty: iconEmpty,
                         ),
                         const _TabBarWidget(),
-                        _OverViewWidget(
-                          movie: movie,
-                        ),
-                        const _ViewAllWidget(),
-                        _CastWidget(
-                          screenData: screenData!,
-                        ),
+                        MediaQuery.of(context).size.width > Dimens.size800
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  _OverViewWidget(
+                                    movie: movie,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const _ViewAllWidget(),
+                                      _CastWidget(
+                                        screenData: screenData!,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  _OverViewWidget(
+                                    movie: movie,
+                                  ),
+                                  const _ViewAllWidget(),
+                                  _CastWidget(
+                                    screenData: screenData!,
+                                  ),
+                                ],
+                              ),
                       ],
                     ),
                   ),
@@ -141,6 +165,7 @@ class _TitleWidget extends StatelessWidget {
       children: [
         Text(
           movie.title,
+          textAlign: TextAlign.center,
           style: TextStyles.sfProSemi24(),
           maxLines: Dimens.maxLines3,
         ),
@@ -176,21 +201,24 @@ class _ViewAllWidget extends StatelessWidget {
         left: Dimens.size18,
         right: Dimens.size18,
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            S.of(context).castCrew,
-            style: TextStyles.sfProMed14(),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              S.of(context).viewAll,
+      child: SizedBox(
+        width: CastUtils.widthForCast(context),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              S.of(context).castCrew,
               style: TextStyles.sfProMed14(),
             ),
-          ),
-        ],
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                S.of(context).viewAll,
+                style: TextStyles.sfProMed14(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -203,13 +231,19 @@ class _OverViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final currentWidth = MediaQuery.of(context).size.width;
+    final widthForOverView = currentWidth < Dimens.size800
+        ? Dimens.size350.w
+        : currentWidth > Dimens.size800
+            ? Dimens.size130.w
+            : Dimens.size250;
     return Padding(
       padding: const EdgeInsets.only(
         left: Dimens.size18,
         right: Dimens.size18,
       ),
       child: SizedBox(
-        width: double.infinity,
+        width: widthForOverView,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -243,7 +277,7 @@ class _TabBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: _lengthController,
+      length: Constants.lengthControllerDetails,
       child: Container(
         margin: const EdgeInsets.only(
           bottom: Dimens.size32,
@@ -347,7 +381,7 @@ class _RatingBarWidget extends StatelessWidget {
         RatingBar(
           itemSize: Dimens.size28,
           initialRating: movie.rating,
-          itemCount: _itemCountRatingBar,
+          itemCount: Constants.itemCountRatingBar,
           allowHalfRating: true,
           ignoreGestures: true,
           ratingWidget: RatingWidget(
@@ -377,7 +411,7 @@ class _PosterWidget extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         SizedBox(
-          height: Dimens.size218,
+          height: Dimens.size218H,
           width: Dimens.sizeInfinity,
           child: imagePoster(
             imageNetwork: movie.image,
@@ -396,8 +430,8 @@ class _PosterWidget extends StatelessWidget {
         Positioned(
           top: Dimens.size100,
           child: SizedBox(
-            height: Dimens.size250,
-            width: Dimens.size166,
+            height: Dimens.size250H,
+            width: Dimens.size166W,
             child: imagePoster(
               imageNetwork: movie.image,
             ),
@@ -424,7 +458,7 @@ class _CastWidget extends StatelessWidget {
         horizontal: Dimens.size18,
       ),
       child: SizedBox(
-        width: double.infinity,
+        width: CastUtils.widthForCast(context),
         child: Column(
           children: cast
               .map(
