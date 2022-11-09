@@ -26,35 +26,35 @@ class SplashWidget extends StatefulWidget {
 }
 
 class _SplashWidgetState extends BlocScreenState<SplashWidget, SplashBloc> {
+  Future<void> showMyDialog(
+    bool suitableVersion,
+    String content,
+  ) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(content),
+          actions: [
+            suitableVersion == true
+                ? TextButton(
+                    onPressed: Navigator.of(context).pop,
+                    child: Text(S.of(context).later),
+                  )
+                : const SizedBox.shrink(),
+            TextButton(
+              onPressed: bloc.updateTap,
+              child: Text(S.of(context).update),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<void> showMyDialog(
-      bool suitableVersion,
-      String content,
-    ) {
-      return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Text(content),
-            actions: [
-              suitableVersion == true
-                  ? TextButton(
-                      onPressed: Navigator.of(context).pop,
-                      child: Text(S.of(context).later),
-                    )
-                  : const SizedBox.shrink(),
-              TextButton(
-                onPressed: bloc.updateTap,
-                child: Text(S.of(context).update),
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     return StreamBuilder<TileWrapper<SplashTile>>(
       stream: bloc.dataStream,
       builder: (_, snapshot) {

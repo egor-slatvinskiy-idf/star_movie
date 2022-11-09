@@ -61,14 +61,13 @@ class SplashBlocImpl extends BlocImpl<BaseArguments, SplashTile>
 
   @override
   Future<void> updateTap() {
-    final uri = Platform.isAndroid
-        ? Links.androidMarketTelegram
-        : Platform.isMacOS
-            ? Links.MacOSMarketTelegram
-            : Platform.isIOS
-                ? Links.IOSMarketTelegram
-                : S.current.emptyString;
-    return launchUrl(Uri.parse(uri));
+    if (Platform.isAndroid) {
+      return launchUrl(Uri.parse(Links.androidMarketTelegram));
+    } else if (Platform.isMacOS) {
+      return launchUrl(Uri.parse(Links.MacOSMarketTelegram));
+    } else {
+      return launchUrl(Uri.parse(Links.IOSMarketTelegram));
+    }
   }
 
   Future<void> nextScreen(String versionResult) async {
