@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:presentation/base/bloc_screen.dart';
 import 'package:presentation/base/tile_wrapper.dart';
 import 'package:presentation/colors_application/colors_application.dart';
@@ -61,21 +62,23 @@ class _SplashWidgetState extends BlocScreenState<SplashWidget, SplashBloc> {
         final data = snapshot.data;
         final splashTile = data?.data;
         if (splashTile?.checkResult == S.of(context).outdatedVersionResult) {
-          Future.delayed(
-            Duration.zero,
-            () => showMyDialog(
-              false,
-              S.of(context).showDialogOutdated,
-            ),
+          SchedulerBinding.instance.addPostFrameCallback(
+            (timeStamp) {
+              showMyDialog(
+                false,
+                S.of(context).showDialogOutdated,
+              );
+            },
           );
         } else if (splashTile?.checkResult ==
             S.of(context).suitableVersionResult) {
-          Future.delayed(
-            Duration.zero,
-            () => showMyDialog(
-              true,
-              S.of(context).showDialogSuitable,
-            ),
+          SchedulerBinding.instance.addPostFrameCallback(
+            (timeStamp) {
+              showMyDialog(
+                true,
+                S.of(context).showDialogSuitable,
+              );
+            },
           );
         } else {
           const SizedBox.shrink();
