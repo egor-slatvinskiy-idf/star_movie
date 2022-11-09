@@ -20,8 +20,6 @@ class CheckVersionUseCase extends UseCaseOut<Future<TypeNotificationVersion?>> {
     final currentVersion = versionCollection.currentVersion.toIntVersionFormat;
     if (minVersion > currentVersion) {
       return TypeNotificationVersion.outdatedVersion;
-    } else if (actualVersion <= currentVersion) {
-      return null;
     } else if (actualVersion > currentVersion && minVersion <= currentVersion) {
       return TypeNotificationVersion.suitableVersion;
     } else {
