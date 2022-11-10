@@ -28,7 +28,6 @@ import 'package:domain/services/analytics_service.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const _traktApi = 'Trakt';
@@ -127,10 +126,9 @@ void _initModuleRepository() async {
       GetIt.instance.get<CastMapper>(),
     ),
   );
-  GetIt.instance.registerSingleton<AppVersionRepository>(
-    AppVersionRepositoryImpl(
+  GetIt.instance.registerSingleton<VersionCollectionRepository>(
+    VersionCollectionRepositoryImpl(
       FirebaseFirestore.instance,
-      await PackageInfo.fromPlatform(),
     ),
   );
 }

@@ -1,11 +1,9 @@
-class AppVersionModel {
+class VersionCollectionModel {
   final String minVersion;
   final String actualVersion;
-  final String currentVersion;
 
-  const AppVersionModel({
+  const VersionCollectionModel({
     required this.minVersion,
     required this.actualVersion,
-    required this.currentVersion,
   });
 }

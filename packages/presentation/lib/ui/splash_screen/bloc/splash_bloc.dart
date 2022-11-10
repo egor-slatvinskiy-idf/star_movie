@@ -1,81 +1,74 @@
 import 'dart:io';
 
-import 'package:domain/use_case/splash_duration_use_case.dart';
 import 'package:domain/use_case/check_version_use_case.dart';
 import 'package:presentation/base/bloc.dart';
+import 'package:presentation/base/dialog_event.dart';
 import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/const/links.dart';
-import 'package:presentation/navigation/base_arguments.dart';
 import 'package:presentation/ui/movie_page/movie_widget.dart';
-import 'package:presentation/ui/splash_screen/bloc/splash_tile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-abstract class SplashBloc extends Bloc<BaseArguments, SplashTile> {
+abstract class SplashBloc extends Bloc {
   factory SplashBloc(
-    SplashDurationUseCase durationUseCase,
     CheckVersionUseCase versionUseCase,
   ) =>
       SplashBlocImpl(
-        durationUseCase,
         versionUseCase,
       );
 
   Future<void> updateTap();
+
+  void laterTap();
 }
 
-class SplashBlocImpl extends BlocImpl<BaseArguments, SplashTile>
-    implements SplashBloc {
-  var _tile = SplashTile.init();
-  final SplashDurationUseCase _durationUseCase;
+class SplashBlocImpl extends BlocImpl implements SplashBloc {
   final CheckVersionUseCase _versionUseCase;
 
-  SplashBlocImpl(
-    this._durationUseCase,
-    this._versionUseCase,
-  );
+  SplashBlocImpl(this._versionUseCase);
 
   @override
   void initState() async {
     super.initState();
-    final versionResult = await checkVersion();
-    nextScreen(versionResult);
+    await checkVersion();
   }
 
-  Future<String> checkVersion() async {
+  handleAlert({required String message}) {
+    showAlert(event: VersionWindow(message: message));
+  }
+
+  Future<void> checkVersion() async {
     final checkResult = await _versionUseCase();
     switch (checkResult) {
-      case TypeNotificationVersion.outdatedVersion:
-        _tile = _tile.copyWith(checkResult: S.current.outdatedVersionResult);
-        handleData(tile: _tile);
-        break;
       case TypeNotificationVersion.suitableVersion:
-        _tile = _tile.copyWith(checkResult: S.current.suitableVersionResult);
-        handleData(tile: _tile);
-        return S.current.suitableVersionResult;
-      case null:
-        handleData(tile: _tile);
-        return S.current.actualVersionResult;
+        handleAlert(message: S.current.showDialogSuitable);
+        break;
+      case TypeNotificationVersion.outdatedVersion:
+        handleAlert(message: S.current.showDialogOutdated);
+        break;
+      case TypeNotificationVersion.actualVersion:
+        nextScreen();
+        break;
     }
-    return S.current.emptyString;
+  }
+
+  @override
+  void laterTap() {
+    appNavigator.popAndPush(MovieWidget.page());
   }
 
   @override
   Future<void> updateTap() {
-    if (Platform.isAndroid) {
-      return launchUrl(Uri.parse(Links.androidMarketTelegram));
-    } else if (Platform.isMacOS) {
-      return launchUrl(Uri.parse(Links.MacOSMarketTelegram));
-    } else {
-      return launchUrl(Uri.parse(Links.IOSMarketTelegram));
-    }
+    final uri = Platform.isAndroid
+        ? Links.androidMarketTelegram
+        : Platform.isMacOS
+            ? Links.MacOSMarketTelegram
+            : Links.IOSMarketTelegram;
+    return launchUrl(Uri.parse(uri));
   }
 
-  Future<void> nextScreen(String versionResult) async {
-    await _durationUseCase();
-    if (versionResult.isNotEmpty) {
-      appNavigator.popAndPush(
-        MovieWidget.page(),
-      );
-    }
+  void nextScreen() {
+    appNavigator.popAndPush(
+      MovieWidget.page(),
+    );
   }
 }

@@ -7,7 +7,6 @@ import 'package:domain/use_case/login_google_use_case.dart';
 import 'package:domain/use_case/login_validator_use_case.dart';
 import 'package:domain/use_case/request_details_use_case.dart';
 import 'package:domain/use_case/request_movie_list_use_case.dart';
-import 'package:domain/use_case/splash_duration_use_case.dart';
 import 'package:domain/use_case/check_version_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/app/app_bloc.dart';
@@ -29,7 +28,6 @@ void initInjectorPresentation() {
 void _initModuleBloc() {
   GetIt.instance.registerFactory<SplashBloc>(
     () => SplashBloc(
-      GetIt.instance.get<SplashDurationUseCase>(),
       GetIt.instance.get<CheckVersionUseCase>(),
     ),
   );

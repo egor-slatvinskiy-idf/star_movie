@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:presentation/base/bloc_screen.dart';
-import 'package:presentation/base/tile_wrapper.dart';
+import 'package:presentation/base/dialog_event.dart';
 import 'package:presentation/colors_application/colors_application.dart';
 import 'package:presentation/generated/l10n.dart';
 import 'package:presentation/library/images_utils/images_utils.dart';
 import 'package:presentation/navigation/base_page.dart';
 import 'package:presentation/ui/splash_screen/bloc/splash_bloc.dart';
-import 'package:presentation/ui/splash_screen/bloc/splash_tile.dart';
 
 class SplashWidget extends StatefulWidget {
   const SplashWidget({super.key});
@@ -27,20 +25,33 @@ class SplashWidget extends StatefulWidget {
 }
 
 class _SplashWidgetState extends BlocScreenState<SplashWidget, SplashBloc> {
-  Future<void> showMyDialog(
-    bool suitableVersion,
-    String content,
-  ) {
+  @override
+  void initState() {
+    super.initState();
+    bloc.eventStream.listen(
+      (event) {
+        if (event is VersionWindow) {
+          showMyDialog(event);
+        }
+      },
+    );
+  }
+
+  Future<void> showMyDialog(VersionWindow content) {
+    final message = content.message;
     return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Text(content),
+          content: Text(message),
           actions: [
-            suitableVersion == true
+            message == S.of(context).showDialogSuitable
                 ? TextButton(
-                    onPressed: Navigator.of(context).pop,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      bloc.laterTap();
+                    },
                     child: Text(S.of(context).later),
                   )
                 : const SizedBox.shrink(),
@@ -56,55 +67,26 @@ class _SplashWidgetState extends BlocScreenState<SplashWidget, SplashBloc> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<TileWrapper<SplashTile>>(
-      stream: bloc.dataStream,
-      builder: (_, snapshot) {
-        final data = snapshot.data;
-        final splashTile = data?.data;
-        if (splashTile?.checkResult == S.of(context).outdatedVersionResult) {
-          SchedulerBinding.instance.addPostFrameCallback(
-            (timeStamp) {
-              showMyDialog(
-                false,
-                S.of(context).showDialogOutdated,
-              );
-            },
-          );
-        } else if (splashTile?.checkResult ==
-            S.of(context).suitableVersionResult) {
-          SchedulerBinding.instance.addPostFrameCallback(
-            (timeStamp) {
-              showMyDialog(
-                true,
-                S.of(context).showDialogSuitable,
-              );
-            },
-          );
-        } else {
-          const SizedBox.shrink();
-        }
-        return Scaffold(
-          body: Center(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    ColorsApplication.primaryColor,
-                    ColorsApplication.primaryColorEnd,
-                  ],
-                ),
-              ),
-              child: Center(
-                child: Image.asset(
-                  ImagesUtils.imageSplash,
-                ),
-              ),
+    return Scaffold(
+      body: Center(
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ColorsApplication.primaryColor,
+                ColorsApplication.primaryColorEnd,
+              ],
             ),
           ),
-        );
-      },
+          child: Center(
+            child: Image.asset(
+              ImagesUtils.imageSplash,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
