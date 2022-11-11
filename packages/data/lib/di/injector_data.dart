@@ -6,6 +6,7 @@ import 'package:data/di/json_store.dart';
 import 'package:data/di/read_json_store.dart';
 import 'package:data/interceptor/interceptor.dart';
 import 'package:data/mappers/cast_mapper.dart';
+import 'package:data/repository/version_collection_repository.dart';
 import 'package:data/repository/auth_repository.dart';
 import 'package:data/repository/network_tmdb_repository.dart';
 import 'package:data/repository/network_trakt_repository.dart';
@@ -17,6 +18,7 @@ import 'package:data/services/service_payload.dart';
 import 'package:dio/dio.dart';
 import 'package:domain/base/mappers/movie_list_mapper.dart';
 import 'package:domain/repository/api_key_repository.dart';
+import 'package:domain/repository/version_collection_repository.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/database_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
@@ -122,6 +124,11 @@ void _initModuleRepository() async {
     DatabaseRepositoryImpl(
       GetIt.instance.get<DatabaseService>(),
       GetIt.instance.get<CastMapper>(),
+    ),
+  );
+  GetIt.instance.registerSingleton<VersionCollectionRepository>(
+    VersionCollectionRepositoryImpl(
+      FirebaseFirestore.instance,
     ),
   );
 }
