@@ -4,7 +4,7 @@ import 'package:domain/base/mappers/mapper_image_url.dart';
 import 'package:domain/base/mappers/movie_list_mapper.dart';
 import 'package:domain/base/mappers/update_movie_mapper.dart';
 import 'package:domain/repository/api_key_repository.dart';
-import 'package:domain/repository/app_version_repository.dart';
+import 'package:domain/repository/version_collection_repository.dart';
 import 'package:domain/repository/auth_repository.dart';
 import 'package:domain/repository/database_repository.dart';
 import 'package:domain/repository/network_tmdb_repository.dart';
@@ -23,7 +23,7 @@ import 'package:domain/use_case/request_movie_list_use_case.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-void initInjectorDomain() {
+Future<void> initInjectorDomain() async {
   _initModuleMappers();
   _initModuleUseCase();
 }

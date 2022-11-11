@@ -1,5 +1,5 @@
 import 'package:domain/base/extension/string_to_double_extension.dart';
-import 'package:domain/repository/app_version_repository.dart';
+import 'package:domain/repository/version_collection_repository.dart';
 import 'package:domain/use_case/sample_use_case/use_case_out.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 

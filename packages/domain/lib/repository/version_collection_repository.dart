@@ -1,4 +1,4 @@
-import 'package:domain/model/app_version_model.dart';
+import 'package:domain/model/version_collection_model.dart';
 
 abstract class VersionCollectionRepository {
   Future<VersionCollectionModel> requestVersions();

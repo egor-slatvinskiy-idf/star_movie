@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:domain/model/app_version_model.dart';
-import 'package:domain/repository/app_version_repository.dart';
+import 'package:domain/model/version_collection_model.dart';
+import 'package:domain/repository/version_collection_repository.dart';
 
 const _versionCollection = 'star_movie_version';
 const _minVersion = 'min';
